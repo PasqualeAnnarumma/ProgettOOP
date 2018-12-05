@@ -47,7 +47,7 @@ public class Tester {
 			obj.close();
 		}
 		
-		
+		//ciao cioffi
 		InputFrame input = new InputFrame(aereo);
 		input.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		input.setVisible(true);
