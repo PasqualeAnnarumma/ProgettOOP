@@ -26,4 +26,8 @@ public class GestoreProgrammazione {
 		return listaProgrammiSettimanali.get(i);
 	}
 	
+	public int size() {
+		return listaProgrammiSettimanali.size();
+	}
+	
 }

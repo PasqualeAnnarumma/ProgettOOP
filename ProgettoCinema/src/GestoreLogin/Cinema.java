@@ -16,6 +16,8 @@ public class Cinema {
 	public Cinema() {
 		gestoreLogin = new GestoreLogin();
 		gestoreSale = new GestoreSale();
+		gestoreProgrammazione = new GestoreProgrammazione();
+		gestorePrenotazioni = new GestorePrenotazioni();
 	}
 	
 	public void registraCliente(String usr, String pwd) throws AccountGiaEsistenteException{

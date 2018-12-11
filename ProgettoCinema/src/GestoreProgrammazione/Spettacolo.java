@@ -33,4 +33,8 @@ public class Spettacolo {
 	public String getOra() {
 		return ora;
 	}
+	
+	public double getPrezzo() {
+		return prezzo;
+	}
 }

@@ -22,4 +22,12 @@ public class ProgrammaSettimanale {
 		return listaSpettacoli;
 	}
 	
+	public Spettacolo getSpettacolo(int i) {
+		return listaSpettacoli.get(i);
+	}
+	
+	public int size() {
+		return listaSpettacoli.size();
+	}
+	
 }
