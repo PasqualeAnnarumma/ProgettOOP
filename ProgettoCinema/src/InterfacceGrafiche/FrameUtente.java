@@ -50,6 +50,13 @@ public class FrameUtente extends JFrame{
 		progTot = new JRadioButton("totale");
 		progSett = new JRadioButton("settimanale");
 		progTot.setSelected(true);
+		combo = new JComboBox<String>();
+		combo.addItem("Tutte");
+		for (int i = 0; i < gestoreSale.size(); i++)
+		{
+			Sala sala = gestoreSale.getSala(i);
+			combo.addItem(""+sala.getNumeroSala());
+		}
 		setLocation(500, 100);
 		setSize(450, 400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -92,21 +99,63 @@ public class FrameUtente extends JFrame{
 	}
 	
 	public JScrollPane createCenterPanel() {
+		
+		Criterio sempre = (Spettacolo s1) -> {return true;};
+		
+		Criterio settimana = (Spettacolo s1) -> {
+			Calendar dataSpettacolo = s1.getData();
+			Calendar nowDate = Calendar.getInstance();
+			int r;
+			if ((r = compareCalendar(dataSpettacolo, nowDate)) <= 7 && r >= 0)
+				return true;
+			return false;
+		};
+		
+		Criterio sala = (Spettacolo s1) -> {
+			String combos = combo.getSelectedItem().toString();
+			if (combos.equals("Tutte"))
+				return true;
+			else if (s1.getSala().getNumeroSala() == Integer.parseInt(combos))
+				return true;
+			return false;
+		};
+		
 		if (progTot.isSelected())
-		{
-			JScrollPane filmPanel = createTotFilmPanel();
+		{			
+			JScrollPane filmPanel = createFilmPanel(sempre, sala);
 			System.out.println("Tot");
 			return filmPanel;
 		}
 		else
-		{
-			JScrollPane filmPanel = createSetFilmPanel();
+		{			
+			JScrollPane filmPanel = createFilmPanel(settimana, sala);
 			System.out.println("Set");
 			return filmPanel;
 		}
 	}
 	
-	public JScrollPane createTotFilmPanel() {
+	public JScrollPane createFilmPanel(Criterio c, Criterio c2) {
+		JPanel panel = new JPanel();
+		JScrollPane scroll = new JScrollPane(panel);
+		panel.setLayout(new GridLayout(gestoreProgrammazione.conteggioTotale(), 1));
+		for (int i = 0; i < gestoreProgrammazione.size(); i++)
+		{
+			ProgrammaSettimanale listaProgrammiSettimanali = gestoreProgrammazione.getProgrammaSettimanale(i);
+			for (int j = 0; j < listaProgrammiSettimanali.size(); j++)
+			{
+				Spettacolo show = listaProgrammiSettimanali.getSpettacolo(j);
+				if (c.criterio(show) && c2.criterio(show))
+				{
+					JPanel slot = createSlotFilm(show);
+					panel.add(slot);
+				}
+				
+			}
+		}
+		return scroll;
+	}
+	
+	/*public JScrollPane createTotFilmPanel() {
 		JPanel panel = new JPanel();
 		JScrollPane scroll = new JScrollPane(panel);
 		panel.setLayout(new GridLayout(gestoreProgrammazione.conteggioTotale(), 1));
@@ -144,7 +193,7 @@ public class FrameUtente extends JFrame{
 			}
 		}
 		return scroll;
-	}
+	}*/
 	
 	public JPanel createOptionPanel() {
 		JPanel panel = new JPanel();
@@ -172,13 +221,6 @@ public class FrameUtente extends JFrame{
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(new EtchedBorder(), "Sala"));
 		panel.setLayout(new BorderLayout());;
-		combo = new JComboBox<String>();
-		combo.addItem("Tutte");
-		for (int i = 0; i < gestoreSale.size(); i++)
-		{
-			Sala sala = gestoreSale.getSala(i);
-			combo.addItem("sala " + sala.getNumeroSala());
-		}
 		panel.add(combo);
 		return panel;
 	}

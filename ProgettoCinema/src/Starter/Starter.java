@@ -35,13 +35,13 @@ public class Starter {
 		Spettacolo spettacolo = new Spettacolo(gestoreSale.getListaSale().get(0), film, 11, 12, 2018, "20:30", 9.7);
 		pg.aggiungiSpettacolo(spettacolo);
 		film = new Film("Il grinch", "1:35", "Pako");
-		spettacolo = new Spettacolo(gestoreSale.getListaSale().get(0), film, 18, 12, 2018, "20:30", 9.7);
+		spettacolo = new Spettacolo(gestoreSale.getListaSale().get(1), film, 18, 12, 2018, "20:30", 9.7);
 		pg.aggiungiSpettacolo(spettacolo);
 		film = new Film("Chiamatemi Bisogno", "0:15", "Antonio Bisogno");
 		spettacolo = new Spettacolo(gestoreSale.getListaSale().get(0), film, 25, 12, 2018, "20:30", 5.0);
 		pg.aggiungiSpettacolo(spettacolo);
 		film = new Film("Annarumma merda", "5:15", "Clelia De Felice");
-		spettacolo = new Spettacolo(gestoreSale.getListaSale().get(0), film, 25, 10, 2018, "20:30", 25.0);
+		spettacolo = new Spettacolo(gestoreSale.getListaSale().get(2), film, 25, 10, 2018, "20:30", 25.0);
 		pg.aggiungiSpettacolo(spettacolo);
 		
 		/*for (int i = 0; i < pg.size(); i++)
