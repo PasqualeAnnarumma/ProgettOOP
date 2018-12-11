@@ -40,6 +40,9 @@ public class Starter {
 		film = new Film("Chiamatemi Bisogno", "0:15", "Antonio Bisogno");
 		spettacolo = new Spettacolo(gestoreSale.getListaSale().get(0), film, "25/12/2018", "20:30", 5.0);
 		pg.aggiungiSpettacolo(spettacolo);
+		film = new Film("Annarumma merda", "5:15", "Clelia De Felice");
+		spettacolo = new Spettacolo(gestoreSale.getListaSale().get(0), film, "25/12/2018", "20:30", 25.0);
+		pg.aggiungiSpettacolo(spettacolo);
 		
 		/*for (int i = 0; i < pg.size(); i++)
 			System.out.println(pg.getListaSpettacoli().get(i).getFilm().getNome());*/

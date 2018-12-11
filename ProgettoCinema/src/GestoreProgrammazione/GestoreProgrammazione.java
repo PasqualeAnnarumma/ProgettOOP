@@ -26,6 +26,14 @@ public class GestoreProgrammazione {
 		return listaProgrammiSettimanali.get(i);
 	}
 	
+	public int conteggioTotale() {
+		int size = 0;
+		for (int i = 0; i < listaProgrammiSettimanali.size(); i++)
+			size += listaProgrammiSettimanali.get(i).size();
+			
+		return size;
+	}
+	
 	public int size() {
 		return listaProgrammiSettimanali.size();
 	}

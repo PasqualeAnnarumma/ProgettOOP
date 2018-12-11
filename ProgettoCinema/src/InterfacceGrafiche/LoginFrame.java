@@ -62,7 +62,7 @@ public class LoginFrame extends JFrame {
 				{
 					if(cinema.getUtente() instanceof Cliente)
 					{
-						FrameUtente frame = new FrameUtente(cinema.getUtente(), cinema.getGestoreProgrammazione(), cinema.getGestorePrenotazioni());
+						FrameUtente frame = new FrameUtente(cinema.getUtente(), cinema.getGestoreProgrammazione(), cinema.getGestorePrenotazioni(), cinema.getGestoreSale());
 						frame.setVisible(true);
 						setVisible(false);
 					}

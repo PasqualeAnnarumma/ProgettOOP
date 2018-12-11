@@ -21,4 +21,12 @@ public class GestoreSale {
 	public ArrayList<Sala> getListaSale() {
 		return listaSale;
 	}
+	
+	public Sala getSala(int i) {
+		return listaSale.get(i);
+	}
+	
+	public int size() {
+		return listaSale.size();
+	}
 }
