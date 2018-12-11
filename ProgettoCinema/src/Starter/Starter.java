@@ -53,6 +53,7 @@ public class Starter {
 		login.setSize(350, 300);
 		login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		login.setVisible(true);
+		login.pack();
 	}
 
 }

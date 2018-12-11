@@ -13,6 +13,9 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -74,10 +77,27 @@ public class FrameUtente extends JFrame{
 		return body;
 	}
 	
+	public JMenuBar createToolBar() {
+		JMenuBar toolBar = new JMenuBar();
+		JMenu file = new JMenu("File");
+		JMenuItem logout = new JMenuItem("Logout");
+		
+		logout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		
+		file.add(logout);
+		toolBar.add(file);
+		return toolBar;
+	}
+	
 	public JPanel createToolPanel() {
 		JPanel toolPanel = new JPanel();
 		toolPanel.setLayout(new BorderLayout());
 		JPanel optionPanel = createOptionPanel();
+		JMenuBar toolBar = createToolBar();
 		JButton cerca = new JButton("Cerca");
 		
 		//BOTTONE CERCA 
@@ -93,7 +113,8 @@ public class FrameUtente extends JFrame{
 		
 		JPanel panel = new JPanel();
 		panel.add(cerca);
-		toolPanel.add(optionPanel, BorderLayout.NORTH);
+		toolPanel.add(toolBar, BorderLayout.NORTH);
+		toolPanel.add(optionPanel, BorderLayout.CENTER);
 		toolPanel.add(panel, BorderLayout.SOUTH);
 		return toolPanel;
 	}
@@ -123,13 +144,11 @@ public class FrameUtente extends JFrame{
 		if (progTot.isSelected())
 		{			
 			JScrollPane filmPanel = createFilmPanel(sempre, sala);
-			System.out.println("Tot");
 			return filmPanel;
 		}
 		else
 		{			
 			JScrollPane filmPanel = createFilmPanel(settimana, sala);
-			System.out.println("Set");
 			return filmPanel;
 		}
 	}
@@ -154,46 +173,6 @@ public class FrameUtente extends JFrame{
 		}
 		return scroll;
 	}
-	
-	/*public JScrollPane createTotFilmPanel() {
-		JPanel panel = new JPanel();
-		JScrollPane scroll = new JScrollPane(panel);
-		panel.setLayout(new GridLayout(gestoreProgrammazione.conteggioTotale(), 1));
-		for (int i = 0; i < gestoreProgrammazione.size(); i++)
-		{
-			ProgrammaSettimanale listaProgrammiSettimanali = gestoreProgrammazione.getProgrammaSettimanale(i);
-			for (int j = 0; j < listaProgrammiSettimanali.size(); j++)
-			{
-				Spettacolo show = listaProgrammiSettimanali.getSpettacolo(j);
-				JPanel slot = createSlotFilm(show);
-				panel.add(slot);
-			}
-		}
-		return scroll;
-	}
-	
-	public JScrollPane createSetFilmPanel() {
-		JPanel panel = new JPanel();
-		JScrollPane scroll = new JScrollPane(panel);
-		panel.setLayout(new GridLayout(gestoreProgrammazione.conteggioTotale(), 1));
-		for (int i = 0; i < gestoreProgrammazione.size(); i++)
-		{
-			ProgrammaSettimanale listaProgrammiSettimanali = gestoreProgrammazione.getProgrammaSettimanale(i);
-			for (int j = 0; j < listaProgrammiSettimanali.size(); j++)
-			{
-				Spettacolo show = listaProgrammiSettimanali.getSpettacolo(j);
-				Calendar dataSpettacolo = show.getData();
-				Calendar nowDate = Calendar.getInstance();
-				int r;
-				if ((r = compareCalendar(dataSpettacolo, nowDate)) <= 7 && r >= 0)
-				{
-					JPanel slot = createSlotFilm(show);
-					panel.add(slot);
-				}
-			}
-		}
-		return scroll;
-	}*/
 	
 	public JPanel createOptionPanel() {
 		JPanel panel = new JPanel();
@@ -261,6 +240,7 @@ public class FrameUtente extends JFrame{
 			}
 			
 			public void mouseClicked(MouseEvent e) {
+				
 			}
 			
 		});

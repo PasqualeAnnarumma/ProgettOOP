@@ -3,11 +3,14 @@ package InterfacceGrafiche;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
 import Eccezioni.AccountGiaEsistenteException;
 import GestoreLogin.Amministratore;
 import GestoreLogin.Cinema;
@@ -56,6 +59,7 @@ public class LoginFrame extends JFrame {
 	public JPanel createButtonLogin() {
 		JPanel buttonLogin = new JPanel();
 		
+		//BOTTONE LOGIN
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(cinema.login(userField.getText(), pswField.getText()))
@@ -64,6 +68,28 @@ public class LoginFrame extends JFrame {
 					{
 						FrameUtente frame = new FrameUtente(cinema.getUtente(), cinema.getGestoreProgrammazione(), cinema.getGestorePrenotazioni(), cinema.getGestoreSale());
 						frame.setVisible(true);
+						
+						frame.addWindowListener(new WindowListener() {
+							
+							public void windowOpened(WindowEvent e) {}
+							
+							public void windowIconified(WindowEvent e) {}
+							
+							public void windowDeiconified(WindowEvent e) {}
+							
+							public void windowDeactivated(WindowEvent e) {}
+							
+							public void windowClosing(WindowEvent e) {}
+							
+							public void windowClosed(WindowEvent e) {
+								userField.setText("");
+								pswField.setText("");
+								setVisible(true);
+							}
+							
+							public void windowActivated(WindowEvent e) {}
+						});
+						
 						setVisible(false);
 					}
 					if(cinema.getUtente() instanceof Amministratore) System.out.println("Amministratore");
@@ -73,6 +99,7 @@ public class LoginFrame extends JFrame {
 			}
 		});
 		
+		//BOTTONE REGISTRATI
 		registerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
