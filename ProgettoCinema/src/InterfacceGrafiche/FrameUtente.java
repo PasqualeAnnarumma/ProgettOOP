@@ -72,6 +72,7 @@ public class FrameUtente extends JFrame{
 		JPanel optionPanel = createOptionPanel();
 		JButton cerca = new JButton("Cerca");
 		
+		//BOTTONE CERCA 
 		cerca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				body.removeAll();
