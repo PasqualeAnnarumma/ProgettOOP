@@ -32,16 +32,16 @@ public class Starter {
 		cinema.aggiungiSala(3, 2);
 		
 		Film film = new Film("Una poltrone per due", "2:05", "Mario");
-		Spettacolo spettacolo = new Spettacolo(gestoreSale.getListaSale().get(0), film, "11/12/2018", "20:30", 9.7);
+		Spettacolo spettacolo = new Spettacolo(gestoreSale.getListaSale().get(0), film, 11, 12, 2018, "20:30", 9.7);
 		pg.aggiungiSpettacolo(spettacolo);
 		film = new Film("Il grinch", "1:35", "Pako");
-		spettacolo = new Spettacolo(gestoreSale.getListaSale().get(0), film, "12/12/2018", "20:30", 9.7);
+		spettacolo = new Spettacolo(gestoreSale.getListaSale().get(0), film, 18, 12, 2018, "20:30", 9.7);
 		pg.aggiungiSpettacolo(spettacolo);
 		film = new Film("Chiamatemi Bisogno", "0:15", "Antonio Bisogno");
-		spettacolo = new Spettacolo(gestoreSale.getListaSale().get(0), film, "25/12/2018", "20:30", 5.0);
+		spettacolo = new Spettacolo(gestoreSale.getListaSale().get(0), film, 25, 12, 2018, "20:30", 5.0);
 		pg.aggiungiSpettacolo(spettacolo);
 		film = new Film("Annarumma merda", "5:15", "Clelia De Felice");
-		spettacolo = new Spettacolo(gestoreSale.getListaSale().get(0), film, "25/12/2018", "20:30", 25.0);
+		spettacolo = new Spettacolo(gestoreSale.getListaSale().get(0), film, 25, 10, 2018, "20:30", 25.0);
 		pg.aggiungiSpettacolo(spettacolo);
 		
 		/*for (int i = 0; i < pg.size(); i++)

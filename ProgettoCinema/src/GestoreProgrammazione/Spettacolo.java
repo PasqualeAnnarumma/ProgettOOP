@@ -1,19 +1,22 @@
 package GestoreProgrammazione;
 
+import java.util.Calendar;
+
 import GestoreSale.Sala;
 
 public class Spettacolo {
 	
 	Sala sala;
 	Film film;
-	String data;
+	Calendar data;
 	String ora;
 	double prezzo;
 	
-	public Spettacolo(Sala room, Film movie, String date, String hour, double price) {
+	public Spettacolo(Sala room, Film movie, int gg, int mm, int yy, String hour, double price) {
 		sala = room;
 		film = movie;
-		data = date;
+		data = Calendar.getInstance();
+		data.set(yy, mm-1, gg);;
 		ora = hour;
 		prezzo = price;
 	}
@@ -26,8 +29,12 @@ public class Spettacolo {
 		return film;
 	}
 	
-	public String getData() {
+	public Calendar getData() {
 		return data;
+	}
+	
+	public String stringDate() {
+		return data.get(Calendar.DAY_OF_MONTH) + "/" + (data.get(Calendar.MONTH) + 1) + "/" + data.get(Calendar.YEAR);
 	}
 	
 	public String getOra() {

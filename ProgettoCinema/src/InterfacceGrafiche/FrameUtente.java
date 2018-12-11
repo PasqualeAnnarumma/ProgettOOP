@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Calendar;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -125,6 +126,23 @@ public class FrameUtente extends JFrame{
 	public JScrollPane createSetFilmPanel() {
 		JPanel panel = new JPanel();
 		JScrollPane scroll = new JScrollPane(panel);
+		panel.setLayout(new GridLayout(gestoreProgrammazione.conteggioTotale(), 1));
+		for (int i = 0; i < gestoreProgrammazione.size(); i++)
+		{
+			ProgrammaSettimanale listaProgrammiSettimanali = gestoreProgrammazione.getProgrammaSettimanale(i);
+			for (int j = 0; j < listaProgrammiSettimanali.size(); j++)
+			{
+				Spettacolo show = listaProgrammiSettimanali.getSpettacolo(j);
+				Calendar dataSpettacolo = show.getData();
+				Calendar nowDate = Calendar.getInstance();
+				int r;
+				if ((r = compareCalendar(dataSpettacolo, nowDate)) <= 7 && r >= 0)
+				{
+					JPanel slot = createSlotFilm(show);
+					panel.add(slot);
+				}
+			}
+		}
 		return scroll;
 	}
 	
@@ -172,7 +190,7 @@ public class FrameUtente extends JFrame{
 		JLabel nomeFilm = new JLabel(film.getNome());
 		JLabel nomeRegista = new JLabel(film.getRegista());
 		JLabel durata = new JLabel(film.getDurata());
-		JLabel data = new JLabel(show.getData());
+		JLabel data = new JLabel(show.stringDate());
 		JLabel ora = new JLabel(show.getOra());
 		JLabel prezzo = new JLabel(show.getPrezzo() + "€");
 		JLabel numeroSala = new JLabel(sala.getNumeroSala() + "");
@@ -206,5 +224,13 @@ public class FrameUtente extends JFrame{
 		});
 		
 		return slot;
+	}
+	
+	public int compareCalendar(Calendar c1, Calendar c2) {
+		if (c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR))
+			if (c1.get(Calendar.MONTH) == c2.get(Calendar.MONTH))
+				return (c1.get(Calendar.DAY_OF_MONTH) - c2.get(Calendar.DAY_OF_MONTH));
+		
+		return -1;
 	}
 }
