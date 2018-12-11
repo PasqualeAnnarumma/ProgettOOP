@@ -60,7 +60,12 @@ public class LoginFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(cinema.login(userField.getText(), pswField.getText()))
 				{
-					if(cinema.getUtente() instanceof Cliente) System.out.println("Cliente");
+					if(cinema.getUtente() instanceof Cliente)
+					{
+						FrameUtente frame = new FrameUtente(cinema.getUtente(), cinema.getGestoreProgrammazione(), cinema.getGestorePrenotazioni());
+						frame.setVisible(true);
+						setVisible(false);
+					}
 					if(cinema.getUtente() instanceof Amministratore) System.out.println("Amministratore");
 				}
 				else

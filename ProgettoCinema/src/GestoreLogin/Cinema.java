@@ -1,12 +1,16 @@
 package GestoreLogin;
 
 import Eccezioni.AccountGiaEsistenteException;
+import GestorePrenotazioni.GestorePrenotazioni;
+import GestoreProgrammazione.GestoreProgrammazione;
 import GestoreSale.GestoreSale;
 
 public class Cinema {
 	
 	GestoreLogin gestoreLogin;
 	GestoreSale gestoreSale;
+	GestoreProgrammazione gestoreProgrammazione;
+	GestorePrenotazioni gestorePrenotazioni;
 	Utente utente;
 	
 	public Cinema() {
@@ -28,6 +32,22 @@ public class Cinema {
 	
 	public Utente getUtente() {
 		return utente;
+	}
+	
+	public GestoreLogin getGestoreLogin() {
+		return gestoreLogin;
+	}
+	
+	public GestoreSale getGestoreSale() {
+		return gestoreSale;
+	}
+	
+	public GestoreProgrammazione getGestoreProgrammazione() {
+		return gestoreProgrammazione;
+	}
+	
+	public GestorePrenotazioni getGestorePrenotazioni() {
+		return gestorePrenotazioni;
 	}
 	
 	public boolean login(String usr, String pwd) {

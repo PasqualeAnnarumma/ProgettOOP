@@ -21,8 +21,4 @@ public class GestoreSale {
 	public ArrayList<Sala> getListaSale() {
 		return listaSale;
 	}
-	
-	public ArrayList<Sala> getSale() {
-		return listaSale;
-	}
 }

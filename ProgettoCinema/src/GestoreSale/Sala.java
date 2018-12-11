@@ -23,6 +23,10 @@ public class Sala {
 		return posti;
 	}
 	
+	public Posto getPosto(int i, int j) {
+		return posti[i][j];
+	}
+	
 	public void inizializzaPosti() {
 		for(int i = 0; i < righe; i++)
 		{
