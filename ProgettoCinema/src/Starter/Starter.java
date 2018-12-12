@@ -1,6 +1,8 @@
 package Starter;
 
 import javax.swing.JFrame;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import Eccezioni.AccountGiaEsistenteException;
 import GestoreLogin.Cinema;
@@ -15,6 +17,11 @@ public class Starter {
 
 	public static void main(String[] args)
 	{
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e1) {
+			e1.printStackTrace();
+		}
 		Cinema cinema = new Cinema();
 		GestoreSale gestoreSale = cinema.getGestoreSale();
 		GestoreProgrammazione gestoreProgrammazione = cinema.getGestoreProgrammazione();
