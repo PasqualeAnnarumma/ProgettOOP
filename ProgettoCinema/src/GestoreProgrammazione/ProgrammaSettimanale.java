@@ -11,7 +11,7 @@ public class ProgrammaSettimanale {
 	}
 	
 	public void aggiungiSpettacolo(Spettacolo show) {
-		listaSpettacoli.add(show);
+		listaSpettacoli.add(show.clone());
 	}
 	
 	public void rimuoviSpettacolo(Spettacolo show) {
@@ -23,7 +23,7 @@ public class ProgrammaSettimanale {
 	}
 	
 	public Spettacolo getSpettacolo(int i) {
-		return listaSpettacoli.get(i);
+		return listaSpettacoli.get(i).clone();
 	}
 	
 	public int size() {

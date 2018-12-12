@@ -21,9 +21,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
-
 import GestoreLogin.Cliente;
-import GestoreLogin.Utente;
 import GestorePrenotazioni.GestorePrenotazioni;
 import GestoreProgrammazione.Film;
 import GestoreProgrammazione.GestoreProgrammazione;

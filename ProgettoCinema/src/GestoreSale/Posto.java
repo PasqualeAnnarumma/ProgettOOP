@@ -57,4 +57,13 @@ public class Posto {
 	public boolean isDisponibile() {
 		return disponibile;
 	}
+	
+	public Posto clone() {
+		try {
+			return (Posto) super.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

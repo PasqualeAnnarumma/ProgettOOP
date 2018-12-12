@@ -23,7 +23,7 @@ public class GestoreSale {
 	}
 	
 	public Sala getSala(int i) {
-		return listaSale.get(i);
+		return listaSale.get(i).clone();
 	}
 	
 	public int size() {

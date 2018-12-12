@@ -4,7 +4,7 @@ import java.util.Calendar;
 
 import GestoreSale.Sala;
 
-public class Spettacolo {
+public class Spettacolo implements Cloneable{
 	
 	private Sala sala;
 	private Film film;
@@ -13,7 +13,7 @@ public class Spettacolo {
 	private double prezzo;
 	
 	public Spettacolo(Sala room, Film movie, int gg, int mm, int yy, String hour, double price) {
-		sala = room.clone();
+		sala = new Sala(room.getNumeroSala(), room.getRighe(), room.getColonne());
 		film = movie;
 		data = Calendar.getInstance();
 		data.set(yy, mm-1, gg);;
@@ -43,5 +43,16 @@ public class Spettacolo {
 	
 	public double getPrezzo() {
 		return prezzo;
+	}
+	
+	public Spettacolo clone() {
+		try {
+			Spettacolo clone = (Spettacolo) super.clone();
+			clone.sala = sala.clone();
+			return clone;
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

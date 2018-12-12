@@ -20,11 +20,11 @@ public class Sala implements Cloneable{
 	}
 	
 	public Posto[][] getPosti() {
-		return posti;
+		return posti.clone();
 	}
 	
 	public Posto getPosto(int i, int j) {
-		return posti[i][j];
+		return posti[i][j].clone();
 	}
 	
 	public int getRighe() {

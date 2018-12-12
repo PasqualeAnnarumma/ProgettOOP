@@ -3,14 +3,16 @@ package Starter;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-
 import Eccezioni.AccountGiaEsistenteException;
+import Eccezioni.PostoNonDisponibileException;
 import GestoreLogin.Cinema;
 import GestoreProgrammazione.Film;
 import GestoreProgrammazione.GestoreProgrammazione;
 import GestoreProgrammazione.ProgrammaSettimanale;
 import GestoreProgrammazione.Spettacolo;
 import GestoreSale.GestoreSale;
+import GestoreSale.Posto;
+import GestoreSale.Sala;
 import InterfacceGrafiche.LoginFrame;
 
 public class Starter {
