@@ -1,6 +1,6 @@
 package GestoreSale;
 
-public class Sala {
+public class Sala implements Cloneable{
 	
 	int numeroSala;
 	int righe;
@@ -27,15 +27,32 @@ public class Sala {
 		return posti[i][j];
 	}
 	
+	public int getRighe() {
+		return righe;
+	}
+	
+	public int getColonne() {
+		return colonne;
+	}
+	
 	public void inizializzaPosti() {
 		for(int i = 0; i < righe; i++)
 		{
+			char ch = (char) (i + 65);
 			for(int j = 0; j < colonne; j++)
-			{
-				char ch = (char) (i + 65);
-				posti[i][j] = new Posto(i, ch);
-			}
+				posti[i][j] = new Posto(ch, j);
 		}
+	}
+	
+	public Sala clone() {
+		try {
+			Sala clone = (Sala) super.clone();
+			clone.posti = posti.clone();
+			return clone;
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 }

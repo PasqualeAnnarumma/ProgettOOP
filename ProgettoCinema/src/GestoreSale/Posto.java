@@ -4,19 +4,19 @@ import Eccezioni.PostoNonDisponibileException;
 
 public class Posto {
 	
-	int riga;
-	char colonna;
+	char riga;
+	int colonna;
 	boolean occupato;
 	boolean disponibile;
 	
-	public Posto(int row, char column) {
+	public Posto(char row, int column) {
 		riga = row;
 		colonna = column;
 		occupato = false;
 		disponibile = true;
 	}
 	
-	public Posto(int row, char column, boolean state) {
+	public Posto(char row, int column, boolean state) {
 		riga = row;
 		colonna = column;
 		occupato = false;
@@ -42,11 +42,11 @@ public class Posto {
 		disponibile = false;
 	}
 	
-	public int getRiga() {
+	public char getRiga() {
 		return riga;
 	}
 	
-	public char getColonna() {
+	public int getColonna() {
 		return colonna;
 	}
 	

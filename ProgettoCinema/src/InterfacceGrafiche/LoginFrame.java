@@ -10,7 +10,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
 import Eccezioni.AccountGiaEsistenteException;
 import GestoreLogin.Amministratore;
 import GestoreLogin.Cinema;
@@ -19,11 +18,11 @@ import GestoreLogin.Cliente;
 public class LoginFrame extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
-	Cinema cinema;
-	JTextField userField;
-	JTextField pswField;
-	JButton registerButton;
-	JButton loginButton;
+	private Cinema cinema;
+	private JTextField userField;
+	private JTextField pswField;
+	private JButton registerButton;
+	private JButton loginButton;
 	
 	public LoginFrame(Cinema c) {
 		super("Login");
@@ -66,7 +65,7 @@ public class LoginFrame extends JFrame {
 				{
 					if(cinema.getUtente() instanceof Cliente)
 					{
-						FrameUtente frame = new FrameUtente(cinema.getUtente(), cinema.getGestoreProgrammazione(), cinema.getGestorePrenotazioni(), cinema.getGestoreSale());
+						FrameUtente frame = new FrameUtente((Cliente)cinema.getUtente(), cinema.getGestoreProgrammazione(), cinema.getGestorePrenotazioni(), cinema.getGestoreSale());
 						frame.setVisible(true);
 						
 						frame.addWindowListener(new WindowListener() {

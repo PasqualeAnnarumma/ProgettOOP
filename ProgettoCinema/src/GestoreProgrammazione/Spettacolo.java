@@ -6,14 +6,14 @@ import GestoreSale.Sala;
 
 public class Spettacolo {
 	
-	Sala sala;
-	Film film;
-	Calendar data;
-	String ora;
-	double prezzo;
+	private Sala sala;
+	private Film film;
+	private Calendar data;
+	private String ora;
+	private double prezzo;
 	
 	public Spettacolo(Sala room, Film movie, int gg, int mm, int yy, String hour, double price) {
-		sala = room;
+		sala = room.clone();
 		film = movie;
 		data = Calendar.getInstance();
 		data.set(yy, mm-1, gg);;
@@ -22,7 +22,7 @@ public class Spettacolo {
 	}
 	
 	public Sala getSala() {
-		return sala;
+		return sala.clone();
 	}
 	
 	public Film getFilm() {

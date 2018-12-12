@@ -34,5 +34,12 @@ public class Utente implements Cloneable {
 		}
 		return null;
 	}
+	
+	public boolean equals(Object obj) {
+		if (obj == null) return false;
+		if (obj.getClass() != getClass()) return false;
+		Utente ut = (Utente) obj;
+		return ut.getUsername().equals(username) && ut.getPassword().equals(password);
+	}
 
 }

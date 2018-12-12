@@ -21,6 +21,8 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+
+import GestoreLogin.Cliente;
 import GestoreLogin.Utente;
 import GestorePrenotazioni.GestorePrenotazioni;
 import GestoreProgrammazione.Film;
@@ -33,21 +35,21 @@ import GestoreSale.Sala;
 public class FrameUtente extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
-	final Color colore = Color.WHITE;
-	final Color coloreSelezionato = Color.CYAN;
-	Utente utente;
-	GestoreProgrammazione gestoreProgrammazione;
-	GestorePrenotazioni gestorePrenotazioni;
-	GestoreSale gestoreSale;
-	Spettacolo spettacoloSelezionato;
-	JScrollPane center;
-	JRadioButton progTot;
-	JRadioButton progSett;
-	JComboBox<String> combo;
-	JPanel body;
-	JPanel currSlot;
+	private final Color colore = Color.WHITE;
+	private final Color coloreSelezionato = Color.CYAN;
+	private Cliente utente;
+	private GestoreProgrammazione gestoreProgrammazione;
+	private GestorePrenotazioni gestorePrenotazioni;
+	private GestoreSale gestoreSale;
+	private Spettacolo spettacoloSelezionato;
+	private JScrollPane center;
+	private JRadioButton progTot;
+	private JRadioButton progSett;
+	private JComboBox<String> combo;
+	private JPanel body;
+	private JPanel currSlot;
 	
-	public FrameUtente(Utente user, GestoreProgrammazione gestoreProg, GestorePrenotazioni gestorePren, GestoreSale gestoreSa) {
+	public FrameUtente(Cliente user, GestoreProgrammazione gestoreProg, GestorePrenotazioni gestorePren, GestoreSale gestoreSa) {
 		super("Prenotazione posto");
 		utente = user;
 		gestoreProgrammazione = gestoreProg;
@@ -239,7 +241,7 @@ public class FrameUtente extends JFrame{
 			}
 			
 			public void mouseClicked(MouseEvent e) {
-				if (slot.getBackground() != coloreSelezionato)
+				/*if (slot.getBackground() != coloreSelezionato)
 				{
 					if (currSlot != null)
 						currSlot.setBackground(null);
@@ -247,7 +249,9 @@ public class FrameUtente extends JFrame{
 					currSlot = slot;
 				}
 				else
-					slot.setBackground(null);
+					slot.setBackground(null);*/
+				FrameSala frame = new FrameSala(gestorePrenotazioni, show, utente);
+				frame.setVisible(true);
 			}
 			
 		});
