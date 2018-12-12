@@ -33,6 +33,8 @@ import GestoreSale.Sala;
 public class FrameUtente extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
+	final Color colore = Color.WHITE;
+	final Color coloreSelezionato = Color.CYAN;
 	Utente utente;
 	GestoreProgrammazione gestoreProgrammazione;
 	GestorePrenotazioni gestorePrenotazioni;
@@ -43,6 +45,7 @@ public class FrameUtente extends JFrame{
 	JRadioButton progSett;
 	JComboBox<String> combo;
 	JPanel body;
+	JPanel currSlot;
 	
 	public FrameUtente(Utente user, GestoreProgrammazione gestoreProg, GestorePrenotazioni gestorePren, GestoreSale gestoreSa) {
 		super("Prenotazione posto");
@@ -141,16 +144,12 @@ public class FrameUtente extends JFrame{
 			return false;
 		};
 		
+		JScrollPane filmPanel = new JScrollPane();
 		if (progTot.isSelected())
-		{			
-			JScrollPane filmPanel = createFilmPanel(sempre, sala);
-			return filmPanel;
-		}
+			filmPanel = createFilmPanel(sempre, sala);
 		else
-		{			
-			JScrollPane filmPanel = createFilmPanel(settimana, sala);
-			return filmPanel;
-		}
+			filmPanel = createFilmPanel(settimana, sala);
+		return filmPanel;
 	}
 	
 	public JScrollPane createFilmPanel(Criterio c, Criterio c2) {
@@ -230,17 +229,25 @@ public class FrameUtente extends JFrame{
 			public void mousePressed(MouseEvent e) {}
 			
 			public void mouseExited(MouseEvent e) {
-				if (slot.getBackground() != Color.DARK_GRAY)
+				if (slot.getBackground() != coloreSelezionato)
 					slot.setBackground(null);
 			}
 			
 			public void mouseEntered(MouseEvent e) {
-				if (slot.getBackground() != Color.DARK_GRAY)
-					slot.setBackground(Color.CYAN);
+				if (slot.getBackground() != coloreSelezionato)
+					slot.setBackground(colore);
 			}
 			
 			public void mouseClicked(MouseEvent e) {
-				
+				if (slot.getBackground() != coloreSelezionato)
+				{
+					if (currSlot != null)
+						currSlot.setBackground(null);
+					slot.setBackground(coloreSelezionato);
+					currSlot = slot;
+				}
+				else
+					slot.setBackground(null);
 			}
 			
 		});
