@@ -48,11 +48,37 @@ public class Sala implements Cloneable{
 		try {
 			Sala clone = (Sala) super.clone();
 			clone.posti = posti.clone();
+			for (int i = 0; i < righe; i++)
+			{
+				for (int j = 0; j < colonne; j++)
+					clone.posti[i][j] = posti[i][j].clone();
+			}
 			return clone;
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public String toString() {
+		return getClass().getSimpleName() + "[numeroSala=" + numeroSala + ",righe=" + righe + ",colonne=" + colonne + "]";
+	}
+	
+	public boolean equals(Object obj) {
+		if (obj == null) return false;
+		if (obj.getClass() != getClass()) return false;
+		Sala s = (Sala) obj;
+		return s.numeroSala == numeroSala && s.righe == righe && s.colonne == colonne && confrontaPosti(s.getPosti());
+	}
+	
+	public boolean confrontaPosti(Posto[][] p) {
+		if (posti.length != p.length) return false;
+		for (int i = 0; i < righe; i++)
+		{
+			for (int j = 0; j < colonne; j++)
+				if (!posti[i][j].equals(p[i][j])) return false;
+		}
+		return true;
 	}
 	
 }

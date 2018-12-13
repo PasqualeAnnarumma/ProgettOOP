@@ -7,16 +7,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-
+import javax.swing.JRadioButton;
 import Eccezioni.PostoNonDisponibileException;
+import GestoreLogin.Cinema;
 import GestoreLogin.Cliente;
-import GestorePrenotazioni.GestorePrenotazioni;
 import GestorePrenotazioni.Prenotazione;
 import GestoreProgrammazione.Spettacolo;
 import GestoreSale.Posto;
@@ -25,17 +26,24 @@ import GestoreSale.Sala;
 public class FrameSala extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
-	private GestorePrenotazioni gestorePrenotazioni;
-	private Spettacolo spettacolo;
+	final Color prenotato = Color.ORANGE;
+	final Color acquistato = Color.RED;
+	final Color indisponibile = Color.GRAY;
+	final Color disponibile = Color.GREEN;
+	private Cinema cinema;
 	private Cliente cliente;
+	private Spettacolo spettacolo;
+	JRadioButton prenota;
+	JRadioButton acquisto;
+	JRadioButton cancellazione;
 	
-	public FrameSala(GestorePrenotazioni gestorePr, Spettacolo show, Cliente cl) {
+	public FrameSala(Cinema cinema, Spettacolo show) {
 		super();
-		gestorePrenotazioni = gestorePr;
+		this.cinema = cinema;
 		spettacolo = show;
-		cliente = cl;
+		cliente = (Cliente) cinema.getUtente();
 		setLocation(500, 100);
-		setSize(350, 300);
+		setSize(400, 300);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		JPanel body = createBody();
 		add(body);
@@ -46,8 +54,10 @@ public class FrameSala extends JFrame {
 		panel.setLayout(new BorderLayout());
 		JMenuBar toolBar = createToolBar();
 		JPanel sala = createSala();
+		JPanel control = createControl();
 		panel.add(toolBar, BorderLayout.NORTH);
 		panel.add(sala, BorderLayout.CENTER);
+		panel.add(control, BorderLayout.SOUTH);
 		return panel;
 	}
 	
@@ -82,15 +92,36 @@ public class FrameSala extends JFrame {
 				p.add(label);
 				panel.add(p);
 			}
-			System.out.println();
 		}
 		return panel;
 	}
 	
+	public JPanel createControl() {
+		JPanel control = new JPanel();
+		prenota = new JRadioButton("Prenota");
+		acquisto = new JRadioButton("Acquisto");
+		cancellazione = new JRadioButton("Cancellazione");
+		prenota.setSelected(true);
+		ButtonGroup group = new ButtonGroup();
+		group.add(prenota);
+		group.add(acquisto);
+		group.add(cancellazione);
+		control.add(prenota);
+		control.add(acquisto);
+		control.add(cancellazione);
+		return control;
+	}
+	
 	public JPanel createPosto(Posto p) {
 		JPanel panel = new JPanel();
-		if (!p.isOccupato()) panel.setBackground(Color.green);
-		else panel.setBackground(Color.RED);
+		if (!p.isDisponibile())
+			panel.setBackground(indisponibile);
+		else if (!p.isOccupato())
+			panel.setBackground(disponibile);
+		else if (p.isOccupato())
+			panel.setBackground(prenotato);
+		if (p.isAcquistato())
+			panel.setBackground(acquistato);
 		
 		panel.addMouseListener(new MouseListener() {
 			public void mouseReleased(MouseEvent e) {}
@@ -102,20 +133,33 @@ public class FrameSala extends JFrame {
 			public void mouseEntered(MouseEvent e) {}
 			
 			public void mouseClicked(MouseEvent e) {
-				if (p.isDisponibile())
-				{
-					try {
-						p.occupaPosto();
-						Prenotazione prenotazione = new Prenotazione(spettacolo);
-						gestorePrenotazioni.aggiungiPrenotazione(prenotazione, cliente);
-						panel.setBackground(Color.RED);
-					} catch (PostoNonDisponibileException e1) {
-						System.out.println(e1);
+				Prenotazione prenotazione = new Prenotazione(spettacolo, p);
+				try {
+					if (!p.isDisponibile()) System.out.println("Posto non disponibile");
+					else if (prenota.isSelected())
+					{
+						cinema.aggiungiPrenotazione(cliente, prenotazione);
+						panel.setBackground(prenotato);
 					}
+					else if (cancellazione.isSelected())
+					{
+						if (cinema.controlloProprietà(cliente, p) != null)
+							p.liberaPosto();
+						
+						cinema.rimuoviPrenotazione(cliente, prenotazione);
+						panel.setBackground(disponibile);
+					}
+					else if (acquisto.isSelected())
+					{
+						cinema.acquistaPosto(cliente, prenotazione, p);
+						System.out.println("OK");
+						panel.setBackground(acquistato);
+					}
+				} catch (PostoNonDisponibileException ex) {
+					System.out.println(ex);
 				}
 			}
 		});
-		
 		return panel;
 	}
 }

@@ -1,7 +1,10 @@
 package GestorePrenotazioni;
 
 import java.util.ArrayList;
+
+import Eccezioni.PostoNonDisponibileException;
 import GestoreLogin.Cliente;
+import GestoreSale.Posto;
 
 public class GestorePrenotazioni {
 	
@@ -22,15 +25,51 @@ public class GestorePrenotazioni {
 		return null;
 	}
 	
-	public void aggiungiPrenotazione(Prenotazione prenotazione, Cliente cliente) {
+	public void acquistaPosto(Posto p) {
+		try {
+			p.acquistaPosto();
+		} catch (PostoNonDisponibileException e) {
+			System.out.println(e);
+		}
+	}
+	
+	public void aggiungiPrenotazione(Cliente cliente, Prenotazione prenotazione) throws PostoNonDisponibileException{
+		if (prenotazione.getPosto().isOccupato()) throw new PostoNonDisponibileException("Posto già occupato!");
+		if (prenotazione.getPosto().isAcquistato()) throw new PostoNonDisponibileException("Posto già acquistato");
+		if (prenotazione.getPosto().isDisponibile() == false) throw new PostoNonDisponibileException("Posto non disponibile");
+		prenotazione.getPosto().occupaPosto();
+		PrenotazioniCliente lista = getListaCliente(cliente);
+		if (lista == null)
+		{
+			lista = new PrenotazioniCliente(cliente);
+			listaPrenotazioni.add(lista);
+		}
+			
+		lista.aggiungiPrenotazione(prenotazione);
+	}
+	
+	public void rimuoviPrenotazione(Prenotazione prenotazione, Cliente cliente) throws PostoNonDisponibileException{
+		if (controlloProprietà(cliente, prenotazione.getPosto()) == null) throw new PostoNonDisponibileException("Il posto è di un altro utente!");
 		PrenotazioniCliente lista = getListaCliente(cliente);
 		if (lista != null)
-			lista.aggiungiPrenotazione(prenotazione);
+			lista.rimuoviPrenotazione(prenotazione);
+	}
+	
+	public void acquista(Cliente cliente, Prenotazione prenotazione) throws PostoNonDisponibileException{
+		if (controlloProprietà(cliente, prenotazione.getPosto()) == null) throw new PostoNonDisponibileException("Il posto è di un altro utente!");
+		PrenotazioniCliente lista = getListaCliente(cliente);
+		if (lista != null)
+			lista.rimuoviPrenotazione(prenotazione);
 		else
-		{
-			PrenotazioniCliente nuova = new PrenotazioniCliente(cliente);
-			listaPrenotazioni.add(nuova);
-		}
+			lista = new PrenotazioniCliente(cliente);
+		
+		lista.aggiungiPrenotazione(prenotazione);
+	}
+	
+	public Posto controlloProprietà(Cliente cliente, Posto p) {
+		PrenotazioniCliente pren;
+		if ((pren = getListaCliente(cliente)) == null) return null;
+		return pren.searchPrenotazione(p);
 	}
 
 }

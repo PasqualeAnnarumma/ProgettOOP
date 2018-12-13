@@ -21,25 +21,22 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+import GestoreLogin.Cinema;
 import GestoreLogin.Cliente;
-import GestorePrenotazioni.GestorePrenotazioni;
 import GestoreProgrammazione.Film;
 import GestoreProgrammazione.GestoreProgrammazione;
 import GestoreProgrammazione.ProgrammaSettimanale;
 import GestoreProgrammazione.Spettacolo;
-import GestoreSale.GestoreSale;
 import GestoreSale.Sala;
 
 public class FrameUtente extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
-	private final Color colore = Color.WHITE;
-	private final Color coloreSelezionato = Color.CYAN;
+	private final Color colore = Color.CYAN;
+	private final Color coloreSelezionato = Color.LIGHT_GRAY;
 	private Cliente utente;
-	private GestoreProgrammazione gestoreProgrammazione;
-	private GestorePrenotazioni gestorePrenotazioni;
-	private GestoreSale gestoreSale;
 	private Spettacolo spettacoloSelezionato;
+	Cinema cinema;
 	private JScrollPane center;
 	private JRadioButton progTot;
 	private JRadioButton progSett;
@@ -47,20 +44,18 @@ public class FrameUtente extends JFrame{
 	private JPanel body;
 	private JPanel currSlot;
 	
-	public FrameUtente(Cliente user, GestoreProgrammazione gestoreProg, GestorePrenotazioni gestorePren, GestoreSale gestoreSa) {
+	public FrameUtente(Cliente user, Cinema cinema) {
 		super("Prenotazione posto");
 		utente = user;
-		gestoreProgrammazione = gestoreProg;
-		gestorePrenotazioni = gestorePren;
-		gestoreSale = gestoreSa;
+		this.cinema = cinema;
 		progTot = new JRadioButton("totale");
 		progSett = new JRadioButton("settimanale");
 		progTot.setSelected(true);
 		combo = new JComboBox<String>();
 		combo.addItem("Tutte");
-		for (int i = 0; i < gestoreSale.size(); i++)
+		for (int i = 0; i < cinema.getGestoreSale().size(); i++)
 		{
-			Sala sala = gestoreSale.getSala(i);
+			Sala sala = cinema.getGestoreSale().getSala(i);
 			combo.addItem(""+sala.getNumeroSala());
 		}
 		setLocation(500, 100);
@@ -155,6 +150,7 @@ public class FrameUtente extends JFrame{
 	public JScrollPane createFilmPanel(Criterio c, Criterio c2) {
 		JPanel panel = new JPanel();
 		JScrollPane scroll = new JScrollPane(panel);
+		GestoreProgrammazione gestoreProgrammazione = cinema.getGestoreProgrammazione();
 		panel.setLayout(new GridLayout(gestoreProgrammazione.conteggioTotale(), 1));
 		for (int i = 0; i < gestoreProgrammazione.size(); i++)
 		{
@@ -248,7 +244,7 @@ public class FrameUtente extends JFrame{
 				}
 				else
 					slot.setBackground(null);*/
-				FrameSala frame = new FrameSala(gestorePrenotazioni, show, utente);
+				FrameSala frame = new FrameSala(cinema, show);
 				frame.setVisible(true);
 			}
 			

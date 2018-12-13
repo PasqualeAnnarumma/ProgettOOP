@@ -1,9 +1,12 @@
 package GestoreLogin;
 
 import Eccezioni.AccountGiaEsistenteException;
+import Eccezioni.PostoNonDisponibileException;
 import GestorePrenotazioni.GestorePrenotazioni;
+import GestorePrenotazioni.Prenotazione;
 import GestoreProgrammazione.GestoreProgrammazione;
 import GestoreSale.GestoreSale;
+import GestoreSale.Posto;
 
 public class Cinema {
 	
@@ -56,5 +59,31 @@ public class Cinema {
 		utente = gestoreLogin.login(usr, pwd);
 		if (utente != null) return true;
 		return false;
+	}
+	
+	public void aggiungiPrenotazione(Cliente cliente, Prenotazione prenotazione) throws PostoNonDisponibileException{
+		gestorePrenotazioni.aggiungiPrenotazione(cliente, prenotazione);
+	}
+	
+	public void rimuoviPrenotazione(Cliente cliente, Prenotazione prenotazione) throws PostoNonDisponibileException{
+		gestorePrenotazioni.rimuoviPrenotazione(prenotazione, cliente);
+	}
+	
+	public void acquistaPosto(Cliente cliente, Prenotazione prenotazione, Posto p) throws PostoNonDisponibileException{
+		p = prenotazione.getPosto();
+		System.out.println(p.isOccupato());
+		if (!p.isOccupato())
+		{
+			gestorePrenotazioni.aggiungiPrenotazione(cliente, prenotazione);
+			p.acquistaPosto();
+		}
+		else if (gestorePrenotazioni.controlloProprietà(cliente, p) != null)
+			gestorePrenotazioni.acquistaPosto(p);
+		
+		gestorePrenotazioni.acquista(cliente, prenotazione);
+	}
+	
+	public Posto controlloProprietà(Cliente cliente, Posto posto) {
+		return gestorePrenotazioni.controlloProprietà(cliente, posto);
 	}
 }

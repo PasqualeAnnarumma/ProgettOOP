@@ -23,4 +23,8 @@ public class Film {
 	public String getRegista() {
 		return regista;
 	}
+	
+	public String toString() {
+		return getClass().getSimpleName() + "[nome=" + nome + ",durata=" + durata + ",regista=" + regista + "]";
+	}
 }

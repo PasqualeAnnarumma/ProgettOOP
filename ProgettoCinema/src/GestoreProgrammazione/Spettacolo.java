@@ -55,4 +55,15 @@ public class Spettacolo implements Cloneable{
 		}
 		return null;
 	}
+	
+	public String toString() {
+		return getClass().getSimpleName() + "[sala=" + sala + ",film=" + film + ",ora=" + ora + ",prezzo=" + prezzo + "]";
+	}
+	
+	public boolean equals(Object obj) {
+		if (obj == null) return false;
+		if (obj.getClass() != getClass()) return false;
+		Spettacolo s = (Spettacolo) obj;
+		return s.sala.equals(sala) && s.film.equals(film) && s.data.equals(data) && s.ora.equals(ora) && s.prezzo == prezzo;
+	}
 }
