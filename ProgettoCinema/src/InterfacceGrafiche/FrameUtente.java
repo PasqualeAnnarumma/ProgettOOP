@@ -35,7 +35,6 @@ public class FrameUtente extends JFrame{
 	private final Color colore = Color.CYAN;
 	private final Color coloreSelezionato = Color.LIGHT_GRAY;
 	private Cliente utente;
-	private Spettacolo spettacoloSelezionato;
 	Cinema cinema;
 	private JScrollPane center;
 	private JRadioButton progTot;

@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import Eccezioni.AccountGiaEsistenteException;
 import GestoreLogin.Amministratore;
@@ -20,7 +21,7 @@ public class LoginFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private Cinema cinema;
 	private JTextField userField;
-	private JTextField pswField;
+	private JPasswordField pswField;
 	private JButton registerButton;
 	private JButton loginButton;
 	
@@ -28,7 +29,7 @@ public class LoginFrame extends JFrame {
 		super("Login");
 		cinema = c;
 		userField = new JTextField(20);
-		pswField = new JTextField(20);
+		pswField = new JPasswordField(20);
 		registerButton = new JButton("Registrati");
 		loginButton = new JButton("Login");
 		JPanel body = createBody();
@@ -58,6 +59,26 @@ public class LoginFrame extends JFrame {
 	public JPanel createButtonLogin() {
 		JPanel buttonLogin = new JPanel();
 		
+		WindowListener listener = new WindowListener() {
+			public void windowOpened(WindowEvent e) {}
+			
+			public void windowIconified(WindowEvent e) {}
+			
+			public void windowDeiconified(WindowEvent e) {}
+			
+			public void windowDeactivated(WindowEvent e) {}
+			
+			public void windowClosing(WindowEvent e) {}
+			
+			public void windowClosed(WindowEvent e) {
+				userField.setText("");
+				pswField.setText("");
+				setVisible(true);
+			}
+			
+			public void windowActivated(WindowEvent e) {}
+		};
+		
 		//BOTTONE LOGIN
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -67,31 +88,16 @@ public class LoginFrame extends JFrame {
 					{
 						FrameUtente frame = new FrameUtente((Cliente)cinema.getUtente(), cinema);
 						frame.setVisible(true);
-						
-						frame.addWindowListener(new WindowListener() {
-							
-							public void windowOpened(WindowEvent e) {}
-							
-							public void windowIconified(WindowEvent e) {}
-							
-							public void windowDeiconified(WindowEvent e) {}
-							
-							public void windowDeactivated(WindowEvent e) {}
-							
-							public void windowClosing(WindowEvent e) {}
-							
-							public void windowClosed(WindowEvent e) {
-								userField.setText("");
-								pswField.setText("");
-								setVisible(true);
-							}
-							
-							public void windowActivated(WindowEvent e) {}
-						});
-						
+						frame.addWindowListener(listener);
 						setVisible(false);
 					}
-					if(cinema.getUtente() instanceof Amministratore) System.out.println("Amministratore");
+					else if(cinema.getUtente() instanceof Amministratore)
+					{
+						FrameGestore frame = new FrameGestore((Amministratore)cinema.getUtente(), cinema);
+						frame.setVisible(true);
+						frame.addWindowListener(listener);
+						setVisible(false);
+					}
 				}
 				else
 					System.out.println("Credenziali errate");

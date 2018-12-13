@@ -152,7 +152,6 @@ public class FrameSala extends JFrame {
 					else if (acquisto.isSelected())
 					{
 						cinema.acquistaPosto(cliente, prenotazione, p);
-						System.out.println("OK");
 						panel.setBackground(acquistato);
 					}
 				} catch (PostoNonDisponibileException ex) {

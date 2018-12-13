@@ -71,7 +71,6 @@ public class Cinema {
 	
 	public void acquistaPosto(Cliente cliente, Prenotazione prenotazione, Posto p) throws PostoNonDisponibileException{
 		p = prenotazione.getPosto();
-		System.out.println(p.isOccupato());
 		if (!p.isOccupato())
 		{
 			gestorePrenotazioni.aggiungiPrenotazione(cliente, prenotazione);
