@@ -146,12 +146,13 @@ public class FrameSala extends JFrame {
 		prenota = new JRadioButton("Prenota");
 		acquisto = new JRadioButton("Acquisto");
 		cancellazione = new JRadioButton("Cancellazione");
-		prenota.setSelected(true);
 		if (!spettacolo.isPrenotable())
 		{
 			prenota.setEnabled(false);
 			acquisto.setSelected(true);
 		}
+		else
+			prenota.setSelected(true);
 		ButtonGroup group = new ButtonGroup();
 		group.add(prenota);
 		group.add(acquisto);
