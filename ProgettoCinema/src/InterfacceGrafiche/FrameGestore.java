@@ -385,7 +385,7 @@ public class FrameGestore extends JFrame {
 	}
 	
 	public ImageIcon creaPosto(String sedile) {
-		ImageIcon myPicture = new ImageIcon("C:/Users/MarioELT/Desktop/icone/" + sedile + ".png");
+		ImageIcon myPicture = new ImageIcon("src\\icone\\" + sedile + ".png");
 		return myPicture;
 	}
 	
