@@ -1,5 +1,7 @@
 package GestoreSale;
 
+import java.util.ArrayList;
+
 public class Sala implements Cloneable{
 	
 	int numeroSala;
@@ -15,6 +17,26 @@ public class Sala implements Cloneable{
 		inizializzaPosti();
 	}
 	
+	public ArrayList<Posto> getListaPostiIndisponibili() {
+		ArrayList<Posto> lista = new ArrayList<Posto>();
+		for (int i = 0; i < righe; i++)
+			for (int j = 0; j < colonne; j++)
+				if (posti[i][j].isDisponibile() == false) lista.add(posti[i][j]);
+		return lista;
+	}
+	
+	public void printPosti() {
+		for (int i = 0; i < righe; i++)
+			for (int j = 0; j < colonne; j++)
+				System.out.println(posti[i][j]);
+	}
+	
+	public void setPosti(Posto posti[][]) {
+		for (int i = 0; i < righe; i++)
+			for (int j = 0; j < colonne; j++)
+				this.posti[i][j] = posti[i][j];
+	}
+	
 	public int getNumeroSala() {
 		return numeroSala;
 	}
@@ -23,8 +45,12 @@ public class Sala implements Cloneable{
 		return posti.clone();
 	}
 	
-	public Posto getPosto(int i, int j) {
-		return posti[i][j].clone();
+	public Posto getPosto(int riga, int colonna) {
+		return posti[riga][colonna].clone();
+	}
+	
+	public Posto getPurePosto(int riga, int colonna) {
+		return posti[riga][colonna];
 	}
 	
 	public int getRighe() {
@@ -46,14 +72,14 @@ public class Sala implements Cloneable{
 	
 	public Sala clone() {
 		try {
-			Sala clone = (Sala) super.clone();
-			clone.posti = posti.clone();
+			Sala clon = (Sala) super.clone();
+			clon.posti = posti.clone();
 			for (int i = 0; i < righe; i++)
 			{
 				for (int j = 0; j < colonne; j++)
-					clone.posti[i][j] = posti[i][j].clone();
+					clon.posti[i][j] = posti[i][j].clone();
 			}
-			return clone;
+			return clon;
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
 		}
@@ -61,7 +87,8 @@ public class Sala implements Cloneable{
 	}
 	
 	public String toString() {
-		return getClass().getSimpleName() + "[numeroSala=" + numeroSala + ",righe=" + righe + ",colonne=" + colonne + "]";
+		//return getClass().getSimpleName() + "[numeroSala=" + numeroSala + ",righe=" + righe + ",colonne=" + colonne + "]";
+		return numeroSala + "";
 	}
 	
 	public boolean equals(Object obj) {
@@ -79,6 +106,30 @@ public class Sala implements Cloneable{
 				if (!posti[i][j].equals(p[i][j])) return false;
 		}
 		return true;
+	}
+	
+	public int getPostiOccupati() {
+		int count = 0;
+		for (int i = 0; i < righe; i++) 
+		{
+			for (int j = 0; j < colonne; j++)
+				if (posti[i][j].isOccupato()) count++;
+		}
+		return count;
+	}
+	
+	public int getPostiDisponibili() {
+		int count = 0;
+		for (int i = 0; i < righe; i++) 
+		{
+			for (int j = 0; j < colonne; j++)
+				if (posti[i][j].isDisponibile()) count++;
+		}
+		return count;
+	}
+	
+	public int getPostiTotali() {
+		return righe * colonne;
 	}
 	
 }

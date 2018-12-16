@@ -30,6 +30,7 @@ public class LoginFrame extends JFrame {
 		cinema = c;
 		userField = new JTextField(20);
 		pswField = new JPasswordField(20);
+		setResizable(false);
 		registerButton = new JButton("Registrati");
 		loginButton = new JButton("Login");
 		JPanel body = createBody();

@@ -51,6 +51,8 @@ public class Posto implements Cloneable{
 	
 	public void rendiIndisponibile() {
 		disponibile = false;
+		occupato = false;
+		acquistato = false;
 	}
 	
 	public char getRiga() {
@@ -94,6 +96,6 @@ public class Posto implements Cloneable{
 	}
 	
 	public String toString() {
-		return getClass().getSimpleName() + "[riga=" + riga + ",colonna=" + colonna + ",occupato=" + occupato + ",dispnibile=" + disponibile + ",acquistato" + "]";
+		return getClass().getSimpleName() + "[riga=" + riga + ",colonna=" + colonna + ",occupato=" + occupato + ",dispnibile=" + disponibile + ",acquistato=" + acquistato + "]";
 	}
 }

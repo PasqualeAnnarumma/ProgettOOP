@@ -2,11 +2,13 @@ package InterfacceGrafiche;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -23,18 +25,18 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import GestoreLogin.Cinema;
 import GestoreLogin.Cliente;
+import GestoreProgrammazione.Criterio;
 import GestoreProgrammazione.Film;
-import GestoreProgrammazione.GestoreProgrammazione;
-import GestoreProgrammazione.ProgrammaSettimanale;
 import GestoreProgrammazione.Spettacolo;
 import GestoreSale.Sala;
 
 public class FrameUtente extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
-	private final Color colore = Color.CYAN;
-	private final Color coloreSelezionato = Color.LIGHT_GRAY;
+	private final Color colore = Color.LIGHT_GRAY;
+	private final Color coloreSelezionato = Color.CYAN;
 	private Cliente utente;
+	private Spettacolo spettacoloSelezionato;
 	Cinema cinema;
 	private JScrollPane center;
 	private JRadioButton progTot;
@@ -47,6 +49,7 @@ public class FrameUtente extends JFrame{
 		super("Prenotazione posto");
 		utente = user;
 		this.cinema = cinema;
+		setResizable(false);
 		progTot = new JRadioButton("totale");
 		progSett = new JRadioButton("settimanale");
 		progTot.setSelected(true);
@@ -59,7 +62,7 @@ public class FrameUtente extends JFrame{
 		}
 		setLocation(500, 100);
 		setSize(450, 400);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		body = createBody();
 		add(body);
 	}
@@ -116,54 +119,44 @@ public class FrameUtente extends JFrame{
 		return toolPanel;
 	}
 	
+	Criterio settimana = (Spettacolo s1) -> {
+		Calendar dataSpettacolo = s1.getData();
+		Calendar nowDate = Calendar.getInstance();
+		int r;
+		if ((r = s1.compareCalendar(dataSpettacolo, nowDate)) <= 7 && r >= 0)
+			return true;
+		return false;
+	};
+	
+	Criterio sala = (Spettacolo s1) -> {
+		String combos = combo.getSelectedItem().toString();
+		if (combos.equals("Tutte"))
+			return true;
+		else if (s1.getSala().getNumeroSala() == Integer.parseInt(combos))
+			return true;
+		return false;
+	};
+	
 	public JScrollPane createCenterPanel() {
-		
-		Criterio sempre = (Spettacolo s1) -> {return true;};
-		
-		Criterio settimana = (Spettacolo s1) -> {
-			Calendar dataSpettacolo = s1.getData();
-			Calendar nowDate = Calendar.getInstance();
-			int r;
-			if ((r = compareCalendar(dataSpettacolo, nowDate)) <= 7 && r >= 0)
-				return true;
-			return false;
-		};
-		
-		Criterio sala = (Spettacolo s1) -> {
-			String combos = combo.getSelectedItem().toString();
-			if (combos.equals("Tutte"))
-				return true;
-			else if (s1.getSala().getNumeroSala() == Integer.parseInt(combos))
-				return true;
-			return false;
-		};
-		
-		JScrollPane filmPanel = new JScrollPane();
+		ArrayList<Spettacolo> listaSpettacoli = new ArrayList<Spettacolo>();
 		if (progTot.isSelected())
-			filmPanel = createFilmPanel(sempre, sala);
+			listaSpettacoli = cinema.getListaSpettacoli(cinema.sempre, sala);
 		else
-			filmPanel = createFilmPanel(settimana, sala);
+			listaSpettacoli = cinema.getListaSpettacoli(settimana, sala);
+		
+		JScrollPane filmPanel = createFilmPanel(listaSpettacoli);
 		return filmPanel;
 	}
 	
-	public JScrollPane createFilmPanel(Criterio c, Criterio c2) {
+	public JScrollPane createFilmPanel(ArrayList<Spettacolo> listaSpettacoli) {
 		JPanel panel = new JPanel();
 		JScrollPane scroll = new JScrollPane(panel);
-		GestoreProgrammazione gestoreProgrammazione = cinema.getGestoreProgrammazione();
-		panel.setLayout(new GridLayout(gestoreProgrammazione.conteggioTotale(), 1));
-		for (int i = 0; i < gestoreProgrammazione.size(); i++)
+		panel.setLayout(new GridLayout(listaSpettacoli.size(), 1));
+		for (int i = 0; i < listaSpettacoli.size(); i++)
 		{
-			ProgrammaSettimanale listaProgrammiSettimanali = gestoreProgrammazione.getProgrammaSettimanale(i);
-			for (int j = 0; j < listaProgrammiSettimanali.size(); j++)
-			{
-				Spettacolo show = listaProgrammiSettimanali.getSpettacolo(j);
-				if (c.criterio(show) && c2.criterio(show))
-				{
-					JPanel slot = createSlotFilm(show);
-					panel.add(slot);
-				}
-				
-			}
+			Spettacolo show = listaSpettacoli.get(i);
+			JPanel slot = createSlotFilm(show);
+			panel.add(slot);
 		}
 		return scroll;
 	}
@@ -200,15 +193,18 @@ public class FrameUtente extends JFrame{
 	
 	public JPanel createSlotFilm(Spettacolo show) {
 		JPanel slot = new JPanel();
+		slot.setBorder(new EtchedBorder());
+		slot.setLayout(new GridLayout(4, 2));
 		Film film = show.getFilm();
 		Sala sala = show.getSala();
 		JLabel nomeFilm = new JLabel(film.getNome());
+		nomeFilm.setFont(new Font("font1", Font.BOLD, 15));
 		JLabel nomeRegista = new JLabel(film.getRegista());
 		JLabel durata = new JLabel(film.getDurata());
 		JLabel data = new JLabel(show.stringDate());
 		JLabel ora = new JLabel(show.getOra());
 		JLabel prezzo = new JLabel(show.getPrezzo() + "€");
-		JLabel numeroSala = new JLabel(sala.getNumeroSala() + "");
+		JLabel numeroSala = new JLabel("Sala " + sala.getNumeroSala());
 		slot.add(nomeFilm);
 		slot.add(nomeRegista);
 		slot.add(durata);
@@ -250,13 +246,5 @@ public class FrameUtente extends JFrame{
 		});
 		
 		return slot;
-	}
-	
-	public int compareCalendar(Calendar c1, Calendar c2) {
-		if (c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR))
-			if (c1.get(Calendar.MONTH) == c2.get(Calendar.MONTH))
-				return (c1.get(Calendar.DAY_OF_MONTH) - c2.get(Calendar.DAY_OF_MONTH));
-		
-		return -1;
 	}
 }

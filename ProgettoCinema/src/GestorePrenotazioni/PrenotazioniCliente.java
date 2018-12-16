@@ -21,7 +21,7 @@ public class PrenotazioniCliente {
 	
 	public void rimuoviPrenotazione(Prenotazione prenotazione) {
 		prenotazioniCliente.remove(prenotazione);
-		//System.out.println("Size: " + prenotazioniCliente.size());
+		//System.out.println("RIMOZIONE : " + prenotazioniCliente.remove(prenotazione));
 	}
 	
 	public ArrayList<Prenotazione> getListaPrenotazioni() {

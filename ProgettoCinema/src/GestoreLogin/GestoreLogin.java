@@ -38,4 +38,12 @@ public class GestoreLogin {
 		return null;
 	}
 	
+	public ArrayList<Cliente> getListaClienti() {
+		ArrayList<Cliente> lista = new ArrayList<Cliente>();
+		for (int i = 0; i < listaUtenti.size(); i++)
+			if (listaUtenti.get(i) instanceof Cliente) lista.add((Cliente) listaUtenti.get(i));
+		
+		return lista;
+	}
+	
 }

@@ -4,38 +4,30 @@ import java.util.ArrayList;
 
 public class GestoreProgrammazione {
 	
-	ArrayList<ProgrammaSettimanale> listaProgrammiSettimanali;
+	ArrayList<Spettacolo> listaSpettacoli;
 	
 	public GestoreProgrammazione() {
-		listaProgrammiSettimanali = new ArrayList<ProgrammaSettimanale>();
+		listaSpettacoli = new ArrayList<Spettacolo>();
 	}
 	
-	public void aggiungiProgrammaSettimanale(ProgrammaSettimanale prog) {
-		listaProgrammiSettimanali.add(prog);
+	public void aggiungiSpettacolo(Spettacolo spettacolo) {
+		listaSpettacoli.add(spettacolo);
 	}
 	
-	public void rimuoviProgrammaSettimanale(ProgrammaSettimanale prog) {
-		listaProgrammiSettimanali.remove(prog);
+	public void rimuoviSpettacolo(Spettacolo spettacolo) {
+		listaSpettacoli.remove(spettacolo);
 	}
 	
-	public ArrayList<ProgrammaSettimanale> getListaProgrammiSettimanali() {
-		return listaProgrammiSettimanali;
+	public ArrayList<Spettacolo> getListaSpettacoli() {
+		return listaSpettacoli;
 	}
 	
-	public ProgrammaSettimanale getProgrammaSettimanale(int i) {
-		return listaProgrammiSettimanali.get(i);
-	}
-	
-	public int conteggioTotale() {
-		int size = 0;
-		for (int i = 0; i < listaProgrammiSettimanali.size(); i++)
-			size += listaProgrammiSettimanali.get(i).size();
-			
-		return size;
+	public Spettacolo getSpettacolo(int i) {
+		return listaSpettacoli.get(i);
 	}
 	
 	public int size() {
-		return listaProgrammiSettimanali.size();
+		return listaSpettacoli.size();
 	}
 	
 }
