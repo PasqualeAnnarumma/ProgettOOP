@@ -1,4 +1,4 @@
-package InterfacceGrafiche;
+package GestoreProgrammazione;
 
 import GestoreProgrammazione.Spettacolo;
 
