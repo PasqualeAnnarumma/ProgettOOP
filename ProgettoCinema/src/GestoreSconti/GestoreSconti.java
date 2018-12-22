@@ -8,9 +8,9 @@ import GestoreProgrammazione.Spettacolo;
 
 public class GestoreSconti {
 	
-	ArrayList<Sconto<Cliente>> listaScontiCliente;
-	ArrayList<Sconto<Spettacolo>> listaScontiSpettacolo;
-	ArrayList<Sconto<Film>> listaScontiFilm;
+	private ArrayList<Sconto<Cliente>> listaScontiCliente;
+	private ArrayList<Sconto<Spettacolo>> listaScontiSpettacolo;
+	private ArrayList<Sconto<Film>> listaScontiFilm;
 	
 	public GestoreSconti() {
 		listaScontiCliente = new ArrayList<Sconto<Cliente>>();
@@ -30,6 +30,10 @@ public class GestoreSconti {
 		return listaScontiCliente.get(i);
 	}
 	
+	public ArrayList<Sconto<Cliente>> getScontiCliente() {
+		return listaScontiCliente;
+	}
+	
 	public void aggiungiScontoSpettacolo(Sconto<Spettacolo> sconto) {
 		listaScontiSpettacolo.add(sconto);
 	}
@@ -42,6 +46,10 @@ public class GestoreSconti {
 		return listaScontiSpettacolo.get(i);
 	}
 	
+	public ArrayList<Sconto<Spettacolo>> getScontiSpettacolo() {
+		return listaScontiSpettacolo;
+	}
+	
 	public void aggiungiScontoFilm(Sconto<Film> sconto) {
 		listaScontiFilm.add(sconto);
 	}
@@ -52,6 +60,10 @@ public class GestoreSconti {
 	
 	public Sconto<Film> getScontoFilm(int i) {
 		return listaScontiFilm.get(i);
+	}
+	
+	public ArrayList<Sconto<Film>> getScontiFilm() {
+		return listaScontiFilm;
 	}
 	
 	public float cercaSconto(Cliente cliente, Spettacolo show) {

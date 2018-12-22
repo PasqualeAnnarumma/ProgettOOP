@@ -3,6 +3,7 @@ package InterfacceGrafiche;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,10 +27,13 @@ import javax.swing.JTable;
 import Eccezioni.PostoNonDisponibileException;
 import GestoreLogin.Amministratore;
 import GestoreLogin.Cinema;
+import GestoreLogin.Cliente;
 import GestoreProgrammazione.Criterio;
+import GestoreProgrammazione.Film;
 import GestoreProgrammazione.Spettacolo;
 import GestoreSale.Posto;
 import GestoreSale.Sala;
+import GestoreSconti.Sconto;
 
 public class FrameGestore extends JFrame {
 	
@@ -158,8 +162,87 @@ public class FrameGestore extends JFrame {
 		tab.add("Programmazione", createProgrammazioneView());
 		tab.add("Sale", createSalaTab());
 		tab.add("Incasso", createIncassoView());
-		tab.add("Sconti", createProgrammazioneView());
+		tab.add("Sconti", createScontiView());
 		return tab;
+	}
+	
+	public JPanel createScontiView() {
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout(10, 1));
+		ArrayList<Sconto<Cliente>> listaScontiCliente = cinema.getGestoreSconti().getScontiCliente();
+		ArrayList<Sconto<Spettacolo>> listaScontiSpettacolo = cinema.getGestoreSconti().getScontiSpettacolo();
+		ArrayList<Sconto<Film>> listaScontiFilm = cinema.getGestoreSconti().getScontiFilm();
+		
+		for (int i = 0; i < listaScontiCliente.size(); i++)
+		{
+			JPanel line = lineSconti(listaScontiCliente.get(i));
+			panel.add(line);
+		}
+		
+		for (int i = 0; i < listaScontiSpettacolo.size(); i++)
+		{
+			JPanel line = lineSconti(listaScontiSpettacolo.get(i));
+			panel.add(line);
+		}
+		
+		for (int i = 0; i < listaScontiFilm.size(); i++)
+		{
+			JPanel line = lineSconti(listaScontiFilm.get(i));
+			panel.add(line);
+		}
+		
+		return panel;
+	}
+	
+	public JPanel lineSconti(Sconto sconto) {
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout(1, 2));
+		JLabel label = new JLabel(sconto.getDescrizione());
+		label.setFont(new Font("Font", Font.BOLD, 15));
+		JPanel bottoni = creaBottoni(sconto);
+		panel.add(label);
+		panel.add(bottoni);
+		return panel;
+	}
+	
+	public JPanel creaBottoni(Sconto sconto) {
+		JPanel panel = new JPanel();
+		String dstring = "Disattiva";
+		String astring = "Attiva";
+		JButton disattiva = new JButton(dstring);
+		JButton attiva = new JButton(astring);
+		if (sconto.isAttivo())
+		{
+			disattiva.setEnabled(true);
+			attiva.setEnabled(false);
+		}
+		else if (!sconto.isAttivo())
+		{
+			disattiva.setEnabled(false);
+			attiva.setEnabled(true);
+		}
+		
+		disattiva.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				sconto.disattiva();
+				disattiva.setEnabled(false);
+				attiva.setEnabled(true);
+			}
+		});
+		
+		attiva.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				sconto.attiva();
+				disattiva.setEnabled(true);
+				attiva.setEnabled(false);
+			}
+		});
+		
+		panel.add(disattiva);
+		panel.add(attiva);
+		return panel;
 	}
 	
 	public JPanel createIncassoView() {

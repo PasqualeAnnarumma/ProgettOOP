@@ -23,8 +23,6 @@ import GestorePrenotazioni.Prenotazione;
 import GestoreProgrammazione.Spettacolo;
 import GestoreSale.Posto;
 import GestoreSale.Sala;
-import GestoreSconti.GestoreSconti;
-
 public class FrameSala extends JFrame {
 	
 	private static final long serialVersionUID = 1L;

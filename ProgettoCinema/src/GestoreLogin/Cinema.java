@@ -94,7 +94,7 @@ public class Cinema {
 			{
 				Prenotazione pren = prenotazioni.getPrenotazione(j);
 				Spettacolo spettacolo = pren.getSpettacolo();
-				if (spettacolo.getFilm().equals(film))
+				if (spettacolo.getFilm().equals(film) && pren.isPagato())
 					incasso += pren.getPrezzoPagato();
 			}
 		}

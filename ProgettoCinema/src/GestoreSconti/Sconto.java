@@ -3,10 +3,12 @@ package GestoreSconti;
 public class Sconto<T> {
 	
 	Scontatore<T> scontatore;
+	String descrizione;
 	boolean attivo;
 	
-	public Sconto(Scontatore<T> sc) {
+	public Sconto(Scontatore<T> sc, String s) {
 		scontatore = sc;
+		descrizione = s;
 		attivo = true;
 	}
 	
@@ -28,5 +30,9 @@ public class Sconto<T> {
 	
 	public String toString() {
 		return getClass().getSimpleName() + "[attivo=" + attivo + "]";
+	}
+	
+	public String getDescrizione() {
+		return descrizione;
 	}
 }

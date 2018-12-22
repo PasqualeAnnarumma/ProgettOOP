@@ -31,7 +31,7 @@ public class Starter {
 		GestoreSconti gestoreSconti = cinema.getGestoreSconti();
 		
 		try {
-			cinema.registraCliente("user", "123", 21);
+			cinema.registraCliente("user", "123", 31);
 			cinema.registraAmministratore("root", "123");
 		} catch (AccountGiaEsistenteException e) {
 			System.out.println(e);
@@ -69,7 +69,7 @@ public class Starter {
 		};
 		
 		Scontatore<Cliente> scontoEta3 = (Cliente cliente) -> {
-			if (cliente.getEta() <= 18) return 0.50f;
+			if (cliente.getEta() <= 21) return 0.50f;
 			return 0;
 		};
 		
@@ -83,14 +83,14 @@ public class Starter {
 			return 0;
 		};
 		
-		Sconto<Cliente> scontoCliente = new Sconto<Cliente>(scontoEta);
+		Sconto<Cliente> scontoCliente = new Sconto<Cliente>(scontoEta, "Minori 18 anni");
 		gestoreSconti.aggiungiScontoCliente(scontoCliente);
-		scontoCliente = new Sconto<Cliente>(scontoEta2);
+		scontoCliente = new Sconto<Cliente>(scontoEta2, "Minori 20 anni");
 		gestoreSconti.aggiungiScontoCliente(scontoCliente);
-		scontoCliente = new Sconto<Cliente>(scontoEta3);
+		scontoCliente = new Sconto<Cliente>(scontoEta3, "Fino a 21 anni");
 		gestoreSconti.aggiungiScontoCliente(scontoCliente);
-		Sconto<Spettacolo> scontoSpettacolo = new Sconto<Spettacolo>(scontoNatale);
-		Sconto<Film> scontoFilm = new Sconto<Film>(scontoFilmsacchetto);
+		Sconto<Spettacolo> scontoSpettacolo = new Sconto<Spettacolo>(scontoNatale, "Sconto di natale");
+		Sconto<Film> scontoFilm = new Sconto<Film>(scontoFilmsacchetto, "Sonto sul film \"Un sacchetto pieno di biglie\"");
 		
 		gestoreSconti.aggiungiScontoSpettacolo(scontoSpettacolo);
 		gestoreSconti.aggiungiScontoFilm(scontoFilm);
