@@ -14,6 +14,7 @@ import GestoreProgrammazione.Spettacolo;
 import GestoreSale.GestoreSale;
 import GestoreSale.Posto;
 import GestoreSale.Sala;
+import GestoreSconti.GestoreSconti;
 
 public class Cinema {
 	
@@ -21,6 +22,7 @@ public class Cinema {
 	GestoreSale gestoreSale;
 	GestoreProgrammazione gestoreProgrammazione;
 	GestorePrenotazioni gestorePrenotazioni;
+	GestoreSconti gestoreSconti;
 	Utente utente;
 	
 	public Cinema() {
@@ -28,10 +30,11 @@ public class Cinema {
 		gestoreSale = new GestoreSale();
 		gestoreProgrammazione = new GestoreProgrammazione();
 		gestorePrenotazioni = new GestorePrenotazioni();
+		gestoreSconti = new GestoreSconti();
 	}
 	
-	public void registraCliente(String usr, String pwd) throws AccountGiaEsistenteException{
-		gestoreLogin.aggiungiCliente(usr, pwd);
+	public void registraCliente(String usr, String pwd, int eta) throws AccountGiaEsistenteException{
+		gestoreLogin.aggiungiCliente(usr, pwd, eta);
 	}
 	
 	public void registraAmministratore(String usr, String pwd) throws AccountGiaEsistenteException{
@@ -50,10 +53,13 @@ public class Cinema {
 		return listaFilm;
 	}
 	
-	public double getIncasso(ArrayList<Spettacolo> spettacoli) {
-		double incasso = 0;
+	public float getIncasso(ArrayList<Spettacolo> spettacoli) {
+		float incasso = 0;
 		for (Spettacolo s : spettacoli)
 			incasso += getIncasso(s.getFilm());
+		incasso *= 1000;
+		Math.floor(incasso);
+		incasso /= 1000;
 		return incasso;
 	}
 	
@@ -74,8 +80,8 @@ public class Cinema {
 		return lista;
 	}
 	
-	public double getIncasso(Film film) {
-		double incasso = 0;
+	public float getIncasso(Film film) {
+		float incasso = 0;
 		/*ArrayList<Prenotazione> prenotazioni = getListaPrenotazioni(film);
 		for (Prenotazione p : prenotazioni)
 			incasso += p.getPrezzoPagato();*/
@@ -92,6 +98,9 @@ public class Cinema {
 					incasso += pren.getPrezzoPagato();
 			}
 		}
+		incasso *= 1000;
+		Math.floor(incasso);
+		incasso /= 1000;
 		return incasso;
 	}
 	
@@ -232,6 +241,14 @@ public class Cinema {
 	
 	public Posto controlloProprietà(Cliente cliente, Posto posto) {
 		return gestorePrenotazioni.controlloProprietà(cliente, posto);
+	}
+	
+	public GestoreSconti getGestoreSconti() {
+		return gestoreSconti;
+	}
+	
+	public float cercaSconto(Cliente cliente, Spettacolo show) {
+		return gestoreSconti.cercaSconto(cliente, show);
 	}
 	
 	Criterio settimana = (Spettacolo s1) -> {

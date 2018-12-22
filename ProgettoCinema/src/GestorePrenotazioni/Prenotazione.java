@@ -57,7 +57,7 @@ public class Prenotazione {
 	
 	public void setPagato() {
 		pagato = true;
-		setPrezzo(spettacolo.getPrezzo());
+		setPrezzo(prezzo);
 	}
 	
 	public void setNonPagato() {

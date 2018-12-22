@@ -23,6 +23,7 @@ import GestorePrenotazioni.Prenotazione;
 import GestoreProgrammazione.Spettacolo;
 import GestoreSale.Posto;
 import GestoreSale.Sala;
+import GestoreSconti.GestoreSconti;
 
 public class FrameSala extends JFrame {
 	
@@ -190,6 +191,8 @@ public class FrameSala extends JFrame {
 			
 			public void mouseClicked(MouseEvent e) {
 				Prenotazione prenotazione = new Prenotazione(spettacolo, p, cliente);
+				float sconto = cinema.cercaSconto(cliente, spettacolo);
+				prenotazione.setPrezzo(prenotazione.getSpettacolo().getPrezzo() - (prenotazione.getSpettacolo().getPrezzo() * sconto));
 				try {
 					if (!p.isDisponibile()) System.out.println("Posto non disponibile");
 					else if (prenota.isSelected())

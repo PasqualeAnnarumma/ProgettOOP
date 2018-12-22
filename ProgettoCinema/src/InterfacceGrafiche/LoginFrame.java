@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,12 +25,14 @@ public class LoginFrame extends JFrame {
 	private JPasswordField pswField;
 	private JButton registerButton;
 	private JButton loginButton;
+	private JComboBox categoria;
 	
 	public LoginFrame(Cinema c) {
 		super("Login");
 		cinema = c;
 		userField = new JTextField(20);
 		pswField = new JPasswordField(20);
+		categoria = new JComboBox<>();
 		setResizable(false);
 		registerButton = new JButton("Registrati");
 		loginButton = new JButton("Login");
@@ -42,8 +45,10 @@ public class LoginFrame extends JFrame {
 		body.setLayout(new BorderLayout());
 		JPanel fieldLogin = createField();
 		JPanel buttonLogin = createButtonLogin();
+		JPanel categoriaPanel = createCategoria();
 		body.add(fieldLogin, BorderLayout.NORTH);
 		body.add(buttonLogin, BorderLayout.CENTER);
+		body.add(categoriaPanel, BorderLayout.SOUTH);
 		return body;
 	}
 	
@@ -109,7 +114,7 @@ public class LoginFrame extends JFrame {
 		registerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					cinema.registraCliente(userField.getText(), pswField.getText());
+					cinema.registraCliente(userField.getText(), pswField.getText(), 21);
 				} catch (AccountGiaEsistenteException e1) {
 					System.out.println(e1);
 				}
@@ -119,6 +124,11 @@ public class LoginFrame extends JFrame {
 		buttonLogin.add(loginButton);
 		buttonLogin.add(registerButton);
 		return buttonLogin;
+	}
+	
+	public JPanel createCategoria() {
+		JPanel panel = new JPanel();
+		return panel;
 	}
 	
 	public JPanel createLine(String txt, JTextField field) {
