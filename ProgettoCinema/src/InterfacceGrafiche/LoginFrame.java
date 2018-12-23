@@ -119,6 +119,11 @@ public class LoginFrame extends JFrame {
 				} catch (AccountGiaEsistenteException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "ATTENZIONE!", JOptionPane.ERROR_MESSAGE);
 				}
+			
+				RegistrationFrame frame= new RegistrationFrame();
+				frame.setVisible(true);
+				frame.addWindowListener(listener);
+				setVisible(false);
 			}
 		});
 		
