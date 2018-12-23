@@ -33,8 +33,8 @@ public class Cinema {
 		gestoreSconti = new GestoreSconti();
 	}
 	
-	public void registraCliente(String usr, String pwd, int eta) throws AccountGiaEsistenteException{
-		gestoreLogin.aggiungiCliente(usr, pwd, eta);
+	public void registraCliente(String usr, String pwd, int eta, String compleanno) throws AccountGiaEsistenteException{
+		gestoreLogin.aggiungiCliente(usr, pwd, eta, compleanno);
 	}
 	
 	public void registraAmministratore(String usr, String pwd) throws AccountGiaEsistenteException{
@@ -249,14 +249,15 @@ public class Cinema {
 			gestorePrenotazioni.aggiungiPrenotazione(cliente, prenotazione);
 			gestorePrenotazioni.acquistaPosto(p);
 		}
-		else if (gestorePrenotazioni.controlloProprietà(cliente, p) != null)
+		else if (gestorePrenotazioni.controlloProprietà(cliente, p, prenotazione.getSpettacolo()) != null)
 			gestorePrenotazioni.acquistaPosto(p);
 		
 		gestorePrenotazioni.acquista(cliente, prenotazione);
+		cliente.addPrenotazione();
 	}
 	
-	public Posto controlloProprietà(Cliente cliente, Posto posto) {
-		return gestorePrenotazioni.controlloProprietà(cliente, posto);
+	public Posto controlloProprietà(Cliente cliente, Posto posto, Spettacolo spettacolo) {
+		return gestorePrenotazioni.controlloProprietà(cliente, posto, spettacolo);
 	}
 	
 	public GestoreSconti getGestoreSconti() {

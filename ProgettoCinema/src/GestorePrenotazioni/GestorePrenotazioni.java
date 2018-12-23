@@ -60,7 +60,10 @@ public class GestorePrenotazioni {
 	
 	public void rimuoviPrenotazione(Prenotazione prenotazione, Cliente cliente) throws PostoNonDisponibileException{
 		//System.out.println("GESTOREPRENOTAZIONE : " + prenotazione);
-		if (controlloProprietà(cliente, prenotazione.getPosto()) == null) throw new PostoNonDisponibileException("Il posto è di un altro utente!");
+		if (prenotazione == null)
+			throw new PostoNonDisponibileException("Posto già libero");
+		if (controlloProprietà(cliente, prenotazione.getPosto(), prenotazione.getSpettacolo()) == null)
+			throw new PostoNonDisponibileException("Il posto è di un altro utente!");
 		PrenotazioniCliente lista = getListaCliente(cliente);
 		//System.out.println("PAGATO? " + prenotazione.isPagato());
 		//System.out.println(prenotazione);
@@ -70,7 +73,10 @@ public class GestorePrenotazioni {
 		System.out.println("PAGATO? :" + prenotazione.isPagato());
 		System.out.println(prenotazione);*/	
 		if (lista != null)
+		{
 			lista.rimuoviPrenotazione(prenotazione);
+			cliente.removePrenotazione();
+		}
 	}
 	
 	public void setDisponibile(Posto posto, Sala sala, ArrayList<Cliente> listaClienti, ArrayList<Spettacolo> listaSpettacoli) throws PostoNonDisponibileException {
@@ -123,7 +129,8 @@ public class GestorePrenotazioni {
 	}
 	
 	public void acquista(Cliente cliente, Prenotazione prenotazione) throws PostoNonDisponibileException{
-		if (controlloProprietà(cliente, prenotazione.getPosto()) == null) throw new PostoNonDisponibileException("Il posto è di un altro utente!");
+		if (controlloProprietà(cliente, prenotazione.getPosto(), prenotazione.getSpettacolo()) == null)
+			throw new PostoNonDisponibileException("Il posto è di un altro utente!");
 		PrenotazioniCliente lista = getListaCliente(cliente);
 		if (lista != null)
 		{
@@ -138,13 +145,13 @@ public class GestorePrenotazioni {
 		lista.aggiungiPrenotazione(prenotazione);
 	}
 	
-	public Posto controlloProprietà(Cliente cliente, Posto p) {
+	public Posto controlloProprietà(Cliente cliente, Posto p, Spettacolo spettacolo) {
 		PrenotazioniCliente pren;
 		if ((pren = getListaCliente(cliente)) == null) return null;
 		/*for (int i = 0 ; i < pren.size(); i++)
 			System.out.println(pren.getPrenotazione(i));*/
 		
-		return pren.searchPrenotazione(p);
+		return pren.searchPrenotazione(p, spettacolo);
 	}
 
 }

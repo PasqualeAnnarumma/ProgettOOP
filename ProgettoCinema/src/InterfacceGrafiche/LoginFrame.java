@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -106,7 +107,7 @@ public class LoginFrame extends JFrame {
 					}
 				}
 				else
-					System.out.println("Credenziali errate");
+					JOptionPane.showMessageDialog(null, "Credenziali errate", "Errore login!", JOptionPane.ERROR_MESSAGE);
 			}
 		});
 		
@@ -114,9 +115,9 @@ public class LoginFrame extends JFrame {
 		registerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					cinema.registraCliente(userField.getText(), pswField.getText(), 21);
+					cinema.registraCliente(userField.getText(), pswField.getText(), 21, "23/12/2018");
 				} catch (AccountGiaEsistenteException e1) {
-					System.out.println(e1);
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "ATTENZIONE!", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

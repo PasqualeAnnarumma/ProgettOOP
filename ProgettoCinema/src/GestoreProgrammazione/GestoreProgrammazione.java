@@ -14,12 +14,20 @@ public class GestoreProgrammazione {
 	
 	public void aggiungiSpettacolo(Spettacolo spettacolo) {
 		listaSpettacoli.add(spettacolo);
-		if (!cercaFilm(spettacolo.getFilm()))
-			listaFilm.add(spettacolo.getFilm());
+		aggiungiFilm(spettacolo.getFilm());
 	}
 	
 	public void rimuoviSpettacolo(Spettacolo spettacolo) {
 		listaSpettacoli.remove(spettacolo);
+	}
+	
+	public void aggiungiFilm(Film film) {
+		if (!cercaFilm(film))
+			listaFilm.add(film);
+	}
+	
+	public void rimuoviFilm(Film film) {
+		listaFilm.remove(film);
 	}
 	
 	public ArrayList<Spettacolo> getListaSpettacoli() {

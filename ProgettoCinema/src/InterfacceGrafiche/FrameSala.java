@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import Eccezioni.PostoNonDisponibileException;
@@ -192,7 +193,7 @@ public class FrameSala extends JFrame {
 				float sconto = cinema.cercaSconto(cliente, spettacolo);
 				prenotazione.setPrezzo(prenotazione.getSpettacolo().getPrezzo() - (prenotazione.getSpettacolo().getPrezzo() * sconto));
 				try {
-					if (!p.isDisponibile()) System.out.println("Posto non disponibile");
+					if (!p.isDisponibile()) JOptionPane.showMessageDialog(null, "Posto non disponibile!", "ATTENZIONE!", JOptionPane.ERROR_MESSAGE);
 					else if (prenota.isSelected())
 					{
 						//POSTO, SALA E SPETTACOLO
@@ -206,7 +207,7 @@ public class FrameSala extends JFrame {
 						/*System.out.println("CANC VECCHIA : " + prenotazione);
 						System.out.println("CANCELLAZIONE : " + prenotazione);*/
 						Prenotazione pren = cinema.cercaPrenotazione(p, spettacolo);
-						pren.setPosto(p);
+						if (pren != null) pren.setPosto(p);
 						cinema.rimuoviPrenotazione(cliente, pren);
 						String sedile = ("posto_libero");
 						iconaPosto.setIcon(creaPosto(sedile));
@@ -219,7 +220,7 @@ public class FrameSala extends JFrame {
 						iconaPosto.setIcon(creaPosto(sedile));
 					}
 				} catch (PostoNonDisponibileException ex) {
-					System.out.println(ex);
+					JOptionPane.showMessageDialog(null, ex.getMessage(), "ATTENZIONE!", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

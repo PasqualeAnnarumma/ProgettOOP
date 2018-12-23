@@ -1,6 +1,9 @@
 package Starter;
 
+import java.util.Calendar;
+
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import Eccezioni.AccountGiaEsistenteException;
@@ -31,22 +34,23 @@ public class Starter {
 		GestoreSconti gestoreSconti = cinema.getGestoreSconti();
 		
 		try {
-			cinema.registraCliente("user", "123", 31);
+			cinema.registraCliente("user", "123", 21, "08/03/1997");
+			cinema.registraCliente("user2", "123", 25, "23/12/2018");
 			cinema.registraAmministratore("root", "123");
 		} catch (AccountGiaEsistenteException e) {
-			System.out.println(e);
+			JOptionPane.showMessageDialog(null, e.getMessage(), "ATTENZIONE!", JOptionPane.ERROR_MESSAGE);
 		}
 		
 		cinema.aggiungiSala(5, 10);
 		cinema.aggiungiSala(8, 10);
-		cinema.aggiungiSala(3, 2);
+		cinema.aggiungiSala(7, 8);
 
 		
 		Film film = new Film("Una poltrone per due", "2:05", "Regista1");
 		Spettacolo spettacolo = new Spettacolo(gestoreSale.getListaSale().get(0), film, 25, 12, 2018, "06:02", 9.7);
 		gestoreProgrammazione.aggiungiSpettacolo(spettacolo);
 		film = new Film("Il grinch", "1:35", "Regista2");
-		spettacolo = new Spettacolo(gestoreSale.getListaSale().get(1), film, 23, 12, 2018, "20:30", 9.7);
+		spettacolo = new Spettacolo(gestoreSale.getListaSale().get(1), film, 26, 12, 2018, "23:30", 9.7);
 		gestoreProgrammazione.aggiungiSpettacolo(spettacolo);
 		film = new Film("Inception", "0:15", "Regista3");
 		spettacolo = new Spettacolo(gestoreSale.getListaSale().get(0), film, 27, 12, 2018, "20:30", 5.0);
@@ -59,17 +63,14 @@ public class Starter {
 			System.out.println(pg.getListaSpettacoli().get(i).getFilm().getNome());*/
 		
 		Scontatore<Cliente> scontoEta = (Cliente cliente) -> {
-			if (cliente.getEta() < 18) return 0.25f;
+			if (cliente.getEta() < 12) return 0.25f;
 			return 0;
 		};
 		
-		Scontatore<Cliente> scontoEta2 = (Cliente cliente) -> {
-			if (cliente.getEta() < 20) return 0.30f;
-			return 0;
-		};
-		
-		Scontatore<Cliente> scontoEta3 = (Cliente cliente) -> {
-			if (cliente.getEta() <= 21) return 0.50f;
+		Scontatore<Cliente> scontoCompleanno = (Cliente cliente) -> {
+			Calendar today = Calendar.getInstance();
+			String dataOggi = today.get(Calendar.DAY_OF_MONTH) + "/" + (today.get(Calendar.MONTH) + 1) + "/" +  today.get(Calendar.YEAR);
+			if (dataOggi.equals(cliente.getCompleanno())) return 1;
 			return 0;
 		};
 		
@@ -78,22 +79,29 @@ public class Starter {
 			return 0;
 		};
 		
+		Scontatore<Spettacolo> scontoMercoledì = (Spettacolo spett) -> {
+			Calendar c = spett.getData();
+			if (c.getTime().getDay() == Calendar.WEDNESDAY-1) return 0.15f;
+			return 0;
+		};
+		
 		Scontatore<Film> scontoFilmsacchetto = (Film f) -> {
 			if (f.getNome().equals("Un sacchetto pieno di biglie")) return 0.4f;
 			return 0;
 		};
 		
-		Sconto<Cliente> scontoCliente = new Sconto<Cliente>(scontoEta, "Minori 18 anni");
+		Sconto<Cliente> scontoCliente = new Sconto<Cliente>(scontoEta, "Minori 12 anni - 25%");
 		gestoreSconti.aggiungiScontoCliente(scontoCliente);
-		scontoCliente = new Sconto<Cliente>(scontoEta2, "Minori 20 anni");
+		scontoCliente = new Sconto<Cliente>(scontoCompleanno, "Sconto compleanno - 100%");
 		gestoreSconti.aggiungiScontoCliente(scontoCliente);
-		scontoCliente = new Sconto<Cliente>(scontoEta3, "Fino a 21 anni");
-		gestoreSconti.aggiungiScontoCliente(scontoCliente);
-		Sconto<Spettacolo> scontoSpettacolo = new Sconto<Spettacolo>(scontoNatale, "Sconto di natale");
-		Sconto<Film> scontoFilm = new Sconto<Film>(scontoFilmsacchetto, "Sonto sul film \"Un sacchetto pieno di biglie\"");
 		
+		Sconto<Spettacolo> scontoSpettacolo = new Sconto<Spettacolo>(scontoNatale, "Sconto di natale - 30%");
 		gestoreSconti.aggiungiScontoSpettacolo(scontoSpettacolo);
-		gestoreSconti.aggiungiScontoFilm(scontoFilm);
+		scontoSpettacolo = new Sconto<Spettacolo>(scontoMercoledì, "Sconto Mercoledì - 15%");
+		gestoreSconti.aggiungiScontoSpettacolo(scontoSpettacolo);
+		
+		Sconto<Film> scontoFilm = new Sconto<Film>(scontoFilmsacchetto, "Sonto sul film \"Un sacchetto pieno di biglie\" - 40%");
+		gestoreSconti.aggiungiScontoFilm(scontoFilm);		
 		
 		LoginFrame login = new LoginFrame(cinema);
 		login.setLocation(500, 100);

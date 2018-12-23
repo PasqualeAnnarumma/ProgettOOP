@@ -68,6 +68,7 @@ public class GestoreSconti {
 	
 	public float cercaSconto(Cliente cliente, Spettacolo show) {
 		float sconto = 0;
+		if (cliente.haUsatoSconto()) return 0;
 		
 		for (int i = 0; i < listaScontiCliente.size(); i++)
 		{

@@ -333,36 +333,14 @@ public class FrameGestore extends JFrame {
 				AddFrame frame = new AddFrame(cinema);
 				frame.setVisible(true);
 				
-				frame.addWindowListener(new WindowListener() {
-					
-					public void windowOpened(WindowEvent e) {}
-					
-					public void windowIconified(WindowEvent e) {}
-					
-					public void windowDeiconified(WindowEvent e) {}
-					
-					public void windowDeactivated(WindowEvent e) {}
-					
-					public void windowClosing(WindowEvent e) {}
-					
-					public void windowClosed(WindowEvent e) {
-						body.removeAll();
-						body.repaint();
-						body.add(createBody());
-						body.revalidate();
-						body.repaint();
-					}
-					
-					public void windowActivated(WindowEvent e) {}
-				});
+				frame.addWindowListener(new RefreshListener());
 			}
 		});
 		
 		rimuovi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int[] riga = tabella.getSelectedRows();
-				for (int i = 0; i< riga.length; i++)
-					System.out.println(riga[i]);
+				int colonne = tabella.getColumnCount();
+				int rigaAtuale = tabella.getSelectedRow();
 				//int colonna = tabella.getSelectedColumn();
 			}
 		});
@@ -460,7 +438,6 @@ public class FrameGestore extends JFrame {
 				} catch (PostoNonDisponibileException ex) {
 					System.out.println(ex);
 				}
-				
 			}
 		});
 		panel.add(iconaPosto);
@@ -470,6 +447,25 @@ public class FrameGestore extends JFrame {
 	public ImageIcon creaPosto(String sedile) {
 		ImageIcon myPicture = new ImageIcon("src\\icone\\" + sedile + ".png");
 		return myPicture;
+	}
+	
+	class RefreshListener implements WindowListener{
+
+		public void windowOpened(WindowEvent e) {}
+			
+		public void windowIconified(WindowEvent e) {}
+			
+		public void windowDeiconified(WindowEvent e) {}
+			
+		public void windowDeactivated(WindowEvent e) {}
+			
+		public void windowClosing(WindowEvent e) {}
+			
+		public void windowClosed(WindowEvent e) {
+			refresh();
+		}
+			
+		public void windowActivated(WindowEvent e) {}
 	}
 	
 }

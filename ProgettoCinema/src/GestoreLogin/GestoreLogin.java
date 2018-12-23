@@ -12,8 +12,8 @@ public class GestoreLogin {
 		listaUtenti = new ArrayList<Utente>();
 	}
 	
-	public void aggiungiCliente(String usr, String pwd, int eta) throws AccountGiaEsistenteException{
-		Cliente nuovo = new Cliente(usr, pwd, eta);
+	public void aggiungiCliente(String usr, String pwd, int eta, String compleanno) throws AccountGiaEsistenteException{
+		Cliente nuovo = new Cliente(usr, pwd, eta, compleanno);
 		for (Utente ut : listaUtenti)
 			if (ut.getUsername().equals(usr)) throw new AccountGiaEsistenteException();
 		

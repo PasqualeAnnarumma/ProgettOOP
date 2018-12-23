@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.ButtonGroup;
@@ -37,7 +39,7 @@ public class FrameUtente extends JFrame{
 	private final Color coloreSelezionato = Color.CYAN;
 	private Cliente utente;
 	private Spettacolo spettacoloSelezionato;
-	Cinema cinema;
+	private Cinema cinema;
 	private JScrollPane center;
 	private JRadioButton progTot;
 	private JRadioButton progSett;
@@ -103,11 +105,7 @@ public class FrameUtente extends JFrame{
 		//BOTTONE CERCA 
 		cerca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				body.removeAll();
-				body.repaint();
-				body.add(createBody());
-				body.revalidate();
-				body.repaint();
+				refresh();
 			}
 		});
 		
@@ -151,7 +149,9 @@ public class FrameUtente extends JFrame{
 	public JScrollPane createFilmPanel(ArrayList<Spettacolo> listaSpettacoli) {
 		JPanel panel = new JPanel();
 		JScrollPane scroll = new JScrollPane(panel);
-		panel.setLayout(new GridLayout(listaSpettacoli.size(), 1));
+		int righe = 3;
+		if (listaSpettacoli.size() > righe) righe = listaSpettacoli.size();
+		panel.setLayout(new GridLayout(righe, 1));
 		for (int i = 0; i < listaSpettacoli.size(); i++)
 		{
 			Spettacolo show = listaSpettacoli.get(i);
@@ -248,11 +248,41 @@ public class FrameUtente extends JFrame{
 				else
 					slot.setBackground(null);*/
 				FrameSala frame = new FrameSala(cinema, show);
+				
+				frame.addWindowListener(new RefreshListener());
+				
 				frame.setVisible(true);
 			}
 			
 		});
 		
 		return slot;
+	}
+	
+	public void refresh() {
+		body.removeAll();
+		body.repaint();
+		body.add(createBody());
+		body.revalidate();
+		body.repaint();
+	}
+	
+	class RefreshListener implements WindowListener{
+
+		public void windowOpened(WindowEvent e) {}
+			
+		public void windowIconified(WindowEvent e) {}
+			
+		public void windowDeiconified(WindowEvent e) {}
+			
+		public void windowDeactivated(WindowEvent e) {}
+			
+		public void windowClosing(WindowEvent e) {}
+			
+		public void windowClosed(WindowEvent e) {
+			refresh();
+		}
+			
+		public void windowActivated(WindowEvent e) {}
 	}
 }

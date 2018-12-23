@@ -3,6 +3,7 @@ package GestorePrenotazioni;
 import java.util.ArrayList;
 
 import GestoreLogin.Cliente;
+import GestoreProgrammazione.Spettacolo;
 import GestoreSale.Posto;
 
 public class PrenotazioniCliente {
@@ -32,12 +33,13 @@ public class PrenotazioniCliente {
 		return prenotazioniCliente.get(i);
 	}
 	
-	public Posto searchPrenotazione(Posto posto) {
+	public Posto searchPrenotazione(Posto posto, Spettacolo spettacolo) {
 		if (posto == null) return null;
 		for (int i = 0; i < prenotazioniCliente.size(); i++)
 		{
+			Prenotazione pren = prenotazioniCliente.get(i);
 			Posto posto2 = prenotazioniCliente.get(i).getPosto();
-			if (posto.getRiga() == posto2.getRiga() && posto.getColonna() == posto2.getColonna())
+			if (posto.getRiga() == posto2.getRiga() && posto.getColonna() == posto2.getColonna() && pren.getSpettacolo().equals(spettacolo))
 				return prenotazioniCliente.get(i).getPosto();
 		}
 		
