@@ -46,11 +46,12 @@ public class Cinema {
 	}
 	
 	public ArrayList<Film> getListaFilm() {
-		ArrayList<Film> listaFilm = new ArrayList<Film>();
+		/*ArrayList<Film> listaFilm = new ArrayList<Film>();
 		ArrayList<Spettacolo> listaSpettacoli = getListaSpettacoli();
 		for (Spettacolo spettacolo : listaSpettacoli)
 			listaFilm.add(spettacolo.getFilm());
-		return listaFilm;
+		return listaFilm;*/
+		return gestoreProgrammazione.getListaFilm();
 	}
 	
 	public float getIncasso(ArrayList<Spettacolo> spettacoli) {
@@ -111,6 +112,21 @@ public class Cinema {
 			if (c1.criterio(s) && c2.criterio(s) && isFruibile(s))
 				listaSpettacoli.add(s);
 		return listaSpettacoli;
+	}
+	
+	public ArrayList<Spettacolo> nonDuplicateListaSpettacoli(Criterio c1, Criterio c2) {
+		ArrayList<Spettacolo> listaSpettacoli = new ArrayList<Spettacolo>();
+		ArrayList<Spettacolo> oldList = getListaSpettacoli();
+		for (Spettacolo s : oldList)
+			if (c1.criterio(s) && c2.criterio(s) && isFruibile(s) && cercaSpettacolo(listaSpettacoli, s))
+				listaSpettacoli.add(s);
+		return listaSpettacoli;
+	}
+	
+	public boolean cercaSpettacolo(ArrayList<Spettacolo> lista, Spettacolo spettacolo) {
+		for (int i = 0; i < lista.size(); i++)
+			if (lista.get(i).getFilm().equals(spettacolo.getFilm())) return false;
+		return true;
 	}
 	
 	public boolean isFruibile(Spettacolo spettacolo) {

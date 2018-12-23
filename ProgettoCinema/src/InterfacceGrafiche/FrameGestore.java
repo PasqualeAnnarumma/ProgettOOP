@@ -250,7 +250,7 @@ public class FrameGestore extends JFrame {
 		panel.setLayout(new BorderLayout());
 		incasso = createIncassoPanel();
 		JScrollPane scroll = new JScrollPane(incasso);
-		JLabel label = new JLabel("Incasso totale : " + cinema.getIncasso(cinema.getListaSpettacoli(settimana, cinema.sempre)) + " €");
+		JLabel label = new JLabel("Incasso totale : " + cinema.getIncasso(cinema.nonDuplicateListaSpettacoli(settimana, cinema.sempre)) + " €");
 		panel.add(scroll, BorderLayout.NORTH);
 		panel.add(label, BorderLayout.SOUTH);
 		return panel;
@@ -268,7 +268,7 @@ public class FrameGestore extends JFrame {
 	public JTable createIncassoPanel() {	
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
-		ArrayList<Spettacolo> listaSpettacoli = cinema.getListaSpettacoli(settimana, cinema.sempre);
+		ArrayList<Spettacolo> listaSpettacoli = cinema.nonDuplicateListaSpettacoli(settimana, cinema.sempre);
 		String[] intestazione = {"Film", "Regista", "Durata", "Incasso"};
 		String[][] corpo = new String[listaSpettacoli.size()][6];
 		for (int i = 0; i < listaSpettacoli.size(); i++)
