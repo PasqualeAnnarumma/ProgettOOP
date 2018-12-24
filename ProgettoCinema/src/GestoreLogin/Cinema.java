@@ -18,12 +18,12 @@ import GestoreSconti.GestoreSconti;
 
 public class Cinema {
 	
-	GestoreLogin gestoreLogin;
-	GestoreSale gestoreSale;
-	GestoreProgrammazione gestoreProgrammazione;
-	GestorePrenotazioni gestorePrenotazioni;
-	GestoreSconti gestoreSconti;
-	Utente utente;
+	private GestoreLogin gestoreLogin;
+	private GestoreSale gestoreSale;
+	private GestoreProgrammazione gestoreProgrammazione;
+	private GestorePrenotazioni gestorePrenotazioni;
+	private GestoreSconti gestoreSconti;
+	private Utente utente;
 	
 	public Cinema() {
 		gestoreLogin = new GestoreLogin();
@@ -111,6 +111,7 @@ public class Cinema {
 		for (Spettacolo s : oldList)
 			if (c1.criterio(s) && c2.criterio(s) && isFruibile(s))
 				listaSpettacoli.add(s);
+		
 		return listaSpettacoli;
 	}
 	
@@ -140,7 +141,7 @@ public class Cinema {
 		else ora += mm;
 		int r = spettacolo.compareCalendar(spettacolo.getData(), cal);
 		if((r == 0) && (spettacolo.getOra().compareTo(ora) == 1)) return true;
-		else if (r > 0) return true;
+		else if (r >= 0) return true;
 		return false;
 	}
 	

@@ -328,6 +328,7 @@ public class FrameGestore extends JFrame {
 		JButton aggiungi = new JButton("Aggiungi");
 		JButton rimuovi = new JButton("Rimuovi");
 		
+		//BOTTONE AGGIUNGI
 		aggiungi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AddFrame frame = new AddFrame(cinema);
@@ -337,6 +338,7 @@ public class FrameGestore extends JFrame {
 			}
 		});
 		
+		//BOTTONE RIMUOVI
 		rimuovi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int colonne = tabella.getColumnCount();

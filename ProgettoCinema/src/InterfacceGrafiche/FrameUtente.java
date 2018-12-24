@@ -213,7 +213,7 @@ public class FrameUtente extends JFrame{
 									+ show.getPrezzo() + "€"
 								+ "</span> "
 					
-								+ "<span  style=\"font-size:10px\"; color=\"#23B505\";>"
+								+ "<span  style=\"font-size:11px\"; color=\"#23B505\";>"
 									+ "<b>" + prezz + "€</b>"
 								+ "</span>"
 							+ "</html>");

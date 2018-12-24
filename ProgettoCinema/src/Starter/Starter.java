@@ -56,7 +56,7 @@ public class Starter {
 		spettacolo = new Spettacolo(gestoreSale.getListaSale().get(0), film, 27, 12, 2018, "20:30", 5.0);
 		gestoreProgrammazione.aggiungiSpettacolo(spettacolo);
 		film = new Film("Un sacchetto pieno di biglie", "5:15", "Regista3");
-		spettacolo = new Spettacolo(gestoreSale.getListaSale().get(2), film, 24, 12, 2018, "20:30", 25.0);
+		spettacolo = new Spettacolo(gestoreSale.getListaSale().get(2), film, 24, 12, 2018, "22:32", 25.0);
 		gestoreProgrammazione.aggiungiSpettacolo(spettacolo);
 		
 		/*for (int i = 0; i < pg.size(); i++)

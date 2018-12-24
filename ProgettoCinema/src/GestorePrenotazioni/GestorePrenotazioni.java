@@ -27,12 +27,8 @@ public class GestorePrenotazioni {
 		return null;
 	}
 	
-	public void acquistaPosto(Posto p) {
-		try {
-			p.acquistaPosto();
-		} catch (PostoNonDisponibileException e) {
-			System.out.println(e);
-		}
+	public void acquistaPosto(Posto p) throws PostoNonDisponibileException{
+		p.acquistaPosto();
 	}
 	
 	public void aggiungiPrenotazione(Cliente cliente, Prenotazione prenotazione) throws PostoNonDisponibileException{
