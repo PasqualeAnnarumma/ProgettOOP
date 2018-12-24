@@ -120,7 +120,7 @@ public class LoginFrame extends JFrame {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "ATTENZIONE!", JOptionPane.ERROR_MESSAGE);
 				}
 			
-				RegistrationFrame frame= new RegistrationFrame();
+				RegistrationFrame frame= new RegistrationFrame(cinema);
 				frame.setVisible(true);
 				frame.addWindowListener(listener);
 				setVisible(false);

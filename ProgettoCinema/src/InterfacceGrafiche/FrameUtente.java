@@ -208,9 +208,15 @@ public class FrameUtente extends JFrame{
 		JLabel prezzo = new JLabel(prezz + "€");
 		if (sconto != 0)
 		{
-			prezzo.setFont(new Font("Barrato", Font.BOLD, 15));
-			Color verde = new Color(35, 181, 5);
-			prezzo.setForeground(verde);
+			prezzo = new JLabel("<html>"
+								+ "<span style=\"text-decoration: line-through;\" color = \"red\";>"
+									+ show.getPrezzo() + "€"
+								+ "</span> "
+					
+								+ "<span  style=\"font-size:10px\"; color=\"#23B505\";>"
+									+ "<b>" + prezz + "€</b>"
+								+ "</span>"
+							+ "</html>");
 		}
 		JLabel numeroSala = new JLabel("Sala " + sala.getNumeroSala());
 		slot.add(nomeFilm);
@@ -248,9 +254,7 @@ public class FrameUtente extends JFrame{
 				else
 					slot.setBackground(null);*/
 				FrameSala frame = new FrameSala(cinema, show);
-				
 				frame.addWindowListener(new RefreshListener());
-				
 				frame.setVisible(true);
 			}
 			

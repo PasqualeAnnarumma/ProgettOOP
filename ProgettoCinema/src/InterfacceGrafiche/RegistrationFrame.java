@@ -5,24 +5,18 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import Eccezioni.AccountGiaEsistenteException;
 import GestoreLogin.Amministratore;
 import GestoreLogin.Cinema;
-import GestoreLogin.Cliente;
 
 public class RegistrationFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -38,8 +32,10 @@ public class RegistrationFrame extends JFrame {
 	//private JPanel condizioniPanel;
 	private Amministratore gestore;
 	private Cinema cinema;
-	public RegistrationFrame() {
+	
+	public RegistrationFrame(Cinema cinema) {
 		super("Registrazione");
+		this.cinema = cinema;
 		setTitle("Cinema - Registrazione");
 		setSize(400,300);
 		setResizable(false);
@@ -110,6 +106,7 @@ public class RegistrationFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					//NON FUNZIONA LA REGISTRAZIONE A ME MA È INSOLITA LA COSA...
+					//RISOLTO: CINEMA ERA NULLO
 					cinema.registraCliente(userField.getText(), passwordField.getText(),0, giorno.getText());
 					ImageIcon image=new ImageIcon("C:\\Users\\pasqu\\Documents\\mario.jpg");
 					JOptionPane.showMessageDialog(null,"<html>UTENTE REGISTRATO SENZA NESSUN PROBLEMA DI NESSUN GENERE. <br> "
