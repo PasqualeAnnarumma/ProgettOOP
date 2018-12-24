@@ -104,7 +104,7 @@ public class Spettacolo implements Cloneable {
 	}
 	
 	public String toString() {
-		return getClass().getSimpleName() + "[sala=" + sala + ",film=" + film + ",ora=" + ora + ",prezzo=" + prezzo + "]";
+		return getClass().getSimpleName() + "[sala=" + sala + ",film=" + film + ",ora=" + ora + ",prezzo=" + prezzo + ",data=" + stringDate() + "]";
 	}
 	
 	public boolean equals(Object obj) {

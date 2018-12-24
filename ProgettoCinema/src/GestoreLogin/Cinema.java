@@ -2,12 +2,13 @@ package GestoreLogin;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import Eccezioni.AccountGiaEsistenteException;
 import Eccezioni.PostoNonDisponibileException;
 import GestorePrenotazioni.GestorePrenotazioni;
 import GestorePrenotazioni.Prenotazione;
 import GestorePrenotazioni.PrenotazioniCliente;
-import GestoreProgrammazione.Criterio;
+import GestoreProgrammazione.Selettore;
 import GestoreProgrammazione.Film;
 import GestoreProgrammazione.GestoreProgrammazione;
 import GestoreProgrammazione.Spettacolo;
@@ -105,21 +106,32 @@ public class Cinema {
 		return incasso;
 	}
 	
-	public ArrayList<Spettacolo> getListaSpettacoli(Criterio c1, Criterio c2) {
-		ArrayList<Spettacolo> listaSpettacoli = new ArrayList<Spettacolo>();
-		ArrayList<Spettacolo> oldList = getListaSpettacoli();
-		for (Spettacolo s : oldList)
-			if (c1.criterio(s) && c2.criterio(s) && isFruibile(s))
-				listaSpettacoli.add(s);
-		
-		return listaSpettacoli;
+	public ArrayList<Spettacolo> getListaSpettacoli() {
+		return gestoreProgrammazione.getListaSpettacoli();
 	}
 	
-	public ArrayList<Spettacolo> nonDuplicateListaSpettacoli(Criterio c1, Criterio c2) {
+	public ArrayList<Spettacolo> getListaSpettacoli(Comparator<Spettacolo> c1, String sala) {
+		ArrayList<Spettacolo> oldList = getListaSpettacoli();
+		OrdinaLista<Spettacolo> ordina = new OrdinaLista<Spettacolo>(c1);
+		for (int i = 0; i < oldList.size(); i++)
+			ordina.add(oldList.get(i));
+		
+		ArrayList<Spettacolo> listaDue = ordina.getList();
+		ArrayList<Spettacolo> lista = new ArrayList<Spettacolo>();
+		for (Spettacolo s : listaDue)
+		{
+			if (isFruibile(s) && (sala.equals("Tutte") || (sala.equals(s.getSala() + ""))))
+				lista.add(s);
+		}
+		
+		return lista;
+	}
+	
+	public ArrayList<Spettacolo> getListaSpettacoli(Selettore c1) {
 		ArrayList<Spettacolo> listaSpettacoli = new ArrayList<Spettacolo>();
 		ArrayList<Spettacolo> oldList = getListaSpettacoli();
 		for (Spettacolo s : oldList)
-			if (c1.criterio(s) && c2.criterio(s) && isFruibile(s) && cercaSpettacolo(listaSpettacoli, s))
+			if (c1.seleziona(s) && isFruibile(s) && cercaSpettacolo(listaSpettacoli, s))
 				listaSpettacoli.add(s);
 		return listaSpettacoli;
 	}
@@ -145,9 +157,9 @@ public class Cinema {
 		return false;
 	}
 	
-	public ArrayList<Spettacolo> getListaSpettacoli(Criterio c1) {
+	/*public ArrayList<Spettacolo> getListaSpettacoli(Criterio c1) {
 		return getListaSpettacoli(c1, c1);
-	}
+	}*/
 	
 	public void aggiungiSala(int rows, int columns) {
 		gestoreSale.aggiungiSala(rows, columns);
@@ -182,10 +194,6 @@ public class Cinema {
 	
 	public int getNumeroSpettacoli() {
 		return gestoreProgrammazione.size();
-	}
-	
-	public ArrayList<Spettacolo> getListaSpettacoli() {
-		return gestoreProgrammazione.getListaSpettacoli();
 	}
 	
 	public Utente getUtente() {
@@ -269,7 +277,7 @@ public class Cinema {
 		return gestoreSconti.cercaSconto(cliente, show);
 	}
 	
-	Criterio settimana = (Spettacolo s1) -> {
+	public Selettore<Spettacolo> settimana = (Spettacolo s1) -> {
 		Calendar dataSpettacolo = s1.getData();
 		Calendar nowDate = Calendar.getInstance();
 		int r;
@@ -278,5 +286,25 @@ public class Cinema {
 		return false;
 	};
 	
-	public Criterio sempre = (Spettacolo s1) -> {return true;};
+	public Comparator<Spettacolo> ordineCronologico = (Spettacolo s1, Spettacolo s2) -> {
+		if (s1.stringDate().compareTo(s2.stringDate()) < 0) return -1;
+		if (s1.stringDate().compareTo(s2.stringDate()) > 0) return 1;
+		return s1.getOra().compareTo(s2.getOra());
+	};
+	
+	public Comparator<Spettacolo> salaCrescente = (Spettacolo s1, Spettacolo s2) -> {
+		if (s1.getSala().getNumeroSala() < s2.getSala().getNumeroSala()) return -1;
+		if (s1.getSala().getNumeroSala() > s2.getSala().getNumeroSala()) return 1;
+		return 0;
+	};
+	
+	public Comparator<Spettacolo> titoloAlfabetico = (Spettacolo s1, Spettacolo s2) -> {
+		return s1.getFilm().getNome().compareTo(s2.getFilm().getNome());
+	};
+	
+	public Comparator<Spettacolo> postiDisponibili = (Spettacolo s1, Spettacolo s2) -> {
+		if (s1.getPostiLiberi() < s2.getPostiLiberi()) return -1;
+		if (s1.getPostiLiberi() > s2.getPostiLiberi()) return 1;
+		return 0;
+	};
 }

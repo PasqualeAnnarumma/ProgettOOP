@@ -12,7 +12,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
-import java.util.Calendar;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -28,7 +27,7 @@ import Eccezioni.PostoNonDisponibileException;
 import GestoreLogin.Amministratore;
 import GestoreLogin.Cinema;
 import GestoreLogin.Cliente;
-import GestoreProgrammazione.Criterio;
+import GestoreProgrammazione.Selettore;
 import GestoreProgrammazione.Film;
 import GestoreProgrammazione.Spettacolo;
 import GestoreSale.Posto;
@@ -94,7 +93,7 @@ public class FrameGestore extends JFrame {
 	
 	public JTable createTable() {
 		String[] intestazione = {"Titolo", "Sala", "Durata", "Posti", "Data", "Prezzo"};
-		ArrayList<Spettacolo> listaSpettacoli = cinema.getListaSpettacoli();
+		ArrayList<Spettacolo> listaSpettacoli = cinema.getListaSpettacoli(cinema.postiDisponibili, "Tutte");
 		String[][] data =  new String[listaSpettacoli.size()][6];
 		for (int i = 0; i < listaSpettacoli.size(); i++)
 		{
@@ -194,7 +193,7 @@ public class FrameGestore extends JFrame {
 		return panel;
 	}
 	
-	public JPanel lineSconti(Sconto sconto) {
+	public JPanel lineSconti(Sconto<?> sconto) {
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(1, 2));
 		JLabel label = new JLabel(sconto.getDescrizione());
@@ -205,7 +204,7 @@ public class FrameGestore extends JFrame {
 		return panel;
 	}
 	
-	public JPanel creaBottoni(Sconto sconto) {
+	public JPanel creaBottoni(Sconto<?> sconto) {
 		JPanel panel = new JPanel();
 		String dstring = "Disattiva";
 		String astring = "Attiva";
@@ -250,25 +249,16 @@ public class FrameGestore extends JFrame {
 		panel.setLayout(new BorderLayout());
 		incasso = createIncassoPanel();
 		JScrollPane scroll = new JScrollPane(incasso);
-		JLabel label = new JLabel("Incasso totale : " + cinema.getIncasso(cinema.nonDuplicateListaSpettacoli(settimana, cinema.sempre)) + " €");
+		JLabel label = new JLabel("Incasso totale : " + cinema.getIncasso(cinema.getListaSpettacoli(cinema.settimana)) + " €");
 		panel.add(scroll, BorderLayout.NORTH);
 		panel.add(label, BorderLayout.SOUTH);
 		return panel;
 	}
 	
-	Criterio settimana = (Spettacolo s1) -> {
-		Calendar dataSpettacolo = s1.getData();
-		Calendar nowDate = Calendar.getInstance();
-		int r;
-		if ((r = s1.compareCalendar(dataSpettacolo, nowDate)) <= 7 && r >= 0)
-			return true;
-		return false;
-	};
-	
 	public JTable createIncassoPanel() {	
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
-		ArrayList<Spettacolo> listaSpettacoli = cinema.nonDuplicateListaSpettacoli(settimana, cinema.sempre);
+		ArrayList<Spettacolo> listaSpettacoli = cinema.getListaSpettacoli(cinema.settimana);
 		String[] intestazione = {"Film", "Regista", "Durata", "Incasso"};
 		String[][] corpo = new String[listaSpettacoli.size()][6];
 		for (int i = 0; i < listaSpettacoli.size(); i++)

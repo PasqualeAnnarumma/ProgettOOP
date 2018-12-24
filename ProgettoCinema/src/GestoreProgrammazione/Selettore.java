@@ -2,8 +2,8 @@ package GestoreProgrammazione;
 
 import GestoreProgrammazione.Spettacolo;
 
-public interface Criterio{
+public interface Selettore<T> {
 	
-	public boolean criterio(Spettacolo s);
+	public boolean seleziona(T s);
 	
 }

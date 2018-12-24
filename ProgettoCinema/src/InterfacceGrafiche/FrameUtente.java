@@ -11,8 +11,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
-import java.util.Calendar;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -21,13 +19,11 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import GestoreLogin.Cinema;
 import GestoreLogin.Cliente;
-import GestoreProgrammazione.Criterio;
 import GestoreProgrammazione.Film;
 import GestoreProgrammazione.Spettacolo;
 import GestoreSale.Sala;
@@ -41,20 +37,20 @@ public class FrameUtente extends JFrame{
 	private Spettacolo spettacoloSelezionato;
 	private Cinema cinema;
 	private JScrollPane center;
-	private JRadioButton progTot;
-	private JRadioButton progSett;
 	private JComboBox<String> combo;
 	private JPanel body;
 	private JPanel currSlot;
+	private JComboBox<String> comboOrdina;
 	
 	public FrameUtente(Cliente user, Cinema cinema) {
 		super("Prenotazione posto");
 		utente = user;
 		this.cinema = cinema;
 		setResizable(false);
-		progTot = new JRadioButton("totale");
-		progSett = new JRadioButton("settimanale");
-		progTot.setSelected(true);
+		comboOrdina = new JComboBox<String>();
+		comboOrdina.addItem("Cronologicamente");
+		comboOrdina.addItem("Sala crescente");
+		comboOrdina.addItem("Alfabeticamente");
 		combo = new JComboBox<String>();
 		combo.addItem("Tutte");
 		for (int i = 0; i < cinema.getGestoreSale().size(); i++)
@@ -117,30 +113,14 @@ public class FrameUtente extends JFrame{
 		return toolPanel;
 	}
 	
-	Criterio settimana = (Spettacolo s1) -> {
-		Calendar dataSpettacolo = s1.getData();
-		Calendar nowDate = Calendar.getInstance();
-		int r;
-		if ((r = s1.compareCalendar(dataSpettacolo, nowDate)) <= 7 && r >= 0)
-			return true;
-		return false;
-	};
-	
-	Criterio sala = (Spettacolo s1) -> {
-		String combos = combo.getSelectedItem().toString();
-		if (combos.equals("Tutte"))
-			return true;
-		else if (s1.getSala().getNumeroSala() == Integer.parseInt(combos))
-			return true;
-		return false;
-	};
-	
 	public JScrollPane createCenterPanel() {
 		ArrayList<Spettacolo> listaSpettacoli = new ArrayList<Spettacolo>();
-		if (progTot.isSelected())
-			listaSpettacoli = cinema.getListaSpettacoli(cinema.sempre, sala);
+		if (comboOrdina.getSelectedItem().equals("Cronologicamente"))
+			listaSpettacoli = cinema.getListaSpettacoli(cinema.ordineCronologico, combo.getSelectedItem().toString());
+		else if (comboOrdina.getSelectedItem().equals("Sala crescente"))
+			listaSpettacoli = cinema.getListaSpettacoli(cinema.salaCrescente, combo.getSelectedItem().toString());
 		else
-			listaSpettacoli = cinema.getListaSpettacoli(settimana, sala);
+			listaSpettacoli = cinema.getListaSpettacoli(cinema.titoloAlfabetico, combo.getSelectedItem().toString());
 		
 		JScrollPane filmPanel = createFilmPanel(listaSpettacoli);
 		return filmPanel;
@@ -173,13 +153,9 @@ public class FrameUtente extends JFrame{
 	
 	public JPanel createProgPanel() {
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(new EtchedBorder(), "Programmazione"));
+		panel.setBorder(new TitledBorder(new EtchedBorder(), "Ordinamento"));
 		panel.setLayout(new BorderLayout());
-		ButtonGroup group = new ButtonGroup();
-		group.add(progTot);
-		group.add(progSett);
-		panel.add(progTot, BorderLayout.WEST);
-		panel.add(progSett, BorderLayout.CENTER);
+		panel.add(comboOrdina, BorderLayout.CENTER);
 		return panel;
 	}
 	

@@ -53,7 +53,7 @@ public class Starter {
 		spettacolo = new Spettacolo(gestoreSale.getListaSale().get(1), film, 26, 12, 2018, "23:30", 9.7);
 		gestoreProgrammazione.aggiungiSpettacolo(spettacolo);
 		film = new Film("Inception", "0:15", "Regista3");
-		spettacolo = new Spettacolo(gestoreSale.getListaSale().get(0), film, 27, 12, 2018, "20:30", 5.0);
+		spettacolo = new Spettacolo(gestoreSale.getListaSale().get(0), film, 24, 12, 2018, "20:30", 5.0);
 		gestoreProgrammazione.aggiungiSpettacolo(spettacolo);
 		film = new Film("Un sacchetto pieno di biglie", "5:15", "Regista3");
 		spettacolo = new Spettacolo(gestoreSale.getListaSale().get(2), film, 24, 12, 2018, "22:32", 25.0);
@@ -69,8 +69,9 @@ public class Starter {
 		
 		Scontatore<Cliente> scontoCompleanno = (Cliente cliente) -> {
 			Calendar today = Calendar.getInstance();
-			String dataOggi = today.get(Calendar.DAY_OF_MONTH) + "/" + (today.get(Calendar.MONTH) + 1) + "/" +  today.get(Calendar.YEAR);
-			if (dataOggi.equals(cliente.getCompleanno())) return 1;
+			String dataOggi = today.get(Calendar.DAY_OF_MONTH) + "/" + (today.get(Calendar.MONTH) + 1);
+			String dataCliente = cliente.getCompleanno().substring(0, 5);
+			if (dataOggi.equals(dataCliente)) return 1;
 			return 0;
 		};
 		

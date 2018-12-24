@@ -186,8 +186,8 @@ public class RegistrationFrame extends JFrame {
 			comboMese.addItem(s);
 		}
 		
-		for (int i = 0; i < 100; i++)
-			comboAnno.addItem((2018 + i) + "");
+		for (int i = 0; i < 300; i++)
+			comboAnno.addItem((1900 + i) + "");
 	}
 
 }
