@@ -6,14 +6,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import Eccezioni.AccountGiaEsistenteException;
 import GestoreLogin.Amministratore;
 import GestoreLogin.Cinema;
 import GestoreLogin.Cliente;
@@ -26,14 +24,12 @@ public class LoginFrame extends JFrame {
 	private JPasswordField pswField;
 	private JButton registerButton;
 	private JButton loginButton;
-	private JComboBox categoria;
 	
 	public LoginFrame(Cinema c) {
 		super("Login");
 		cinema = c;
 		userField = new JTextField(20);
 		pswField = new JPasswordField(20);
-		categoria = new JComboBox<>();
 		setResizable(false);
 		registerButton = new JButton("Registrati");
 		loginButton = new JButton("Login");
@@ -89,7 +85,8 @@ public class LoginFrame extends JFrame {
 		//BOTTONE LOGIN
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(cinema.login(userField.getText(), pswField.getText()))
+				String psw = String.valueOf(pswField.getPassword());
+				if(cinema.login(userField.getText(), psw))
 				{
 					if(cinema.getUtente() instanceof Cliente)
 					{

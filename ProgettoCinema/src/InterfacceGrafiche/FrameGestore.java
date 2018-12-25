@@ -1,7 +1,6 @@
 package InterfacceGrafiche;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -23,11 +22,11 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.border.EtchedBorder;
 import Eccezioni.PostoNonDisponibileException;
 import GestoreLogin.Amministratore;
 import GestoreLogin.Cinema;
 import GestoreLogin.Cliente;
-import GestoreProgrammazione.Selettore;
 import GestoreProgrammazione.Film;
 import GestoreProgrammazione.Spettacolo;
 import GestoreSale.Posto;
@@ -37,9 +36,6 @@ import GestoreSconti.Sconto;
 public class FrameGestore extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
-	private final Color colore = Color.CYAN;
-	private final Color coloreSelezionato = Color.LIGHT_GRAY;
-	private Amministratore amministratore;
 	private Cinema cinema;
 	private JTable tabella;
 	private JTable incasso;
@@ -195,6 +191,7 @@ public class FrameGestore extends JFrame {
 	
 	public JPanel lineSconti(Sconto<?> sconto) {
 		JPanel panel = new JPanel();
+		panel.setBorder(new EtchedBorder());
 		panel.setLayout(new GridLayout(1, 2));
 		JLabel label = new JLabel(sconto.getDescrizione());
 		label.setFont(new Font("Font", Font.BOLD, 15));
@@ -331,8 +328,8 @@ public class FrameGestore extends JFrame {
 		//BOTTONE RIMUOVI
 		rimuovi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int colonne = tabella.getColumnCount();
-				int rigaAtuale = tabella.getSelectedRow();
+				/*int colonne = tabella.getColumnCount();
+				int rigaAtuale = tabella.getSelectedRow();*/
 				//int colonna = tabella.getSelectedColumn();
 			}
 		});
@@ -344,7 +341,6 @@ public class FrameGestore extends JFrame {
 	
 	public JPanel createSala(Sala sala) {
 		JPanel panel = new JPanel();
-		//panel.setLayout(new GridLayout(sala.getRighe()+1, sala.getColonne()));
 		panel.setLayout(new BorderLayout());
 		JPanel header = createHeader(sala);
 		JPanel box = createBox(sala);

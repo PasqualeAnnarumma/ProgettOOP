@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -16,22 +15,21 @@ import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import Eccezioni.AccountGiaEsistenteException;
-import GestoreLogin.Amministratore;
 import GestoreLogin.Cinema;
+import GestoreLogin.Cliente.Categoria;
 
 public class RegistrationFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private JTextField userField;
-	private JTextField passwordField;
-	private JComboBox<String> groupBox;
+	private JPasswordField passwordField;
+	private JComboBox<Categoria> groupBox;
 	private JLabel condizioniField;
 	private JRadioButton accettoButton;
 	private JComboBox<String> comboGiorno;
 	private JComboBox<String> comboMese;
 	private JComboBox<String> comboAnno;
 	//private JPanel condizioniPanel;
-	private Amministratore gestore;
 	private Cinema cinema;
 	
 	public RegistrationFrame(Cinema cinema) {
@@ -98,11 +96,11 @@ public class RegistrationFrame extends JFrame {
 	
 	private JPanel createGroupPanel() {
 		JPanel panel = new JPanel();
-		groupBox = new JComboBox<String>();
+		groupBox = new JComboBox<Categoria>();
 		groupBox.setEditable(false);
-		groupBox.addItem("Nessuno");
-		groupBox.addItem("Studente");
-		groupBox.addItem("Pensionato");
+		groupBox.addItem(Categoria.NESSUNO);
+		groupBox.addItem(Categoria.STUDENTE);
+		groupBox.addItem(Categoria.PENSIONATO);
 		groupBox.setSelectedIndex(0);
 		JPanel groupPanel = new JPanel(new GridLayout(1, 2));
 		groupPanel.add(new JLabel("Gruppo:"));
@@ -142,7 +140,8 @@ public class RegistrationFrame extends JFrame {
 
 		confirmButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (userField.getText().equals("") || passwordField.getText().equals("") || accettoButton.isSelected() == false)
+				String psw = String.valueOf(passwordField.getPassword());
+				if (userField.getText().equals("") || psw.equals("") || accettoButton.isSelected() == false)
 					JOptionPane.showMessageDialog(null, "Inserire tutti i campi", "ATTENZIONE!", JOptionPane.WARNING_MESSAGE);
 				else
 				{
@@ -150,7 +149,7 @@ public class RegistrationFrame extends JFrame {
 						//NON FUNZIONA LA REGISTRAZIONE A ME MA È INSOLITA LA COSA...
 						//RISOLTO: CINEMA ERA NULLO
 						String dataNascita = comboGiorno.getSelectedItem() + "/" + comboMese.getSelectedItem() + "/" + comboAnno.getSelectedItem();
-						cinema.registraCliente(userField.getText(), passwordField.getText(),0, dataNascita);
+						cinema.registraCliente(userField.getText(), psw, dataNascita, (Categoria) groupBox.getSelectedItem());
 						JOptionPane.showMessageDialog(null,"Registrazione effettuata con successo", "Registrazione completata", JOptionPane.INFORMATION_MESSAGE);
 						userField.setText("");
 						passwordField.setText("");

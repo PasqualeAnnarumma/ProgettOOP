@@ -3,6 +3,7 @@ package GestoreLogin;
 import java.util.ArrayList;
 
 import Eccezioni.AccountGiaEsistenteException;
+import GestoreLogin.Cliente.Categoria;
 
 public class GestoreLogin {
 	
@@ -12,8 +13,8 @@ public class GestoreLogin {
 		listaUtenti = new ArrayList<Utente>();
 	}
 	
-	public void aggiungiCliente(String usr, String pwd, int eta, String compleanno) throws AccountGiaEsistenteException{
-		Cliente nuovo = new Cliente(usr, pwd, eta, compleanno);
+	public void aggiungiCliente(String usr, String pwd, String compleanno, Categoria category) throws AccountGiaEsistenteException{
+		Cliente nuovo = new Cliente(usr, pwd, compleanno, category);
 		for (Utente ut : listaUtenti)
 			if (ut.getUsername().equals(usr)) throw new AccountGiaEsistenteException();
 		

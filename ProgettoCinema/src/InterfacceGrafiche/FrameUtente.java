@@ -34,16 +34,16 @@ public class FrameUtente extends JFrame{
 	private final Color colore = Color.LIGHT_GRAY;
 	private final Color coloreSelezionato = Color.CYAN;
 	private Cliente utente;
-	private Spettacolo spettacoloSelezionato;
+	//private Spettacolo spettacoloSelezionato;
 	private Cinema cinema;
 	private JScrollPane center;
 	private JComboBox<String> combo;
 	private JPanel body;
-	private JPanel currSlot;
+	//private JPanel currSlot;
 	private JComboBox<String> comboOrdina;
 	
 	public FrameUtente(Cliente user, Cinema cinema) {
-		super("Prenotazione posto");
+		super("Prenotazione posto (" + user.getUsername() + ": " + user.getEta() + ")");
 		utente = user;
 		this.cinema = cinema;
 		setResizable(false);

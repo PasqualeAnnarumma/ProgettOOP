@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Comparator;
 import Eccezioni.AccountGiaEsistenteException;
 import Eccezioni.PostoNonDisponibileException;
+import GestoreLogin.Cliente.Categoria;
 import GestorePrenotazioni.GestorePrenotazioni;
 import GestorePrenotazioni.Prenotazione;
 import GestorePrenotazioni.PrenotazioniCliente;
@@ -34,8 +35,8 @@ public class Cinema {
 		gestoreSconti = new GestoreSconti();
 	}
 	
-	public void registraCliente(String usr, String pwd, int eta, String compleanno) throws AccountGiaEsistenteException{
-		gestoreLogin.aggiungiCliente(usr, pwd, eta, compleanno);
+	public void registraCliente(String usr, String pwd, String compleanno, Categoria category) throws AccountGiaEsistenteException{
+		gestoreLogin.aggiungiCliente(usr, pwd, compleanno, category);
 	}
 	
 	public void registraAmministratore(String usr, String pwd) throws AccountGiaEsistenteException{
@@ -127,7 +128,7 @@ public class Cinema {
 		return lista;
 	}
 	
-	public ArrayList<Spettacolo> getListaSpettacoli(Selettore c1) {
+	public ArrayList<Spettacolo> getListaSpettacoli(Selettore<Spettacolo> c1) {
 		ArrayList<Spettacolo> listaSpettacoli = new ArrayList<Spettacolo>();
 		ArrayList<Spettacolo> oldList = getListaSpettacoli();
 		for (Spettacolo s : oldList)

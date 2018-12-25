@@ -9,6 +9,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import Eccezioni.AccountGiaEsistenteException;
 import GestoreLogin.Cinema;
 import GestoreLogin.Cliente;
+import GestoreLogin.Cliente.Categoria;
 import GestoreProgrammazione.Film;
 import GestoreProgrammazione.GestoreProgrammazione;
 import GestoreProgrammazione.Spettacolo;
@@ -34,8 +35,8 @@ public class Starter {
 		GestoreSconti gestoreSconti = cinema.getGestoreSconti();
 		
 		try {
-			cinema.registraCliente("user", "123", 21, "08/03/1997");
-			cinema.registraCliente("user2", "123", 25, "23/12/2018");
+			cinema.registraCliente("user", "123", "08/03/1997", Categoria.NESSUNO);
+			cinema.registraCliente("user2", "123", "23/12/2018", Categoria.STUDENTE);
 			cinema.registraAmministratore("root", "123");
 		} catch (AccountGiaEsistenteException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "ATTENZIONE!", JOptionPane.ERROR_MESSAGE);
@@ -53,10 +54,10 @@ public class Starter {
 		spettacolo = new Spettacolo(gestoreSale.getListaSale().get(1), film, 26, 12, 2018, "23:30", 9.7);
 		gestoreProgrammazione.aggiungiSpettacolo(spettacolo);
 		film = new Film("Inception", "0:15", "Regista3");
-		spettacolo = new Spettacolo(gestoreSale.getListaSale().get(0), film, 24, 12, 2018, "20:30", 5.0);
+		spettacolo = new Spettacolo(gestoreSale.getListaSale().get(0), film, 28, 12, 2018, "20:30", 5.0);
 		gestoreProgrammazione.aggiungiSpettacolo(spettacolo);
 		film = new Film("Un sacchetto pieno di biglie", "5:15", "Regista3");
-		spettacolo = new Spettacolo(gestoreSale.getListaSale().get(2), film, 24, 12, 2018, "22:32", 25.0);
+		spettacolo = new Spettacolo(gestoreSale.getListaSale().get(2), film, 30, 12, 2018, "22:32", 25.0);
 		gestoreProgrammazione.aggiungiSpettacolo(spettacolo);
 		
 		/*for (int i = 0; i < pg.size(); i++)
@@ -82,7 +83,7 @@ public class Starter {
 		
 		Scontatore<Spettacolo> scontoMercoledì = (Spettacolo spett) -> {
 			Calendar c = spett.getData();
-			if (c.getTime().getDay() == Calendar.WEDNESDAY-1) return 0.15f;
+			if (c.get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY) return 0.15f;
 			return 0;
 		};
 		
