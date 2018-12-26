@@ -116,11 +116,11 @@ public class FrameUtente extends JFrame{
 	public JScrollPane createCenterPanel() {
 		ArrayList<Spettacolo> listaSpettacoli = new ArrayList<Spettacolo>();
 		if (comboOrdina.getSelectedItem().equals("Cronologicamente"))
-			listaSpettacoli = cinema.getListaSpettacoli(cinema.ordineCronologico, combo.getSelectedItem().toString());
+			listaSpettacoli = cinema.getSpettacoliFruibili(cinema.ordineCronologico, combo.getSelectedItem().toString());
 		else if (comboOrdina.getSelectedItem().equals("Sala crescente"))
-			listaSpettacoli = cinema.getListaSpettacoli(cinema.salaCrescente, combo.getSelectedItem().toString());
+			listaSpettacoli = cinema.getSpettacoliFruibili(cinema.salaCrescente, combo.getSelectedItem().toString());
 		else
-			listaSpettacoli = cinema.getListaSpettacoli(cinema.titoloAlfabetico, combo.getSelectedItem().toString());
+			listaSpettacoli = cinema.getSpettacoliFruibili(cinema.titoloAlfabetico, combo.getSelectedItem().toString());
 		
 		JScrollPane filmPanel = createFilmPanel(listaSpettacoli);
 		return filmPanel;
@@ -184,6 +184,9 @@ public class FrameUtente extends JFrame{
 		JLabel prezzo = new JLabel(prezz + "€");
 		if (sconto != 0)
 		{
+			prezz *= 1000;
+			prezz = (float) Math.floor(prezz);
+			prezz /= 1000;
 			prezzo = new JLabel("<html>"
 								+ "<span style=\"text-decoration: line-through;\" color = \"red\";>"
 									+ show.getPrezzo() + "€"

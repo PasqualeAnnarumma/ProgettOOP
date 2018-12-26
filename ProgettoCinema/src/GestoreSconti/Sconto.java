@@ -6,9 +6,9 @@ public class Sconto<T> {
 	String descrizione;
 	boolean attivo;
 	
-	public Sconto(Scontatore<T> sc, String s) {
+	public Sconto(Scontatore<T> sc, String description) {
 		scontatore = sc;
-		descrizione = s;
+		descrizione = description;
 		attivo = true;
 	}
 	

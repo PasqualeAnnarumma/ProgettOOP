@@ -28,6 +28,15 @@ public class GestoreProgrammazione {
 	
 	public void rimuoviFilm(Film film) {
 		listaFilm.remove(film);
+		ArrayList<Spettacolo> lista = getListaSpettacoli();
+		for (int i = 0; i < lista.size(); i++)
+		{
+			if (lista.get(i).getFilm().equals(film))
+			{
+				rimuoviSpettacolo(lista.get(i));
+				return;
+			}
+		}
 	}
 	
 	public ArrayList<Spettacolo> getListaSpettacoli() {

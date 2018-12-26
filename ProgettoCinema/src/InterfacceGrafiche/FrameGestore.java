@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -44,6 +45,8 @@ public class FrameGestore extends JFrame {
 	private JRadioButton disponibile;
 	private JRadioButton nonDisponibile;
 	private JTabbedPane tab;
+	private ArrayList<Spettacolo> listaSpettacoli;
+	private ArrayList<Film> listaFilm;
 	
 	class Listener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
@@ -60,6 +63,8 @@ public class FrameGestore extends JFrame {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		cinema = cin;
+		listaSpettacoli = cinema.getListaSpettacoli(cinema.postiDisponibili, "Tutte");
+		listaFilm = cinema.getListaFilm();
 		createCombo();
 		body = createBody();
 		add(body);
@@ -89,7 +94,6 @@ public class FrameGestore extends JFrame {
 	
 	public JTable createTable() {
 		String[] intestazione = {"Titolo", "Sala", "Durata", "Posti", "Data", "Prezzo"};
-		ArrayList<Spettacolo> listaSpettacoli = cinema.getListaSpettacoli(cinema.postiDisponibili, "Tutte");
 		String[][] data =  new String[listaSpettacoli.size()][6];
 		for (int i = 0; i < listaSpettacoli.size(); i++)
 		{
@@ -248,31 +252,90 @@ public class FrameGestore extends JFrame {
 		JScrollPane scroll = new JScrollPane(incasso);
 		JLabel label = new JLabel("Incasso totale : " + cinema.getIncasso(cinema.getListaSpettacoli(cinema.settimana)) + " €");
 		panel.add(scroll, BorderLayout.NORTH);
-		panel.add(label, BorderLayout.SOUTH);
+		JPanel sud = new JPanel(new BorderLayout());
+		JPanel bottoni = createPanelBottoni();
+		sud.add(label, BorderLayout.WEST);
+		sud.add(bottoni, BorderLayout.CENTER);
+		panel.add(sud, BorderLayout.SOUTH);
+		return panel;
+	}
+	
+	public JPanel createPanelBottoni() {
+		JPanel panel = new JPanel();
+		JButton aggiungi = new JButton("Aggiungi");
+		JButton rimuovi = new JButton("Rimuovi");
+		
+		//BOTTONE AGGIUNGI
+		aggiungi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FrameFilm frame = new FrameFilm(cinema);
+				frame.addWindowListener(new WindowListener() {
+					public void windowOpened(WindowEvent e) {}
+					
+					public void windowIconified(WindowEvent e) {}
+					
+					public void windowDeiconified(WindowEvent e) {}
+
+					public void windowDeactivated(WindowEvent e) {}
+					
+					public void windowClosing(WindowEvent e) {}
+					
+					public void windowClosed(WindowEvent e) {
+						refresh();
+					}
+					
+					public void windowActivated(WindowEvent e) {}
+				});
+				
+				frame.setVisible(true);
+			}
+		});
+		
+		//BOTTONE RIMUOVI
+		rimuovi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int[] film = incasso.getSelectedRows();
+				if (film.length == 0) JOptionPane.showMessageDialog(null, "Seleziona un elemento", "Attenzione!", JOptionPane.WARNING_MESSAGE);
+				else
+				{
+					for (int i = 0; i < film.length; i++)
+						try {
+							cinema.rimuoviFilm(listaFilm.get(film[i]-i));
+						} catch (PostoNonDisponibileException ex) {
+							JOptionPane.showMessageDialog(null, ex.getMessage(), "Attenzione!", JOptionPane.WARNING_MESSAGE);
+						}
+					
+					listaSpettacoli = cinema.getListaSpettacoli(cinema.postiDisponibili, "Tutte");
+					refresh();
+				}
+			}
+		});
+		
+		panel.add(aggiungi);
+		panel.add(rimuovi);
 		return panel;
 	}
 	
 	public JTable createIncassoPanel() {	
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
-		ArrayList<Spettacolo> listaSpettacoli = cinema.getListaSpettacoli(cinema.settimana);
 		String[] intestazione = {"Film", "Regista", "Durata", "Incasso"};
-		String[][] corpo = new String[listaSpettacoli.size()][6];
-		for (int i = 0; i < listaSpettacoli.size(); i++)
+		String[][] corpo = new String[listaFilm.size()][6];
+		for (int i = 0; i < listaFilm.size(); i++)
 		{
-			Spettacolo spettacolo = listaSpettacoli.get(i);
+			Film film = listaFilm.get(i);
 			for (int j = 0; j < 6; j++)
 			{
 				String s = "";
 				switch (j)
 				{
-					case 0 : s = spettacolo.getFilm().getNome();
+					case 0 : s = film.getNome();
 					break;
-					case 1 : s = spettacolo.getFilm().getRegista();
+					case 1 : s = film.getRegista();
 					break;
-					case 2 : s = spettacolo.getFilm().getDurata();
+					case 2 : s = film.getDurata();
 					break;
-					case 3 : s = cinema.getIncasso(spettacolo.getFilm()) + "€";
+					case 3 : s = cinema.getIncasso(film) + "€";
 					break;
 				}
 				corpo[i][j] = s;
@@ -318,9 +381,8 @@ public class FrameGestore extends JFrame {
 		//BOTTONE AGGIUNGI
 		aggiungi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AddFrame frame = new AddFrame(cinema);
+				AddFrame frame = new AddFrame(cinema, listaSpettacoli);
 				frame.setVisible(true);
-				
 				frame.addWindowListener(new RefreshListener());
 			}
 		});
@@ -328,9 +390,21 @@ public class FrameGestore extends JFrame {
 		//BOTTONE RIMUOVI
 		rimuovi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/*int colonne = tabella.getColumnCount();
-				int rigaAtuale = tabella.getSelectedRow();*/
-				//int colonna = tabella.getSelectedColumn();
+				int[] righe = tabella.getSelectedRows();
+				if (righe.length == 0) JOptionPane.showMessageDialog(null, "Seleziona un elemento", "Attenzione!", JOptionPane.WARNING_MESSAGE);
+				else
+				{
+					for (int i = 0; i < righe.length; i++)
+					{
+						try {
+							cinema.rimuoviSpettacolo(listaSpettacoli.get(righe[i]-i));
+							listaSpettacoli.remove(righe[i]-i);
+						} catch (PostoNonDisponibileException ex) {
+							JOptionPane.showMessageDialog(null, ex.getMessage(), "Attenzione", JOptionPane.WARNING_MESSAGE);
+						}
+					}
+					refresh();
+				}
 			}
 		});
 		

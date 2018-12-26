@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import Eccezioni.PostoNonDisponibileException;
 import GestoreLogin.Cliente;
+import GestoreProgrammazione.Film;
 import GestoreProgrammazione.Spettacolo;
 import GestoreSale.Posto;
 import GestoreSale.Sala;
@@ -18,6 +19,22 @@ public class GestorePrenotazioni {
 	
 	public ArrayList<PrenotazioniCliente> getListaPrenotazioni() {
 		return listaPrenotazioni;
+	}
+	
+	public ArrayList<Prenotazione> getListaPrenotazioni(Film film) {
+		ArrayList<Prenotazione> result = new ArrayList<Prenotazione>();
+		for (PrenotazioniCliente pc : listaPrenotazioni)
+		{
+			ArrayList<Prenotazione> lista = pc.getListaPrenotazioni();
+			for (Prenotazione p : lista)
+			{
+				Film f = p.getSpettacolo().getFilm();
+				if (f.equals(film))
+					result.add(p);
+			}
+		}
+		
+		return result;
 	}
 	
 	public PrenotazioniCliente getListaCliente(Cliente cliente) {

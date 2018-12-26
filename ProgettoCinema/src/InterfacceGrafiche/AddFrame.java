@@ -28,14 +28,16 @@ public class AddFrame extends JFrame {
 	private JComboBox<String> comboOre;
 	private JComboBox<String> comboMinuti;
 	private JTextField prezzoField;
+	private ArrayList<Spettacolo> listaSpettacoli;
 	
-	public AddFrame(Cinema cin) {
+	public AddFrame(Cinema cin, ArrayList<Spettacolo> spettacoli) {
 		super("Aggiungi spettacolo");
 		setLocation(500, 100);
 		setSize(300, 200);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setResizable(false);
 		cinema = cin;
+		listaSpettacoli = spettacoli;
 		comboSala = new JComboBox<Sala>();
 		comboFilm = new JComboBox<Film>();
 		comboGiorno = new JComboBox<String>();
@@ -91,6 +93,7 @@ public class AddFrame extends JFrame {
 				double prezzo = Double.parseDouble(prezzoField.getText());
 				Spettacolo spettacolo = new Spettacolo(sala, film, giorno, mese, anno, ora, prezzo);
 				cinema.aggiungiSpettacolo(spettacolo);
+				listaSpettacoli.add(spettacolo);
 			}
 		});
 		

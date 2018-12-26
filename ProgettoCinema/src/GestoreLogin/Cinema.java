@@ -121,7 +121,7 @@ public class Cinema {
 		ArrayList<Spettacolo> lista = new ArrayList<Spettacolo>();
 		for (Spettacolo s : listaDue)
 		{
-			if (isFruibile(s) && (sala.equals("Tutte") || (sala.equals(s.getSala() + ""))))
+			if (sala.equals("Tutte") || (sala.equals(s.getSala() + "")))
 				lista.add(s);
 		}
 		
@@ -135,6 +135,15 @@ public class Cinema {
 			if (c1.seleziona(s) && isFruibile(s) && cercaSpettacolo(listaSpettacoli, s))
 				listaSpettacoli.add(s);
 		return listaSpettacoli;
+	}
+	
+	public ArrayList<Spettacolo> getSpettacoliFruibili(Comparator<Spettacolo> c1, String sala) {
+		ArrayList<Spettacolo> spettacoli = getListaSpettacoli(c1, sala);
+		ArrayList<Spettacolo> lista = new ArrayList<Spettacolo>();
+		for (Spettacolo s : spettacoli)
+			if (isFruibile(s)) lista.add(s);
+		
+		return lista;
 	}
 	
 	public boolean cercaSpettacolo(ArrayList<Spettacolo> lista, Spettacolo spettacolo) {
@@ -183,6 +192,21 @@ public class Cinema {
 		gestorePrenotazioni.setIndisponibile(posto, sala, listaClienti, listaSpettacoli);
 	}
 	
+	public void aggiungiFilm(Film film) {
+		gestoreProgrammazione.aggiungiFilm(film);
+	}
+	
+	public void rimuoviFilm(Film film) throws PostoNonDisponibileException {
+		gestoreProgrammazione.rimuoviFilm(film);
+		aggiornaPrenotazioni(film);
+	}
+	
+	public void aggiornaPrenotazioni(Film film) throws PostoNonDisponibileException{
+		ArrayList<Prenotazione> listaPrenotazioni = gestorePrenotazioni.getListaPrenotazioni(film);
+		for (int i = 0; i < listaPrenotazioni.size(); i++)
+			gestorePrenotazioni.rimuoviPrenotazione(listaPrenotazioni.get(i), listaPrenotazioni.get(i).getCliente());
+	}
+	
 	public void aggiungiSpettacolo(Spettacolo spettacolo) {
 		ArrayList<Sala> listaSale = getListaSale();
 		for (Sala sala : listaSale)
@@ -191,6 +215,11 @@ public class Cinema {
 				spettacolo.getSala().setPosti(sala.getPosti());
 		}
 		gestoreProgrammazione.aggiungiSpettacolo(spettacolo);
+	}
+	
+	public void rimuoviSpettacolo(Spettacolo spettacolo) throws PostoNonDisponibileException{
+		gestoreProgrammazione.rimuoviSpettacolo(spettacolo);
+		aggiornaPrenotazioni(spettacolo.getFilm());
 	}
 	
 	public int getNumeroSpettacoli() {
