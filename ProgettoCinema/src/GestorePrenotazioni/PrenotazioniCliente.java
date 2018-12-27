@@ -1,38 +1,72 @@
 package GestorePrenotazioni;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import GestoreLogin.Cliente;
 import GestoreProgrammazione.Spettacolo;
 import GestoreSale.Posto;
 
-public class PrenotazioniCliente {
+/**
+ * PrenotazioniCliente è un'astrazione che mantiene una lista di prenotazioni per ogni cliente
+ * @author MarioELT
+ *
+ */
+public class PrenotazioniCliente implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	private Cliente cliente;
 	private ArrayList<Prenotazione> prenotazioniCliente;
 	
-	public PrenotazioniCliente(Cliente c) {
+	/**
+	 * Costruisce l'astrazione
+	 * @param customer cliente proprietario della lista
+	 */
+	public PrenotazioniCliente(Cliente customer) {
 		prenotazioniCliente = new ArrayList<Prenotazione>();
-		cliente = c;
+		cliente = customer;
 	}
 	
+	/**
+	 * Aggiunge una prenotazione
+	 * @param prenotazione prenotazione da aggiungere
+	 */
 	public void aggiungiPrenotazione(Prenotazione prenotazione) {
 		prenotazioniCliente.add(prenotazione);
 	}
 	
+	/**
+	 * Rimuove una prenotazione
+	 * @param prenotazione prenotazione da rimuovere
+	 */
 	public void rimuoviPrenotazione(Prenotazione prenotazione) {
 		prenotazioniCliente.remove(prenotazione);
 		//System.out.println("RIMOZIONE : " + prenotazioniCliente.remove(prenotazione));
 	}
 	
+	/**
+	 * Restituisce la lista di prenotazioni
+	 * @return lista di tutte le prenotazioni
+	 */
 	public ArrayList<Prenotazione> getListaPrenotazioni() {
 		return prenotazioniCliente;
 	}
 	
+	/**
+	 * Restituisce la prenotazione specificata in base all'indice
+	 * @param i indice della prenotazione
+	 * @return prenotazione nell'indice i
+	 */
 	public Prenotazione getPrenotazione(int i) {
 		return prenotazioniCliente.get(i);
 	}
 	
+	/**
+	 * Cerca una prenotazione in base ad un posto e uno spettacolo
+	 * @param posto posto da ricercare
+	 * @param spettacolo spettacolo da ricercare
+	 * @return posto posto che combacia alla ricerca
+	 */
 	public Posto searchPrenotazione(Posto posto, Spettacolo spettacolo) {
 		if (posto == null) return null;
 		for (int i = 0; i < prenotazioniCliente.size(); i++)
@@ -46,10 +80,18 @@ public class PrenotazioniCliente {
 		return null;
 	}
 	
+	/**
+	 * Restituisce il cliente
+	 * @return cliente
+	 */
 	public Cliente getCliente() {
 		return cliente;
 	}
 	
+	/**
+	 * Restituisce la grandezza della lista
+	 * @return grandezza della lista
+	 */
 	public int size() {
 		return prenotazioniCliente.size();
 	}

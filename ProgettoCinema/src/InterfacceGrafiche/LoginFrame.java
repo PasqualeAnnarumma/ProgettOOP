@@ -16,6 +16,11 @@ import GestoreLogin.Amministratore;
 import GestoreLogin.Cinema;
 import GestoreLogin.Cliente;
 
+/**
+ * LoginFrame è il frame che si occupa dell'input per il login
+ * @author MarioELT
+ *
+ */
 public class LoginFrame extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
@@ -25,6 +30,10 @@ public class LoginFrame extends JFrame {
 	private JButton registerButton;
 	private JButton loginButton;
 	
+	/**
+	 * Crea il frame
+	 * @param c oggetto cinema del sistema
+	 */
 	public LoginFrame(Cinema c) {
 		super("Login");
 		cinema = c;
@@ -37,18 +46,24 @@ public class LoginFrame extends JFrame {
 		add(body);
 	}
 	
+	/**
+	 * Crea il corpo centrale del frame
+	 * @return pannello centrale del frame
+	 */
 	public JPanel createBody() {
 		JPanel body = new JPanel();
 		body.setLayout(new BorderLayout());
 		JPanel fieldLogin = createField();
 		JPanel buttonLogin = createButtonLogin();
-		JPanel categoriaPanel = createCategoria();
 		body.add(fieldLogin, BorderLayout.NORTH);
 		body.add(buttonLogin, BorderLayout.CENTER);
-		body.add(categoriaPanel, BorderLayout.SOUTH);
 		return body;
 	}
 	
+	/**
+	 * Crea il pannello contenente l'username e la password per il login
+	 * @return pannello user e password
+	 */
 	public JPanel createField() {
 		JPanel field = new JPanel();
 		field.setLayout(new BorderLayout());
@@ -59,6 +74,10 @@ public class LoginFrame extends JFrame {
 		return field;
 	}
 	
+	/**
+	 * Crea il pannello con il pulsante di login
+	 * @return pannello con il pulsante di login
+	 */
 	public JPanel createButtonLogin() {
 		JPanel buttonLogin = new JPanel();
 		
@@ -123,11 +142,12 @@ public class LoginFrame extends JFrame {
 		return buttonLogin;
 	}
 	
-	public JPanel createCategoria() {
-		JPanel panel = new JPanel();
-		return panel;
-	}
-	
+	/**
+	 * Crea il pannello con la stringa e il JTetField specificati
+	 * @param txt stringa della label
+	 * @param field textField da inserire nel pannello
+	 * @return pannello con stringa e JTextField
+	 */
 	public JPanel createLine(String txt, JTextField field) {
 		JPanel line = new JPanel();
 		JLabel label = new JLabel(txt);

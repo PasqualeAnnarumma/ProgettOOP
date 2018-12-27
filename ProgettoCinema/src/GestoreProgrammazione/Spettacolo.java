@@ -1,12 +1,20 @@
 package GestoreProgrammazione;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import GestoreSale.Sala;
 
-public class Spettacolo implements Cloneable {
+/**
+ * Uno spettacolo è composto da un film e una sala e contiene altre informazioni come la data,
+ * il prezzo e l'ora
+ * @author MarioELT
+ *
+ */
+public class Spettacolo implements Cloneable, Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	private Sala sala;
 	private Film film;
 	private Calendar data;
@@ -14,6 +22,16 @@ public class Spettacolo implements Cloneable {
 	private double prezzo;
 	int i = 0;
 	
+	/**
+	 * Costruisce lo spettacolo
+	 * @param room sala dello spettacolo
+	 * @param movie film dello spettacolo
+	 * @param gg giorno di svolgimento
+	 * @param mm mese di svolgimento
+	 * @param yy anno di svolgimento
+	 * @param hour ora di inizio
+	 * @param price prezzo
+	 */
 	public Spettacolo(Sala room, Film movie, int gg, int mm, int yy, String hour, double price) {
 		sala = new Sala(room.getNumeroSala(), room.getRighe(), room.getColonne());
 		film = movie;
@@ -29,11 +47,19 @@ public class Spettacolo implements Cloneable {
 		prezzo = price;
 	}
 	
+	/**
+	 * Restituisce la sala dello spettacolo
+	 * @return sala dello spettacolo
+	 */
 	public Sala getSala() {
 		return sala.clone();
 	}
 	
-	public int getOre() {
+	/**
+	 * Restituisce l'intero corrispondente alle ore dell'ora di inizio
+	 * @return campo ore dell'ora di inizio
+	 */
+	private int getOre() {
 		int hh = (Integer.parseInt(ora.charAt(i) + "") * 10);
 		i++;
 		char ch = ora.charAt(i);
@@ -48,7 +74,11 @@ public class Spettacolo implements Cloneable {
 		return hh + mm;
 	}
 	
-	public int getMinuti() {
+	/**
+	 * Restituisce l'intero corrispondente ai minuti dell'ora di inizio
+	 * @return campo minuti dell'ora di inizio
+	 */
+	private int getMinuti() {
 		int hh = (Integer.parseInt(ora.charAt(i) + "") * 10);
 		i++;
 		int mm = 0;
@@ -62,36 +92,67 @@ public class Spettacolo implements Cloneable {
 		return hh + mm;
 	}
 	
+	/**
+	 * Restituisce il film dello spettacolo
+	 * @return film dello spettacolo
+	 */
 	public Film getFilm() {
 		return film;
 	}
 	
+	/**
+	 * Restituisce la data dello spettacolo
+	 * @return data dello spettacolo
+	 */
 	public Calendar getData() {
 		return data;
 	}
 	
+	/**
+	 * Restituisce il numero di posti disponibili nella sala dello spettacolo
+	 * @return numero di posti disponibili nella sala dello spettacolo
+	 */
 	public int getPostiDisponibili() {
 		return sala.getPostiDisponibili();
 	}
 	
+	/**
+	 * Restituisce il numero di posti liberi nella sala dello spettacolo
+	 * @return numero di posti liberi nella sala dello spettacolo
+	 */
 	public int getPostiLiberi() {
 		int posti = sala.getRighe() * sala.getColonne();
 		int postiOccupati = sala.getPostiOccupati();
 		return posti - postiOccupati;
 	}
 	
+	/**
+	 * Restituisce la data sotto forma di stringa nel formato gg/mm/yyyy
+	 * @return la stringa della data
+	 */
 	public String stringDate() {
 		return data.get(Calendar.DAY_OF_MONTH) + "/" + (data.get(Calendar.MONTH) + 1) + "/" + data.get(Calendar.YEAR);
 	}
 	
+	/**
+	 * Restituisce l'ora di inizio
+	 * @return ora di inizio
+	 */
 	public String getOra() {
 		return ora;
 	}
 	
+	/**
+	 * Restituisce il prezzo
+	 * @return prezzo
+	 */
 	public double getPrezzo() {
 		return prezzo;
 	}
 	
+	/**
+	 * Effettua una clonazione perfetta
+	 */
 	public Spettacolo clone() {
 		try {
 			Spettacolo clone = (Spettacolo) super.clone();
@@ -103,10 +164,18 @@ public class Spettacolo implements Cloneable {
 		return null;
 	}
 	
+	/**
+	 * Restituisce la stringa dello spettacolo nel formato standard
+	 * @return stringa nel formato standard dello spettacolo
+	 */
 	public String toString() {
 		return getClass().getSimpleName() + "[sala=" + sala + ",film=" + film + ",ora=" + ora + ",prezzo=" + prezzo + ",data=" + stringDate() + "]";
 	}
 	
+	/**
+	 * Controlla se due spettacoli sono uguali
+	 * @return true se sono uguali, false altrimenti
+	 */
 	public boolean equals(Object obj) {
 		if (obj == null) return false;
 		if (obj.getClass() != getClass()) return false;
@@ -114,6 +183,10 @@ public class Spettacolo implements Cloneable {
 		return s.sala.equals(sala) && s.film.equals(film) && s.data.equals(data) && s.ora.equals(ora) && s.prezzo == prezzo;
 	}
 	
+	/**
+	 * Controlla se è possibile prenotare un posto per lo spettacolo, cioè se inizia tra più di 12 ore
+	 * @return true se è prenotabile, cioè se inizia tra più di 12 ore, false altrimenti
+	 */
 	public boolean isPrenotable() {
 		Calendar cal = Calendar.getInstance();
 		long diff = data.getTimeInMillis() - cal.getTimeInMillis();
@@ -122,6 +195,12 @@ public class Spettacolo implements Cloneable {
 		return false;
 	}
 	
+	/**
+	 * Confronta due Calendar
+	 * @param c1 primo Calendar
+	 * @param c2 secondo Calendar
+	 * @return un intero maggiore o uguale a 0 se la data del primo calendar è maggiore o uguale a quella del secondo, un valore negativo altrimenti
+	 */
 	public int compareCalendar(Calendar c1, Calendar c2) {
 		if (c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR))
 			if (c1.get(Calendar.MONTH) == c2.get(Calendar.MONTH))

@@ -4,17 +4,20 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
 import GestoreLogin.Cinema;
 import GestoreProgrammazione.Film;
 
+/**
+ * FrameFilm rappresenta l'interfaccia grafica per l'aggiunta dei film
+ * @author MarioELT
+ *
+ */
 public class FrameFilm extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
@@ -24,6 +27,10 @@ public class FrameFilm extends JFrame{
 	private JComboBox<Integer> comboOre;
 	private JComboBox<Integer> comboMinuti;
 	
+	/**
+	 * Costruisce il frame
+	 * @param cin oggetto cinema del sistema
+	 */
 	public FrameFilm(Cinema cin) {
 		super("Aggiungi film");
 		cinema = cin;
@@ -37,6 +44,10 @@ public class FrameFilm extends JFrame{
 		pack();
 	}
 	
+	/**
+	 * Crea il pannello per il corpo centrale
+	 * @return pannello corpo centrale
+	 */
 	public JPanel createBody() {
 		JPanel body = new JPanel(new GridLayout(4, 1));
 		JPanel panelName = createPanelName();
@@ -63,6 +74,10 @@ public class FrameFilm extends JFrame{
 		return body;
 	}
 	
+	/**
+	 * Crea il pannello per l'inserimento del nome del film
+	 * @return pannello inserimento film
+	 */
 	public JPanel createPanelName() {
 		JPanel panel = new JPanel();
 		JLabel label = new JLabel("Nome film : ");
@@ -72,6 +87,10 @@ public class FrameFilm extends JFrame{
 		return panel;
 	}
 	
+	/**
+	 * Crea il pannello per l'inserimento della durata
+	 * @return panello inserimento durata
+	 */
 	public JPanel createPanelDurata() {
 		JPanel panel = new JPanel();
 		JLabel label = new JLabel("Durata : ");
@@ -89,6 +108,10 @@ public class FrameFilm extends JFrame{
 		return panel;
 	}
 	
+	/**
+	 * Crea il pannello per l'inserimento del produttore
+	 * @return pannello inserimento produttore
+	 */
 	public JPanel createPanelProduttore() {
 		JPanel panel = new JPanel();
 		JLabel label = new JLabel("Nome Produttore : ");

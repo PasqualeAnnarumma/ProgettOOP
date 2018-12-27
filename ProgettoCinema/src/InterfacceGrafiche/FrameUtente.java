@@ -28,6 +28,11 @@ import GestoreProgrammazione.Film;
 import GestoreProgrammazione.Spettacolo;
 import GestoreSale.Sala;
 
+/**
+ * Il FrameUtente è l'interfaccia grafica che si occupa della visualizzazione del frame per l'utente
+ * @author MarioELT
+ *
+ */
 public class FrameUtente extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
@@ -42,6 +47,11 @@ public class FrameUtente extends JFrame{
 	//private JPanel currSlot;
 	private JComboBox<String> comboOrdina;
 	
+	/**
+	 * Costruisce il frame dell'utente
+	 * @param user utente che ha effettuato il login
+	 * @param cinema oggetto cinema del sistema
+	 */
 	public FrameUtente(Cliente user, Cinema cinema) {
 		super("Prenotazione posto (" + user.getUsername() + ": " + user.getEta() + ")");
 		utente = user;
@@ -65,6 +75,10 @@ public class FrameUtente extends JFrame{
 		add(body);
 	}
 	
+	/**
+	 * Crea il pannello centrale
+	 * @return panello centrale
+	 */
 	public JPanel createBody() {
 		JPanel body = new JPanel();
 		body.setLayout(new BorderLayout());
@@ -75,6 +89,10 @@ public class FrameUtente extends JFrame{
 		return body;
 	}
 	
+	/**
+	 * Crea il pannello per il menù a tendina
+	 * @return pannello menù a tendina
+	 */
 	public JMenuBar createToolBar() {
 		JMenuBar toolBar = new JMenuBar();
 		JMenu file = new JMenu("File");
@@ -91,6 +109,10 @@ public class FrameUtente extends JFrame{
 		return toolBar;
 	}
 	
+	/**
+	 * Crea il pannello per la ricerca degli spettacoli
+	 * @return pannello ricerca spettacoli
+	 */
 	public JPanel createToolPanel() {
 		JPanel toolPanel = new JPanel();
 		toolPanel.setLayout(new BorderLayout());
@@ -113,6 +135,10 @@ public class FrameUtente extends JFrame{
 		return toolPanel;
 	}
 	
+	/**
+	 * Crea il pannello con tutti i film
+	 * @return pannello con i film
+	 */
 	public JScrollPane createCenterPanel() {
 		ArrayList<Spettacolo> listaSpettacoli = new ArrayList<Spettacolo>();
 		if (comboOrdina.getSelectedItem().equals("Cronologicamente"))
@@ -126,6 +152,11 @@ public class FrameUtente extends JFrame{
 		return filmPanel;
 	}
 	
+	/**
+	 * Crea lo scrollPane con tutti i film
+	 * @param listaSpettacoli lista degli spettacoli da inserire
+	 * @return JScrollPane con gli spettacoli
+	 */
 	public JScrollPane createFilmPanel(ArrayList<Spettacolo> listaSpettacoli) {
 		JPanel panel = new JPanel();
 		JScrollPane scroll = new JScrollPane(panel);
@@ -135,12 +166,16 @@ public class FrameUtente extends JFrame{
 		for (int i = 0; i < listaSpettacoli.size(); i++)
 		{
 			Spettacolo show = listaSpettacoli.get(i);
-			JPanel slot = createSlotFilm(show);
+			JPanel slot = createSlotSpettacolo(show);
 			panel.add(slot);
 		}
 		return scroll;
 	}
 	
+	/**
+	 * Crea il pannello per le opzioni di ricerca
+	 * @return pannello opzioni di ricerca
+	 */
 	public JPanel createOptionPanel() {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
@@ -151,6 +186,10 @@ public class FrameUtente extends JFrame{
 		return panel;
 	}
 	
+	/**
+	 * Crea il pannello per la selezione del tipo di ordinamento
+	 * @return pannello ordinamento
+	 */
 	public JPanel createProgPanel() {
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(new EtchedBorder(), "Ordinamento"));
@@ -159,6 +198,10 @@ public class FrameUtente extends JFrame{
 		return panel;
 	}
 	
+	/**
+	 * Crea il pannello per la selezione della sala
+	 * @return pannello selezione sala
+	 */
 	public JPanel createSalaPanel() {
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(new EtchedBorder(), "Sala"));
@@ -167,7 +210,12 @@ public class FrameUtente extends JFrame{
 		return panel;
 	}
 	
-	public JPanel createSlotFilm(Spettacolo show) {
+	/**
+	 * Crea il pannello per lo slot dello spettacolo
+	 * @param show spettacolo da visualizzare
+	 * @return pannello visualizzazione spettacolo
+	 */
+	public JPanel createSlotSpettacolo(Spettacolo show) {
 		JPanel slot = new JPanel();
 		slot.setBorder(new EtchedBorder());
 		slot.setLayout(new GridLayout(4, 2));
@@ -223,15 +271,6 @@ public class FrameUtente extends JFrame{
 			}
 			
 			public void mouseClicked(MouseEvent e) {
-				/*if (slot.getBackground() != coloreSelezionato)
-				{
-					if (currSlot != null)
-						currSlot.setBackground(null);
-					slot.setBackground(coloreSelezionato);
-					currSlot = slot;
-				}
-				else
-					slot.setBackground(null);*/
 				FrameSala frame = new FrameSala(cinema, show);
 				frame.addWindowListener(new RefreshListener());
 				frame.setVisible(true);
@@ -242,6 +281,9 @@ public class FrameUtente extends JFrame{
 		return slot;
 	}
 	
+	/**
+	 * Aggiorna il frame
+	 */
 	public void refresh() {
 		body.removeAll();
 		body.repaint();
@@ -250,6 +292,11 @@ public class FrameUtente extends JFrame{
 		body.repaint();
 	}
 	
+	/**
+	 * RefreshListener è un WindowListener che aggiorna il frame alla chiusura di un altro
+	 * @author MarioELT
+	 *
+	 */
 	class RefreshListener implements WindowListener{
 
 		public void windowOpened(WindowEvent e) {}

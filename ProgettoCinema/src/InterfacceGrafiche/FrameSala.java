@@ -24,6 +24,12 @@ import GestorePrenotazioni.Prenotazione;
 import GestoreProgrammazione.Spettacolo;
 import GestoreSale.Posto;
 import GestoreSale.Sala;
+
+/**
+ * FrameSala è il frame che si occupa della visualizzazione della sala
+ * @author MarioELT
+ *
+ */
 public class FrameSala extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
@@ -39,6 +45,11 @@ public class FrameSala extends JFrame {
 	private JRadioButton cancellazione;
 	private Prenotazione prenotazione;
 	
+	/**
+	 * Costruisce il frame
+	 * @param cinema oggetto cinema del sistema
+	 * @param show spettacolo da visualizzare
+	 */
 	public FrameSala(Cinema cinema, Spettacolo show) {
 		super();
 		this.cinema = cinema;
@@ -54,6 +65,10 @@ public class FrameSala extends JFrame {
 		pack();
 	}
 	
+	/**
+	 * Crea il corpo centrale per la visualizzazione della sala
+	 * @return pannello centrale
+	 */
 	public JPanel createBody() {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
@@ -66,6 +81,10 @@ public class FrameSala extends JFrame {
 		return panel;
 	}
 	
+	/**
+	 * Crea il menu a tendina
+	 * @return menu a tendina
+	 */
 	public JMenuBar createToolBar() {
 		JMenuBar toolBar = new JMenuBar();
 		JMenu file = new JMenu("File");
@@ -82,6 +101,10 @@ public class FrameSala extends JFrame {
 		return toolBar;
 	}
 	
+	/**
+	 * Crea il pannello per la visualizzazione della sala
+	 * @return pannello visualizzazione sala
+	 */
 	public JPanel createSala() {
 		JPanel panel = new JPanel();
 		Sala sala = spettacolo.getSala();
@@ -106,6 +129,11 @@ public class FrameSala extends JFrame {
 		return panel;
 	}
 	
+	/**
+	 * Crea il panello header. Cioè contenente la sequenza di numeri che identifica le colonne
+	 * @param sala sala per le colonne
+	 * @return pannello header
+	 */
 	public JPanel createHeader(Sala sala) {
 		JPanel header = new JPanel();
 		header.setLayout(new GridLayout(1, sala.getColonne()+2));
@@ -120,6 +148,11 @@ public class FrameSala extends JFrame {
 		return header;
 	}
 	
+	/**
+	 * Crea il box per la visualizzazione della sala
+	 * @param sala sala per la visualizzazione
+	 * @return pannello box
+	 */
 	public JPanel createBox(Sala sala) {
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(sala.getRighe(), sala.getColonne()+1));
@@ -141,6 +174,10 @@ public class FrameSala extends JFrame {
 		return panel;
 	}
 	
+	/**
+	 * Crea il pannello per la visualizzazione dei controlli: prenota, acquista, cacella
+	 * @return pannello visualizzazione controlli
+	 */
 	public JPanel createControl() {
 		JPanel control = new JPanel();
 		prenota = new JRadioButton("Prenota");
@@ -163,16 +200,22 @@ public class FrameSala extends JFrame {
 		return control;
 	}
 	
-	public JPanel createPosto(Posto p, Prenotazione prenotazione) {
+	/**
+	 * Crea il pannello per la visualizzazione del posto
+	 * @param posto posto da visualizzare
+	 * @param prenotazione prenotazione per controllare lo stato del posto
+	 * @return pannello per la visualizzazione del posto
+	 */
+	public JPanel createPosto(Posto posto, Prenotazione prenotazione) {
 		JPanel panel = new JPanel();
 		String sedile = "";
-		if (!p.isDisponibile())
+		if (!posto.isDisponibile())
 			sedile = ("posto_indisponibile");
-		else if (!p.isOccupato())
+		else if (!posto.isOccupato())
 			sedile = ("posto_libero");
-		else if (p.isAcquistato())
+		else if (posto.isAcquistato())
 			sedile = ("posto_occupato");
-		else if (p.isOccupato())
+		else if (posto.isOccupato())
 			sedile = ("posto_prenotato");
 		
 		JLabel iconaPosto = new JLabel();
@@ -189,11 +232,11 @@ public class FrameSala extends JFrame {
 			public void mouseEntered(MouseEvent e) {}
 			
 			public void mouseClicked(MouseEvent e) {
-				Prenotazione prenotazione = new Prenotazione(spettacolo, p, cliente);
+				Prenotazione prenotazione = new Prenotazione(spettacolo, posto, cliente);
 				float sconto = cinema.cercaSconto(cliente, spettacolo);
 				prenotazione.setPrezzo(prenotazione.getSpettacolo().getPrezzo() - (prenotazione.getSpettacolo().getPrezzo() * sconto));
 				try {
-					if (!p.isDisponibile()) JOptionPane.showMessageDialog(null, "Posto non disponibile!", "ATTENZIONE!", JOptionPane.ERROR_MESSAGE);
+					if (!posto.isDisponibile()) JOptionPane.showMessageDialog(null, "Posto non disponibile!", "ATTENZIONE!", JOptionPane.ERROR_MESSAGE);
 					else if (prenota.isSelected())
 					{
 						//POSTO, SALA E SPETTACOLO
@@ -206,15 +249,15 @@ public class FrameSala extends JFrame {
 					{
 						/*System.out.println("CANC VECCHIA : " + prenotazione);
 						System.out.println("CANCELLAZIONE : " + prenotazione);*/
-						Prenotazione pren = cinema.cercaPrenotazione(p, spettacolo);
-						if (pren != null) pren.setPosto(p);
+						Prenotazione pren = cinema.cercaPrenotazione(posto, spettacolo);
+						if (pren != null) pren.setPosto(posto);
 						cinema.rimuoviPrenotazione(cliente, pren);
 						String sedile = ("posto_libero");
 						iconaPosto.setIcon(creaPosto(sedile));
 					}
 					else if (acquisto.isSelected())
 					{
-						cinema.acquistaPosto(cliente, prenotazione, p);
+						cinema.acquistaPosto(cliente, prenotazione, posto);
 						//System.out.println("ACQUISTO : " + prenotazione);
 						String sedile = ("posto_occupato");
 						iconaPosto.setIcon(creaPosto(sedile));
@@ -228,6 +271,11 @@ public class FrameSala extends JFrame {
 		return panel;
 	}
 	
+	/**
+	 * Crea l'icona per il posto
+	 * @param sedile nome dell'immagine
+	 * @return icona posto
+	 */
 	public ImageIcon creaPosto(String sedile) {
 		ImageIcon myPicture = new ImageIcon("src\\icone\\" + sedile + ".png");
 		return myPicture;

@@ -16,6 +16,11 @@ import GestoreProgrammazione.Film;
 import GestoreProgrammazione.Spettacolo;
 import GestoreSale.Sala;
 
+/**
+ * AddFrame rappresenta il frame per l'aggiunta degli spettacoli nella programmazione
+ * @author MarioELT
+ *
+ */
 public class AddFrame extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
@@ -30,6 +35,11 @@ public class AddFrame extends JFrame {
 	private JTextField prezzoField;
 	private ArrayList<Spettacolo> listaSpettacoli;
 	
+	/**
+	 * Costruisce il frame
+	 * @param cin cinema
+	 * @param spettacoli lista degli spettacoli
+	 */
 	public AddFrame(Cinema cin, ArrayList<Spettacolo> spettacoli) {
 		super("Aggiungi spettacolo");
 		setLocation(500, 100);
@@ -50,6 +60,10 @@ public class AddFrame extends JFrame {
 		add(body);
 	}
 	
+	/**
+	 * Crea il pannello per la programmazione
+	 * @return pannello programmazione
+	 */
 	public JPanel creaProgrammazione() {
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(6, 1));
@@ -69,6 +83,10 @@ public class AddFrame extends JFrame {
 		return panel;
 	}
 	
+	/**
+	 * Crea il pannello con i pulsanti
+	 * @return pannello con i pulsanti
+	 */
 	public JPanel createButtonPanel() {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
@@ -103,6 +121,10 @@ public class AddFrame extends JFrame {
 		return panel;
 	}
 	
+	/**
+	 * Crea il pannello per l'inserimento del prezzo
+	 * @return pannello per il prezzo
+	 */
 	public JPanel creaPrezzoPanel() {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
@@ -116,6 +138,10 @@ public class AddFrame extends JFrame {
 		return panel;
 	}
 	
+	/**
+	 * Crea il pannello per l'inserimento dell'ora di inizio
+	 * @return pannello inserimento ora
+	 */
 	public JPanel createPanelOra() {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
@@ -133,6 +159,10 @@ public class AddFrame extends JFrame {
 		return panel;
 	}
 	
+	/**
+	 * Crea il pannello per l'inserimento della data
+	 * @return pannello per la data
+	 */
 	public JPanel creaPanelData() {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
@@ -153,6 +183,10 @@ public class AddFrame extends JFrame {
 		return panel;
 	}
 	
+	/**
+	 * Crea il pannello per l'inserimento della sala
+	 * @return pannello per la sala
+	 */
 	public JPanel createComboPanel() {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
@@ -167,6 +201,10 @@ public class AddFrame extends JFrame {
 		return panel;
 	}
 	
+	/**
+	 * Crea il pannello per l'inserimento del film
+	 * @return pannello per il film
+	 */
 	public JPanel createComboFilm() {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
@@ -181,18 +219,27 @@ public class AddFrame extends JFrame {
 		return panel;
 	}
 	
+	/**
+	 * Riempie la comboBox per la sala
+	 */
 	public void popolaCombo() {
 		ArrayList<Sala> listaSpettacoli = cinema.getListaSale();
 		for (Sala sala : listaSpettacoli)
 			comboSala.addItem(sala);
 	}
 	
+	/**
+	 * Riempie la comboBox per i film
+	 */
 	public void popolaFilm() {
 		ArrayList<Film> listaFilm = cinema.getListaFilm();
 		for (Film film : listaFilm)
 			comboFilm.addItem(film);
 	}
 	
+	/**
+	 * Riempie le comboBox per la data
+	 */
 	public void popolaData() {
 		for (int i = 1; i <= 31; i++)
 		{
@@ -214,6 +261,9 @@ public class AddFrame extends JFrame {
 			comboAnno.addItem((2018 + i) + "");
 	}
 	
+	/**
+	 * Riempie le comboBox per l'ora
+	 */
 	public void popolaOra() {
 		for (int i = 1; i <= 24; i++)
 		{

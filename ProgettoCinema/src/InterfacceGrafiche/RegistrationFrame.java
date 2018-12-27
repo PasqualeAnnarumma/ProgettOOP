@@ -18,6 +18,12 @@ import Eccezioni.AccountGiaEsistenteException;
 import GestoreLogin.Cinema;
 import GestoreLogin.Cliente.Categoria;
 
+/**
+ * Il RegistrationFrame rappresenta l'interfaccia grafica che si occupa della visualizzazione
+ * dei componenti per la registrazione di un nuovo utente
+ * @author MarioELT
+ *
+ */
 public class RegistrationFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 
@@ -32,6 +38,10 @@ public class RegistrationFrame extends JFrame {
 	//private JPanel condizioniPanel;
 	private Cinema cinema;
 	
+	/**
+	 * Costruisce il frame
+	 * @param cinema oggetto cinema del sistema
+	 */
 	public RegistrationFrame(Cinema cinema) {
 		super("Cinema - Registrazione");
 		this.cinema = cinema;
@@ -43,24 +53,20 @@ public class RegistrationFrame extends JFrame {
 		comboMese = new JComboBox<String>();
 		comboAnno = new JComboBox<String>();
 		popolaData();
-		add(createFields(), BorderLayout.CENTER);
+		add(creaCampi(), BorderLayout.CENTER);
 		add(createConfirmButton(), BorderLayout.SOUTH);
 	}
-
-	private JPanel createFields() {
-		JPanel panel = new JPanel(new BorderLayout());
-		JPanel campi = creaCampi();
-		
-		panel.add(campi, BorderLayout.CENTER);
-		return panel;
-	}
 	
+	/**
+	 * Crea il pannello con i campi per la registrazione
+	 * @return pannello con i campi della registrazione
+	 */
 	public JPanel creaCampi() {
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(5, 1));
 		
 		JPanel userPanel = createUserPanel();
-		JPanel passwordPanel = createPswwrodPanel();
+		JPanel passwordPanel = createPasswordPanel();
 		JPanel groupPanel = createGroupPanel();
 		JPanel etaPanel = createEtaPanel();
 		JPanel condizioniPanel = createCondizioniPanel();
@@ -74,6 +80,10 @@ public class RegistrationFrame extends JFrame {
 		return panel;
 	}
 	
+	/**
+	 * Crea il pannello per l'inserimento del nome utente
+	 * @return pannello nome utente
+	 */
 	private JPanel createUserPanel() {
 		JPanel panel = new JPanel();
 		userField = new JTextField(10);
@@ -84,7 +94,11 @@ public class RegistrationFrame extends JFrame {
 		return panel;
 	}
 	
-	private JPanel createPswwrodPanel() {
+	/**
+	 * Crea il pannello per la visualizzazione del campo password
+	 * @return pannello inserimento password
+	 */
+	private JPanel createPasswordPanel() {
 		JPanel panel = new JPanel();
 		passwordField = new JPasswordField(10);
 		JPanel passwordPanel = new JPanel(new GridLayout(1, 2));
@@ -94,6 +108,10 @@ public class RegistrationFrame extends JFrame {
 		return panel;
 	}
 	
+	/**
+	 * Crea il pannello per la visualizzazione della tipologia di studente
+	 * @return pannello tipologia studente
+	 */
 	private JPanel createGroupPanel() {
 		JPanel panel = new JPanel();
 		groupBox = new JComboBox<Categoria>();
@@ -109,6 +127,10 @@ public class RegistrationFrame extends JFrame {
 		return panel;
 	}
 	
+	/**
+	 * Crea il pannello per la selezione della data di nascita
+	 * @return pannello data nascita
+	 */
 	private JPanel createEtaPanel() {
 		JPanel panel = new JPanel();
 		JPanel etaPanel = new JPanel();
@@ -120,6 +142,10 @@ public class RegistrationFrame extends JFrame {
 		return panel;
 	}
 	
+	/**
+	 * Crea il pannello per la visualizzazione delle condizioni
+	 * @return pannello condizioni
+	 */
 	private JPanel createCondizioniPanel() {
 		JPanel panel = new JPanel();
 		JPanel condizioniPanel = new JPanel();
@@ -133,7 +159,11 @@ public class RegistrationFrame extends JFrame {
 		panel.add(condizioniPanel);
 		return panel;
 	}
-
+	
+	/**
+	 * Crea il pannello con il pulsante di conferma
+	 * @return pannello con pulsante di conferma
+	 */
 	private JPanel createConfirmButton() {
 		JPanel panel = new JPanel();
 		JButton confirmButton = new JButton("Conferma");
@@ -168,6 +198,9 @@ public class RegistrationFrame extends JFrame {
 		return panel;
 	}
 	
+	/**
+	 * Riempie le comboBox per la selezione della data
+	 */
 	public void popolaData() {
 		for (int i = 1; i <= 31; i++)
 		{
