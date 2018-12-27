@@ -11,6 +11,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -69,7 +70,7 @@ public class FrameUtente extends JFrame{
 			combo.addItem(""+sala.getNumeroSala());
 		}
 		setLocation(500, 100);
-		setSize(450, 400);
+		setSize(500, 400);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		body = createBody();
 		add(body);
@@ -217,7 +218,7 @@ public class FrameUtente extends JFrame{
 	 */
 	public JPanel createSlotSpettacolo(Spettacolo show) {
 		JPanel slot = new JPanel();
-		slot.setBorder(new EtchedBorder());
+		//slot.setBorder(new EtchedBorder());
 		slot.setLayout(new GridLayout(4, 2));
 		Film film = show.getFilm();
 		Sala sala = show.getSala();
@@ -246,6 +247,9 @@ public class FrameUtente extends JFrame{
 							+ "</html>");
 		}
 		JLabel numeroSala = new JLabel("Sala " + sala.getNumeroSala());
+		JLabel miniatura = new JLabel();
+		String copertina = show.getFilm().getCopertina();
+		miniatura.setIcon(new ImageIcon("src\\copertine\\" + copertina + ".jpg"));
 		slot.add(nomeFilm);
 		slot.add(nomeRegista);
 		slot.add(durata);
@@ -254,7 +258,13 @@ public class FrameUtente extends JFrame{
 		slot.add(prezzo);
 		slot.add(numeroSala);
 		
-		slot.addMouseListener(new MouseListener() {
+		JPanel panel = new JPanel(new BorderLayout());
+		JPanel imgPanel = new JPanel();
+		imgPanel.add(miniatura);
+		panel.add(imgPanel, BorderLayout.WEST);
+		panel.add(slot, BorderLayout.CENTER);
+		
+		panel.addMouseListener(new MouseListener() {
 			
 			public void mouseReleased(MouseEvent e) {}
 			
@@ -262,12 +272,18 @@ public class FrameUtente extends JFrame{
 			
 			public void mouseExited(MouseEvent e) {
 				if (slot.getBackground() != coloreSelezionato)
+				{
+					imgPanel.setBackground(null);
 					slot.setBackground(null);
+				}
 			}
 			
 			public void mouseEntered(MouseEvent e) {
 				if (slot.getBackground() != coloreSelezionato)
+				{
+					imgPanel.setBackground(colore);
 					slot.setBackground(colore);
+				}
 			}
 			
 			public void mouseClicked(MouseEvent e) {
@@ -277,8 +293,7 @@ public class FrameUtente extends JFrame{
 			}
 			
 		});
-		
-		return slot;
+		return panel;
 	}
 	
 	/**

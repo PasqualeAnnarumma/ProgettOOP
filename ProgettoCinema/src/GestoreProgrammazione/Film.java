@@ -10,20 +10,23 @@ import java.io.Serializable;
 public class Film implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
-	String titolo;
-	String durata;
-	String regista;
+	private String titolo;
+	private String durata;
+	private String regista;
+	String copertina;
 	
 	/**
 	 * Costruisce il film
 	 * @param name nome del film
 	 * @param duration durata del film
 	 * @param producer regista del film
+	 * @param cop nome dell'immagine copertina
 	 */
-	public Film (String name, String duration, String producer) {
+	public Film (String name, String duration, String producer, String cop) {
 		titolo = name;
 		durata = duration;
 		regista = producer;
+		copertina = cop;
 	}
 	
 	/**
@@ -56,5 +59,13 @@ public class Film implements Serializable{
 	public String toString() {
 		//return getClass().getSimpleName() + "[nome=" + nome + ",durata=" + durata + ",regista=" + regista + "]";
 		return titolo;
+	}
+	
+	/**
+	 * Restituisce il nome dell'immagine copertina
+	 * @return nome immagine copertina
+	 */
+	public String getCopertina() {
+		return copertina;
 	}
 }

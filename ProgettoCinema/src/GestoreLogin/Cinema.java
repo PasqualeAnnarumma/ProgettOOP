@@ -1,5 +1,6 @@
 package GestoreLogin;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -301,6 +302,9 @@ public class Cinema implements Serializable{
 	public void rimuoviFilm(Film film) throws PostoNonDisponibileException {
 		gestoreProgrammazione.rimuoviFilm(film);
 		rimuoviPrenotazioniFilm(film);
+		String copertina = film.getCopertina();
+		File file = new File("src\\copertine\\" + copertina + ".jpg");
+		file.delete();
 	}
 	
 	/**

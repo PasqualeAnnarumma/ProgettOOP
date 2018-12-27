@@ -14,6 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+
 import Eccezioni.AccountGiaEsistenteException;
 import GestoreLogin.Cinema;
 import GestoreLogin.Cliente;
@@ -53,6 +54,21 @@ public class Starter {
 		}
 		else
 		{
+			/*String directory = "src\\copertine";
+			String percorso = "D:\\mario\\Progetto Java\\";
+			String[] nomi = {"Shutter island", "L'ora più buia", "Inception", "Un sacchetto pieno di biglie"};
+				
+			try {
+				for (int i = 0; i < nomi.length; i++)
+				{
+					File origine = new File(percorso + nomi[i] + ".jpg");
+					File destinazione = new File(directory + "\\" + nomi[i]);
+					Cinema.copyFile(origine, destinazione);
+				}
+			} catch (IOException e1) {
+				JOptionPane.showMessageDialog(null, e1.getMessage(), "Errore!", JOptionPane.ERROR_MESSAGE);
+			}*/
+			
 			GestoreSale gestoreSale = cin.getGestoreSale();
 			GestoreProgrammazione gestoreProgrammazione = cin.getGestoreProgrammazione();
 			GestoreSconti gestoreSconti = cin.getGestoreSconti();
@@ -71,16 +87,16 @@ public class Starter {
 			cin.aggiungiSala(7, 8);
 
 			
-			Film film = new Film("Shutter island", "2:18", "Martin Scorsese");
+			Film film = new Film("Shutter island", "2:18", "Martin Scorsese", "Shutter island");
 			Spettacolo spettacolo = new Spettacolo(gestoreSale.getListaSale().get(0), film, 27, 12, 2018, "06:02", 9.7);
 			gestoreProgrammazione.aggiungiSpettacolo(spettacolo);
-			film = new Film("L'ora più buia", "2:50", "Joe Wright");
+			film = new Film("L'ora più buia", "2:50", "Joe Wright", "L'ora più buia");
 			spettacolo = new Spettacolo(gestoreSale.getListaSale().get(1), film, 29, 12, 2018, "23:30", 10.5);
 			gestoreProgrammazione.aggiungiSpettacolo(spettacolo);
-			film = new Film("Inception", "2:28", "Christopher Nolan");
+			film = new Film("Inception", "2:28", "Christopher Nolan", "Inception");
 			spettacolo = new Spettacolo(gestoreSale.getListaSale().get(0), film, 28, 12, 2018, "20:30", 10.5);
 			gestoreProgrammazione.aggiungiSpettacolo(spettacolo);
-			film = new Film("Un sacchetto pieno di biglie", "1:50", "Christian Duguay");
+			film = new Film("Un sacchetto pieno di biglie", "1:50", "Christian Duguay", "Un sacchetto pieno di biglie");
 			spettacolo = new Spettacolo(gestoreSale.getListaSale().get(2), film, 30, 12, 2018, "22:32", 8.7);
 			gestoreProgrammazione.aggiungiSpettacolo(spettacolo);
 			
@@ -161,11 +177,9 @@ public class Starter {
 					out.writeObject(cinema);
 					out.close();
 				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-					//JOptionPane.showMessageDialog(null, "Errore durante il salvataggio del file!", "Errore!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Errore durante il salvataggio del file!", "Errore!", JOptionPane.ERROR_MESSAGE);
 				} catch (IOException e1) {
-					e1.printStackTrace();
-					//JOptionPane.showMessageDialog(null, "Errore durante il salvataggio del file!", "Errore!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Errore durante il salvataggio del file!", "Errore!", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 			

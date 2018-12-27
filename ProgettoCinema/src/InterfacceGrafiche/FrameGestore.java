@@ -201,7 +201,7 @@ public class FrameGestore extends JFrame {
 		JTabbedPane tab = new JTabbedPane();
 		tab.add("Programmazione", createProgrammazioneView());
 		tab.add("Sale", createSalaTab());
-		tab.add("Incasso", createIncassoView());
+		tab.add("Film", createIncassoView());
 		tab.add("Sconti", createScontiView());
 		return tab;
 	}
