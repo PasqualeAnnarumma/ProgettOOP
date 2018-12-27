@@ -51,7 +51,7 @@ public class Starter {
 		Spettacolo spettacolo = new Spettacolo(gestoreSale.getListaSale().get(0), film, 27, 12, 2018, "06:02", 9.7);
 		gestoreProgrammazione.aggiungiSpettacolo(spettacolo);
 		film = new Film("Il grinch", "1:35", "Regista2");
-		spettacolo = new Spettacolo(gestoreSale.getListaSale().get(1), film, 26, 12, 2018, "23:30", 10.5);
+		spettacolo = new Spettacolo(gestoreSale.getListaSale().get(1), film, 29, 12, 2018, "23:30", 10.5);
 		gestoreProgrammazione.aggiungiSpettacolo(spettacolo);
 		film = new Film("Inception", "0:15", "Regista3");
 		spettacolo = new Spettacolo(gestoreSale.getListaSale().get(0), film, 28, 12, 2018, "20:30", 10.5);

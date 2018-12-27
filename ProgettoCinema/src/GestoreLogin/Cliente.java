@@ -58,6 +58,6 @@ public class Cliente extends Utente {
 	}
 	
 	public void removePrenotazione() {
-		prenotazioni--;
+		if (prenotazioni > 0) prenotazioni--;
 	}
 }

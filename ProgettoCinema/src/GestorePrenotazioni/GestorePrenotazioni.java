@@ -120,6 +120,7 @@ public class GestorePrenotazioni {
 					{
 						Prenotazione prenotazione = lista.getPrenotazione(j);
 						lista.rimuoviPrenotazione(prenotazione);
+						cliente.removePrenotazione();
 					}
 				}
 			}

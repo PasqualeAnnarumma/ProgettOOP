@@ -29,14 +29,11 @@ public class GestoreProgrammazione {
 	public void rimuoviFilm(Film film) {
 		listaFilm.remove(film);
 		ArrayList<Spettacolo> lista = getListaSpettacoli();
+		
+		//i-- perchè la lista si accorcia
 		for (int i = 0; i < lista.size(); i++)
-		{
 			if (lista.get(i).getFilm().equals(film))
-			{
-				rimuoviSpettacolo(lista.get(i));
-				return;
-			}
-		}
+				rimuoviSpettacolo(lista.get(i--));
 	}
 	
 	public ArrayList<Spettacolo> getListaSpettacoli() {
