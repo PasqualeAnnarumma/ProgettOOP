@@ -28,5 +28,4 @@ public class TesterUtente {
 		String s = "Ciao";
 		System.out.println(utente.equals(s));
 	}
-
 }

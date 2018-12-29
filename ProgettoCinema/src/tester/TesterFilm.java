@@ -14,5 +14,4 @@ public class TesterFilm {
 		System.out.println("Copertina : " + film.getCopertina());
 		System.out.println("toString : " + film);
 	}
-
 }

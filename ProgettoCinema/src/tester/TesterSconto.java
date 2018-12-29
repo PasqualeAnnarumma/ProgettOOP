@@ -31,5 +31,4 @@ public class TesterSconto {
 		sconto.attiva();
 		System.out.println(sconto);
 	}
-
 }

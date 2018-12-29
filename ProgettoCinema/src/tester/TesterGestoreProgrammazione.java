@@ -84,5 +84,4 @@ public class TesterGestoreProgrammazione {
 		Film f = gestore.getFilm(0);
 		System.out.println("Film : " + f);
 	}
-
 }

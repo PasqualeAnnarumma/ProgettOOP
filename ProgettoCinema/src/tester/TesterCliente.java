@@ -23,6 +23,5 @@ public class TesterCliente {
 		System.out.println("Decremento il conteggio delle prenotazioni");
 		cliente.removePrenotazione();
 		
-	}
-	
+	}	
 }

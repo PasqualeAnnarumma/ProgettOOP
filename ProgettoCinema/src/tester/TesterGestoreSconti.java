@@ -125,5 +125,4 @@ public class TesterGestoreSconti {
 		System.out.println("Cancello lo sconto per il film");
 		gestore.rimuoviScontoFilm(0);
 	}
-
 }

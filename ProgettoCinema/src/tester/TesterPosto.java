@@ -101,5 +101,4 @@ public class TesterPosto {
 		System.out.println(posto.equals(posto2));
 		
 	}
-
 }

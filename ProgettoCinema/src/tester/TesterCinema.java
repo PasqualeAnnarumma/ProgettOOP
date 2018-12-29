@@ -282,5 +282,4 @@ public class TesterCinema {
 		GestoreSconti sconti = cinema.getGestoreSconti();
 		System.out.println(login + "" + prenotazioni + programmazione + sale + sconti);
 	}
-
 }

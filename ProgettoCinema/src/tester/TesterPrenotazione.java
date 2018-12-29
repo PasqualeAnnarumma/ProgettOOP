@@ -50,5 +50,4 @@ public class TesterPrenotazione {
 		String s = "";
 		System.out.println(prenotazione.equals(s));
 	}
-
 }

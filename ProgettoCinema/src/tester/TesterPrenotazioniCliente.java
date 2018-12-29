@@ -61,5 +61,4 @@ public class TesterPrenotazioniCliente {
 			System.out.println(pr);
 		System.out.println("--- Fine lista ---\n");
 	}
-
 }

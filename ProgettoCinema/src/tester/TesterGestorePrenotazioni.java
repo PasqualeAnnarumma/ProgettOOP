@@ -175,5 +175,4 @@ public class TesterGestorePrenotazioni {
 			System.out.println(p);
 		System.out.println("--- Fine stampa ---\n");
 	}
-
 }

@@ -44,5 +44,4 @@ public class TesterSpettacolo {
 		System.out.println("Eseguo isPrenotable su " + s3);
 		System.out.println(s3.isPrenotable());
 	}
-
 }

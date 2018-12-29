@@ -55,5 +55,4 @@ public class TesterOrdinaLista {
 		for (Spettacolo s : lista)
 			System.out.println(s);
 	}
-
 }

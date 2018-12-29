@@ -36,5 +36,4 @@ public class TesterGestoreSale {
 			System.out.println(listaSale.get(i));
 		System.out.println("--- Fine lista ---\n");
 	}
-
 }
