@@ -1,4 +1,4 @@
-package GestoreLogin;
+package cinema;
 
 import java.io.File;
 import java.io.Serializable;
@@ -18,6 +18,7 @@ import GestoreSale.GestoreSale;
 import GestoreSale.Posto;
 import GestoreSale.Sala;
 import GestoreSconti.GestoreSconti;
+import GestoreLogin.*;
 
 /**
  * Il cinema è il sistema centrale che comunica con i vari gestori per eseguire le operazioni
@@ -65,6 +66,14 @@ public class Cinema implements Serializable{
 	 */
 	public void registraAmministratore(String usr, String pwd) throws AccountGiaEsistenteException{
 		gestoreLogin.aggiungiAmministratore(usr, pwd);
+	}
+	
+	/**
+	 * Rimuove un utente dal sistema
+	 * @param utente utente da rimuovere
+	 */
+	public void rimuoviUtente(Utente utente) {
+		gestoreLogin.remove(utente);
 	}
 	
 	/**
@@ -347,7 +356,7 @@ public class Cinema implements Serializable{
 	 * @return numero di spettacoli totali
 	 */
 	public int getNumeroSpettacoli() {
-		return gestoreProgrammazione.size();
+		return gestoreProgrammazione.getNumeroSpettacoli();
 	}
 	
 	/**
@@ -453,22 +462,18 @@ public class Cinema implements Serializable{
 	}
 	
 	/**
-	 * Acquista un posto nella sala
+	 * Acquista un posto nella sala considerando lo sconto più conveniente
 	 * @param cliente cliente che esegue l'acquisto
 	 * @param prenotazione prenotazione del cliente che diventa acquisto
 	 * @param posto posto da acquistare
 	 * @throws PostoNonDisponibileException se il posto è già acquistato, non disponibile oppure è di un altro utente
 	 */
 	public void acquistaPosto(Cliente cliente, Prenotazione prenotazione, Posto posto) throws PostoNonDisponibileException{
-		//p = prenotazione.getPosto();
-		//prenotazione.setPagato();
+		float sconto = cercaSconto(cliente, prenotazione.getSpettacolo());
+		prenotazione.setPrezzo(prenotazione.getSpettacolo().getPrezzo() - (prenotazione.getSpettacolo().getPrezzo() * sconto));
+		
 		if (!posto.isOccupato())
-		{
 			gestorePrenotazioni.aggiungiPrenotazione(cliente, prenotazione);
-			gestorePrenotazioni.acquistaPosto(posto);
-		}
-		else if (gestorePrenotazioni.controlloProprietà(cliente, posto, prenotazione.getSpettacolo()) != null)
-			gestorePrenotazioni.acquistaPosto(posto);
 		
 		gestorePrenotazioni.acquista(cliente, prenotazione);
 		cliente.addPrenotazione();

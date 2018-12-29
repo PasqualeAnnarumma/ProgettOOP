@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import GestoreLogin.Amministratore;
-import GestoreLogin.Cinema;
+import cinema.Cinema;
 import GestoreLogin.Cliente;
 
 /**

@@ -61,7 +61,7 @@ public class Sconto<T> implements Serializable{
 	 * Restituisce lo sconto sotto forma di stringa nel formato standard
 	 */
 	public String toString() {
-		return getClass().getSimpleName() + "[attivo=" + attivo + "]";
+		return getClass().getSimpleName() + "[attivo=" + attivo + ", descrizione=" + descrizione + "]";
 	}
 	
 	/**

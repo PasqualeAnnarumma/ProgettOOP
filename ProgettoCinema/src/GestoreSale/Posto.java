@@ -32,20 +32,6 @@ public class Posto implements Cloneable, Serializable{
 	}
 	
 	/**
-	 * Costruisce il posto specificando la riga, la colonna e il suo stato
-	 * @param row riga del posto
-	 * @param column colonna del posto
-	 * @param state stato del posto (true = disponibile, false = non disponibile)
-	 */
-	public Posto(char row, int column, boolean state) {
-		riga = row;
-		colonna = column;
-		occupato = false;
-		acquistato = false;
-		disponibile = state;
-	}
-	
-	/**
 	 * Rende un posto acquistato
 	 * @throws PostoNonDisponibileException se il posto non è disponibile o è stato già acquistato
 	 */
@@ -159,6 +145,6 @@ public class Posto implements Cloneable, Serializable{
 	 * Restituisce il posto come stringa nel formato standard
 	 */
 	public String toString() {
-		return getClass().getSimpleName() + "[riga=" + riga + ",colonna=" + colonna + ",occupato=" + occupato + ",dispnibile=" + disponibile + ",acquistato=" + acquistato + "]";
+		return getClass().getSimpleName() + "[riga=" + riga + ",colonna=" + colonna + ",occupato=" + occupato + ",disponibile=" + disponibile + ",acquistato=" + acquistato + "]";
 	}
 }

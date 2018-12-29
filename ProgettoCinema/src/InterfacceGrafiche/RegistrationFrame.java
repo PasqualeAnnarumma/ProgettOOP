@@ -15,7 +15,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import Eccezioni.AccountGiaEsistenteException;
-import GestoreLogin.Cinema;
+import cinema.Cinema;
 import GestoreLogin.Cliente.Categoria;
 
 /**

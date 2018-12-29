@@ -23,7 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
-import GestoreLogin.Cinema;
+import cinema.Cinema;
 import GestoreLogin.Cliente;
 import GestoreProgrammazione.Film;
 import GestoreProgrammazione.Spettacolo;

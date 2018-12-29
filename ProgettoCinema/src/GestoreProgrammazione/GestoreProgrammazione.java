@@ -101,7 +101,7 @@ public class GestoreProgrammazione implements Serializable{
 	 * Restituisce la grandezza della lista degli spettacoli
 	 * @return grandezza lista spettacoli
 	 */
-	public int size() {
+	public int getNumeroSpettacoli() {
 		return listaSpettacoli.size();
 	}
 	

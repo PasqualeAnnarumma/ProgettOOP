@@ -39,7 +39,7 @@ public class Cliente extends Utente {
 	 * Calola l'età del cliente
 	 * @param birth
 	 */
-	public void calcolaEta(String birth) {
+	private void calcolaEta(String birth) {
 		Calendar today = Calendar.getInstance();
 		int giorno = Integer.parseInt(dataNascita.substring(0, 2));
 		int mese = Integer.parseInt(dataNascita.substring(3, 5));

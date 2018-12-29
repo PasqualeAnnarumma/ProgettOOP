@@ -73,9 +73,9 @@ public class GestorePrenotazioni implements Serializable{
 	 * @param posto da acquistare
 	 * @throws PostoNonDisponibileException se il posto non è disponibile o è stato già acquistato
 	 */
-	public void acquistaPosto(Posto posto) throws PostoNonDisponibileException{
+	/*public void acquistaPosto(Posto posto) throws PostoNonDisponibileException{
 		posto.acquistaPosto();
-	}
+	}*/
 	
 	/**
 	 * Aggiunge una prenotazione per un cliente
@@ -228,6 +228,7 @@ public class GestorePrenotazioni implements Serializable{
 			lista = new PrenotazioniCliente(cliente);
 		
 		prenotazione.setPagato();
+		prenotazione.getPosto().acquistaPosto();
 		//System.out.println(prenotazione);
 		lista.aggiungiPrenotazione(prenotazione);
 	}

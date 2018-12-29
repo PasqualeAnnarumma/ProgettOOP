@@ -26,7 +26,7 @@ import javax.swing.JTable;
 import javax.swing.border.EtchedBorder;
 import Eccezioni.PostoNonDisponibileException;
 import GestoreLogin.Amministratore;
-import GestoreLogin.Cinema;
+import cinema.Cinema;
 import GestoreLogin.Cliente;
 import GestoreProgrammazione.Film;
 import GestoreProgrammazione.Spettacolo;

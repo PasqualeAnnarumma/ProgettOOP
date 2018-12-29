@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import Eccezioni.PostoNonDisponibileException;
-import GestoreLogin.Cinema;
+import cinema.Cinema;
 import GestoreLogin.Cliente;
 import GestorePrenotazioni.Prenotazione;
 import GestoreProgrammazione.Spettacolo;
@@ -233,8 +233,9 @@ public class FrameSala extends JFrame {
 			
 			public void mouseClicked(MouseEvent e) {
 				Prenotazione prenotazione = new Prenotazione(spettacolo, posto, cliente);
-				float sconto = cinema.cercaSconto(cliente, spettacolo);
-				prenotazione.setPrezzo(prenotazione.getSpettacolo().getPrezzo() - (prenotazione.getSpettacolo().getPrezzo() * sconto));
+				/*float sconto = cinema.cercaSconto(cliente, spettacolo);
+				//=======================
+				prenotazione.setPrezzo(prenotazione.getSpettacolo().getPrezzo() - (prenotazione.getSpettacolo().getPrezzo() * sconto));*/
 				try {
 					if (!posto.isDisponibile()) JOptionPane.showMessageDialog(null, "Posto non disponibile!", "ATTENZIONE!", JOptionPane.ERROR_MESSAGE);
 					else if (prenota.isSelected())

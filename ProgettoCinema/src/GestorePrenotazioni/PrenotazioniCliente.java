@@ -62,7 +62,7 @@ public class PrenotazioniCliente implements Serializable{
 	}
 	
 	/**
-	 * Cerca una prenotazione in base ad un posto e uno spettacolo
+	 * Cerca un posto per lo spettacolo specificato nella lista delle prenotazioni del cliente
 	 * @param posto posto da ricercare
 	 * @param spettacolo spettacolo da ricercare
 	 * @return posto posto che combacia alla ricerca

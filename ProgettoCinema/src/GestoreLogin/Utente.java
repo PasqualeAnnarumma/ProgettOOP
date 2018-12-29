@@ -41,14 +41,6 @@ public class Utente implements Cloneable, Serializable{
 	}
 	
 	/**
-	 * Cambia l'username all'utente
-	 * @param usr nuovo username dell'utente
-	 */
-	public void setUsername(String usr) {
-		username = usr;
-	}
-	
-	/**
 	 * Cambia la password all'utente
 	 * @param pwd nuova password
 	 */
