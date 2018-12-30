@@ -191,6 +191,7 @@ public class Spettacolo implements Cloneable, Serializable{
 		Calendar cal = Calendar.getInstance();
 		long diff = data.getTimeInMillis() - cal.getTimeInMillis();
 		cal.setTimeInMillis(diff);
+		//43200000 millisecondi equivalgono a 12 ore
 		if (diff > 43200000) return true;
 		return false;
 	}

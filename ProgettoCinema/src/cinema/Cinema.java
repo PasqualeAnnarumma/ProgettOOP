@@ -231,22 +231,17 @@ public class Cinema implements Serializable{
 	}
 	
 	/**
-	 * Controlla se uno spettacolo è fruibile, cioè se è già iniziato
+	 * Controlla se uno spettacolo è fruibile. Uno spettacolo è fruibile se non è ancora iniziato
+	 * e se si svolge tra la data di oggi e i 7 giorni successivi
 	 * @param spettacolo spettacolo da controllare
 	 * @return true se è fruibile (ancora non inizia), false altrimenti (già iniziato)
 	 */
 	public boolean isFruibile(Spettacolo spettacolo) {
 		Calendar cal = Calendar.getInstance();
-		int hh = (cal.get(Calendar.HOUR) + 12);
-		int mm = (cal.get(Calendar.MINUTE));
-		String ora = "";
-		if (hh < 10) ora = 0 + hh + ":";
-		else ora = hh + ":";
-		if (mm < 10) ora += 0 + mm;
-		else ora += mm;
-		int r = spettacolo.compareCalendar(spettacolo.getData(), cal);
-		if((r == 0) && (spettacolo.getOra().compareTo(ora) == 1)) return true;
-		else if (r >= 0) return true;
+		long diff = spettacolo.getData().getTimeInMillis() - cal.getTimeInMillis();
+		cal.setTimeInMillis(diff);
+		//604800016.56 equivalgono ad una settimana
+		if (diff > 0 && diff <= 604800016.56) return true;
 		return false;
 	}
 	
@@ -524,9 +519,13 @@ public class Cinema implements Serializable{
 	 * Selettore degli spettacoli per ordine cronologico
 	 */
 	public Comparatore<Spettacolo> ordineCronologico = (Spettacolo s1, Spettacolo s2) -> {
+		if (s1.getData().getTimeInMillis() > s2.getData().getTimeInMillis()) return 1;
+		if (s1.getData().getTimeInMillis() < s2.getData().getTimeInMillis()) return -1;
+		return 0;
+		/*System.out.println(s1.stringDate() + ", " + s2.stringDate() + ", " + s1.stringDate().compareTo(s2.stringDate()));
 		if (s1.stringDate().compareTo(s2.stringDate()) < 0) return -1;
 		if (s1.stringDate().compareTo(s2.stringDate()) > 0) return 1;
-		return s1.getOra().compareTo(s2.getOra());
+		return s1.getOra().compareTo(s2.getOra());*/
 	};
 	
 	/**
