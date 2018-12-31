@@ -238,7 +238,7 @@ public class GestorePrenotazioni implements Serializable{
 	 * @param cliente cliente da controllare
 	 * @param posto posto da controllare
 	 * @param spettacolo spettacolo da controllare
-	 * @return
+	 * @return il posto prenotato dal cliente se il cliente è proprietario di quel posto, null altrimenti
 	 */
 	public Posto controlloProprietà(Cliente cliente, Posto posto, Spettacolo spettacolo) {
 		PrenotazioniCliente pren;

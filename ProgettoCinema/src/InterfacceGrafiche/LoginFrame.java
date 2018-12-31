@@ -116,7 +116,7 @@ public class LoginFrame extends JFrame {
 					}
 					else if(cinema.getUtente() instanceof Amministratore)
 					{
-						FrameGestore frame = new FrameGestore((Amministratore)cinema.getUtente(), cinema);
+						FrameGestore frame = new FrameGestore(cinema);
 						frame.setVisible(true);
 						frame.addWindowListener(listener);
 						setVisible(false);

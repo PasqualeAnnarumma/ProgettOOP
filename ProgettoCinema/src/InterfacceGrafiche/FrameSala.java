@@ -40,10 +40,10 @@ public class FrameSala extends JFrame {
 	private Cinema cinema;
 	private Cliente cliente;
 	private Spettacolo spettacolo;
+	private Prenotazione prenotazione;
 	private JRadioButton prenota;
 	private JRadioButton acquisto;
 	private JRadioButton cancellazione;
-	private Prenotazione prenotazione;
 	
 	/**
 	 * Costruisce il frame
@@ -233,23 +233,16 @@ public class FrameSala extends JFrame {
 			
 			public void mouseClicked(MouseEvent e) {
 				Prenotazione prenotazione = new Prenotazione(spettacolo, posto, cliente);
-				/*float sconto = cinema.cercaSconto(cliente, spettacolo);
-				//=======================
-				prenotazione.setPrezzo(prenotazione.getSpettacolo().getPrezzo() - (prenotazione.getSpettacolo().getPrezzo() * sconto));*/
 				try {
 					if (!posto.isDisponibile()) JOptionPane.showMessageDialog(null, "Posto non disponibile!", "ATTENZIONE!", JOptionPane.ERROR_MESSAGE);
 					else if (prenota.isSelected())
 					{
-						//POSTO, SALA E SPETTACOLO
-						//prenotazione = new Prenotazione(spettacolo, p, cliente);
 						cinema.aggiungiPrenotazione(cliente, prenotazione);
 						String sedile = ("posto_prenotato");
 						iconaPosto.setIcon(creaPosto(sedile));
 					}
 					else if (cancellazione.isSelected())
 					{
-						/*System.out.println("CANC VECCHIA : " + prenotazione);
-						System.out.println("CANCELLAZIONE : " + prenotazione);*/
 						Prenotazione pren = cinema.cercaPrenotazione(posto, spettacolo);
 						if (pren != null) pren.setPosto(posto);
 						cinema.rimuoviPrenotazione(cliente, pren);
@@ -259,7 +252,6 @@ public class FrameSala extends JFrame {
 					else if (acquisto.isSelected())
 					{
 						cinema.acquistaPosto(cliente, prenotazione, posto);
-						//System.out.println("ACQUISTO : " + prenotazione);
 						String sedile = ("posto_occupato");
 						iconaPosto.setIcon(creaPosto(sedile));
 					}

@@ -11,6 +11,11 @@ import java.io.Serializable;
  */
 public interface Selettore<T> extends Serializable{
 	
+	/**
+	 * Seleziona un elemento
+	 * @param s elemento da esaminare
+	 * @return true se soddisfa la condizione, false altrimenti
+	 */
 	public boolean seleziona(T s);
 	
 }

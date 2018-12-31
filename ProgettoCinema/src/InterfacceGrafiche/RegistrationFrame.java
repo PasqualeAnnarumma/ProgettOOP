@@ -35,7 +35,6 @@ public class RegistrationFrame extends JFrame {
 	private JComboBox<String> comboGiorno;
 	private JComboBox<String> comboMese;
 	private JComboBox<String> comboAnno;
-	//private JPanel condizioniPanel;
 	private Cinema cinema;
 	
 	/**
@@ -176,8 +175,6 @@ public class RegistrationFrame extends JFrame {
 				else
 				{
 					try {
-						//NON FUNZIONA LA REGISTRAZIONE A ME MA È INSOLITA LA COSA...
-						//RISOLTO: CINEMA ERA NULLO
 						String dataNascita = comboGiorno.getSelectedItem() + "/" + comboMese.getSelectedItem() + "/" + comboAnno.getSelectedItem();
 						cinema.registraCliente(userField.getText(), psw, dataNascita, (Categoria) groupBox.getSelectedItem());
 						JOptionPane.showMessageDialog(null,"Registrazione effettuata con successo", "Registrazione completata", JOptionPane.INFORMATION_MESSAGE);

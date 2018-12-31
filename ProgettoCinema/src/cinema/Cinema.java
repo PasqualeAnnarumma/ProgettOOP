@@ -301,7 +301,7 @@ public class Cinema implements Serializable{
 	/**
 	 * Rimuove un film
 	 * @param film film da rimuovere
-	 * @throws PostoNonDisponibileException 
+	 * @throws PostoNonDisponibileException se il posto è già libero o se il posto è di un altro utente
 	 */
 	public void rimuoviFilm(Film film) throws PostoNonDisponibileException {
 		gestoreProgrammazione.rimuoviFilm(film);
@@ -522,10 +522,6 @@ public class Cinema implements Serializable{
 		if (s1.getData().getTimeInMillis() > s2.getData().getTimeInMillis()) return 1;
 		if (s1.getData().getTimeInMillis() < s2.getData().getTimeInMillis()) return -1;
 		return 0;
-		/*System.out.println(s1.stringDate() + ", " + s2.stringDate() + ", " + s1.stringDate().compareTo(s2.stringDate()));
-		if (s1.stringDate().compareTo(s2.stringDate()) < 0) return -1;
-		if (s1.stringDate().compareTo(s2.stringDate()) > 0) return 1;
-		return s1.getOra().compareTo(s2.getOra());*/
 	};
 	
 	/**

@@ -10,6 +10,11 @@ import java.io.Serializable;
  */
 public interface Scontatore<T> extends Serializable{
 	
+	/**
+	 * Calcola lo sconto
+	 * @param obj oggetto sul quale calcolare lo sconto
+	 * @return sconto
+	 */
 	float calcolaSconto(T obj);
 	
 }

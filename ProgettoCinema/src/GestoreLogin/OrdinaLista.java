@@ -50,7 +50,7 @@ public class OrdinaLista<T> {
 	
 	/**
 	 * Restituisce la lista di elementi
-	 * @return
+	 * @return lista di elementi
 	 */
 	public ArrayList<T> getList() {
 		return lista;

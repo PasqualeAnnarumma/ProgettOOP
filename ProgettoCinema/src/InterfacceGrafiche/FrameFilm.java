@@ -92,7 +92,6 @@ public class FrameFilm extends JFrame{
 					JOptionPane.showMessageDialog(null, "Impossibile convertire l'immagine", "Errore!", JOptionPane.ERROR_MESSAGE);
 				}
 				
-				//copyFile(origine, destinazione);
 				String nomeFile = chooser.getSelectedFile().getName();
 				int lunghezza = nomeFile.length();
 				nomeFile = nomeFile.substring(0, lunghezza-4);

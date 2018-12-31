@@ -118,7 +118,7 @@ public class Prenotazione implements Serializable{
 	
 	/**
 	 * imposta il prezzo della prenotazione
-	 * @param price
+	 * @param price prezzo da impostare
 	 */
 	public void setPrezzo(double price) {
 		prezzo = price;

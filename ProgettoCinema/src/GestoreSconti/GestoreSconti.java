@@ -113,7 +113,7 @@ public class GestoreSconti implements Serializable{
 	/**
 	 * Restituisce lo sconto per un film in base a un indice
 	 * @param i indice nella lista
-	 * @return
+	 * @return sconto applicabile ad un film
 	 */
 	public Sconto<Film> getScontoFilm(int i) {
 		return listaScontiFilm.get(i);

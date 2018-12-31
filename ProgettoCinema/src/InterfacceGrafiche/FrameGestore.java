@@ -25,7 +25,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.border.EtchedBorder;
 import Eccezioni.PostoNonDisponibileException;
-import GestoreLogin.Amministratore;
 import cinema.Cinema;
 import GestoreLogin.Cliente;
 import GestoreProgrammazione.Film;
@@ -66,10 +65,9 @@ public class FrameGestore extends JFrame {
 	
 	/**
 	 * Costruisce il frame
-	 * @param admin amministratore che ha eseguito l'accesso
 	 * @param cin oggetto cinema del sistema
 	 */
-	public FrameGestore(Amministratore admin, Cinema cin) {
+	public FrameGestore(Cinema cin) {
 		super("Gestore");
 		setLocation(500, 100);
 		setSize(400, 400);
@@ -332,24 +330,7 @@ public class FrameGestore extends JFrame {
 		aggiungi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				FrameFilm frame = new FrameFilm(cinema);
-				frame.addWindowListener(new WindowListener() {
-					public void windowOpened(WindowEvent e) {}
-					
-					public void windowIconified(WindowEvent e) {}
-					
-					public void windowDeiconified(WindowEvent e) {}
-
-					public void windowDeactivated(WindowEvent e) {}
-					
-					public void windowClosing(WindowEvent e) {}
-					
-					public void windowClosed(WindowEvent e) {
-						refresh();
-					}
-					
-					public void windowActivated(WindowEvent e) {}
-				});
-				
+				frame.addWindowListener(new RefreshListener());
 				frame.setVisible(true);
 			}
 		});

@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Uno sconto è composto da uno scontatore, da unoa descrizione e da uno stato: attivo o non attivo
  * @author MarioELT
  *
- * @param <T>
+ * @param <T> elemento generico
  */
 public class Sconto<T> implements Serializable{
 	
