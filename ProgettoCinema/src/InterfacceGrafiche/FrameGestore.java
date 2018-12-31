@@ -314,6 +314,9 @@ public class FrameGestore extends JFrame {
 		sud.add(label, BorderLayout.WEST);
 		sud.add(bottoni, BorderLayout.CENTER);
 		panel.add(sud, BorderLayout.SOUTH);
+		ArrayList<Spettacolo> s = cinema.getListaSpettacoli(cinema.settimana);
+		for (Spettacolo sp : s)
+			System.out.println(sp);
 		return panel;
 	}
 	

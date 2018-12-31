@@ -101,6 +101,7 @@ public class Cinema implements Serializable{
 		float incasso = 0;
 		for (Spettacolo s : spettacoli)
 			incasso += getIncasso(s.getFilm());
+		
 		incasso *= 1000;
 		Math.floor(incasso);
 		incasso /= 1000;
@@ -198,7 +199,7 @@ public class Cinema implements Serializable{
 		ArrayList<Spettacolo> listaSpettacoli = new ArrayList<Spettacolo>();
 		ArrayList<Spettacolo> oldList = getListaSpettacoli();
 		for (Spettacolo s : oldList)
-			if (select.seleziona(s) && isFruibile(s) && cercaSpettacolo(listaSpettacoli, s))
+			if (select.seleziona(s) && s.isFruibile() && cercaSpettacolo(listaSpettacoli, s))
 				listaSpettacoli.add(s);
 		return listaSpettacoli;
 	}
@@ -213,7 +214,7 @@ public class Cinema implements Serializable{
 		ArrayList<Spettacolo> spettacoli = getListaSpettacoli(comp, sala);
 		ArrayList<Spettacolo> lista = new ArrayList<Spettacolo>();
 		for (Spettacolo s : spettacoli)
-			if (isFruibile(s)) lista.add(s);
+			if (s.isFruibile() && settimana.seleziona(s)) lista.add(s);
 		
 		return lista;
 	}
@@ -229,25 +230,6 @@ public class Cinema implements Serializable{
 			if (lista.get(i).getFilm().equals(spettacolo.getFilm())) return false;
 		return true;
 	}
-	
-	/**
-	 * Controlla se uno spettacolo è fruibile. Uno spettacolo è fruibile se non è ancora iniziato
-	 * e se si svolge tra la data di oggi e i 7 giorni successivi
-	 * @param spettacolo spettacolo da controllare
-	 * @return true se è fruibile (ancora non inizia), false altrimenti (già iniziato)
-	 */
-	public boolean isFruibile(Spettacolo spettacolo) {
-		Calendar cal = Calendar.getInstance();
-		long diff = spettacolo.getData().getTimeInMillis() - cal.getTimeInMillis();
-		cal.setTimeInMillis(diff);
-		//604800016.56 equivalgono ad una settimana
-		if (diff > 0 && diff <= 604800016.56) return true;
-		return false;
-	}
-	
-	/*public ArrayList<Spettacolo> getListaSpettacoli(Criterio c1) {
-		return getListaSpettacoli(c1, c1);
-	}*/
 	
 	/**
 	 * Aggiunge una sala al cinema
@@ -503,15 +485,17 @@ public class Cinema implements Serializable{
 		return gestoreSconti.cercaSconto(cliente, show);
 	}
 	
+	
 	/**
 	 * Selettore degli spettacoli per settimana
 	 */
 	public Selettore<Spettacolo> settimana = (Spettacolo s1) -> {
 		Calendar dataSpettacolo = s1.getData();
 		Calendar nowDate = Calendar.getInstance();
-		int r;
-		if ((r = s1.compareCalendar(dataSpettacolo, nowDate)) <= 7 && r >= 0)
-			return true;
+		long diff = dataSpettacolo.getTimeInMillis() - nowDate.getTimeInMillis();
+		//604800016.56 equivalgono ad una settimana
+		System.out.println(diff);
+		if (diff > 0 && diff <= 604800016.56) return true;
 		return false;
 	};
 	

@@ -81,10 +81,10 @@ public class Starter {
 			spettacolo = new Spettacolo(gestoreSale.getListaSale().get(1), film, 7, 1, 2019, "18:45", 7.5);
 			gestoreProgrammazione.aggiungiSpettacolo(spettacolo);
 			film = new Film("Inception", "2:28", "Christopher Nolan", "Inception");
-			spettacolo = new Spettacolo(gestoreSale.getListaSale().get(0), film, 30, 12, 2018, "20:30", 10.5);
+			spettacolo = new Spettacolo(gestoreSale.getListaSale().get(0), film, 4, 1, 2019, "20:30", 10.5);
 			gestoreProgrammazione.aggiungiSpettacolo(spettacolo);
 			film = new Film("Un sacchetto pieno di biglie", "1:50", "Christian Duguay", "Un sacchetto pieno di biglie");
-			spettacolo = new Spettacolo(gestoreSale.getListaSale().get(2), film, 30, 12, 2018, "22:32", 8.7);
+			spettacolo = new Spettacolo(gestoreSale.getListaSale().get(2), film, 5, 1, 2019, "22:32", 8.7);
 			gestoreProgrammazione.aggiungiSpettacolo(spettacolo);
 			
 			Scontatore<Cliente> scontoEta = (Cliente cliente) -> {

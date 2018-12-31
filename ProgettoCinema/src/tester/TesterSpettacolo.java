@@ -43,5 +43,7 @@ public class TesterSpettacolo {
 		Spettacolo s3 = new Spettacolo(sala, film, 29, 12, 2018, "00:00", 10);
 		System.out.println("Eseguo isPrenotable su " + s3);
 		System.out.println(s3.isPrenotable());
+		System.out.println("Eseguo isFruibile su " + s3);
+		System.out.println(s3.isFruibile());
 	}
 }
