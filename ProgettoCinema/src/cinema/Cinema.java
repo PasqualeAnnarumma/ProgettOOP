@@ -494,7 +494,6 @@ public class Cinema implements Serializable{
 		Calendar nowDate = Calendar.getInstance();
 		long diff = dataSpettacolo.getTimeInMillis() - nowDate.getTimeInMillis();
 		//604800016.56 equivalgono ad una settimana
-		System.out.println(diff);
 		if (diff > 0 && diff <= 604800016.56) return true;
 		return false;
 	};

@@ -72,13 +72,13 @@ public class Starter {
 
 			
 			Film film = new Film("Shutter island", "2:18", "Martin Scorsese", "Shutter island");
-			Spettacolo spettacolo = new Spettacolo(gestoreSale.getListaSale().get(0), film, 1, 1, 2019, "11:02", 9.7);
+			Spettacolo spettacolo = new Spettacolo(gestoreSale.getListaSale().get(0), film, 9, 1, 2019, "11:02", 9.7);
 			gestoreProgrammazione.aggiungiSpettacolo(spettacolo);
 			film = new Film("L'ora più buia", "2:50", "Joe Wright", "L'ora più buia");
-			spettacolo = new Spettacolo(gestoreSale.getListaSale().get(1), film, 31, 12, 2018, "23:30", 10.5);
+			spettacolo = new Spettacolo(gestoreSale.getListaSale().get(1), film, 1, 1, 2019, "23:30", 10.5);
 			gestoreProgrammazione.aggiungiSpettacolo(spettacolo);
 			film = new Film("Warcraft - L'inizio", "2:30", "Duncan Jones", "warcraft");
-			spettacolo = new Spettacolo(gestoreSale.getListaSale().get(1), film, 7, 1, 2019, "18:45", 7.5);
+			spettacolo = new Spettacolo(gestoreSale.getListaSale().get(1), film, 2, 1, 2019, "18:45", 7.5);
 			gestoreProgrammazione.aggiungiSpettacolo(spettacolo);
 			film = new Film("Inception", "2:28", "Christopher Nolan", "Inception");
 			spettacolo = new Spettacolo(gestoreSale.getListaSale().get(0), film, 4, 1, 2019, "20:30", 10.5);

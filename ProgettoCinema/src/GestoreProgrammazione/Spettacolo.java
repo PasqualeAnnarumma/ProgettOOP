@@ -212,7 +212,6 @@ public class Spettacolo implements Cloneable, Serializable{
 	
 	/**
 	 * Controlla se uno spettacolo è fruibile. Uno spettacolo è fruibile se non è ancora iniziato
-	 * @param spettacolo spettacolo da controllare
 	 * @return true se è fruibile (ancora non inizia), false altrimenti (già iniziato)
 	 */
 	public boolean isFruibile() {
