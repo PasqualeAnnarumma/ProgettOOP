@@ -3,6 +3,8 @@ package InterfacceGrafiche;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -56,6 +58,8 @@ public class FrameSala extends JFrame {
 		spettacolo = show;
 		cliente = (Cliente) cinema.getUtente();
 		setResizable(false);
+		Image img = Toolkit.getDefaultToolkit().getImage("src//iconeFinestra//ticket.png");
+		setIconImage(img);
 		prenotazione = new Prenotazione(show, new Posto('A', 0), (Cliente) cinema.getUtente());
 		setLocation(500, 100);
 		setSize(400, 300);

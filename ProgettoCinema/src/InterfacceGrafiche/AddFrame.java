@@ -2,6 +2,8 @@ package InterfacceGrafiche;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -9,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import cinema.Cinema;
@@ -46,6 +49,8 @@ public class AddFrame extends JFrame {
 		setSize(300, 200);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setResizable(false);
+		Image img = Toolkit.getDefaultToolkit().getImage("src//iconeFinestra//addFilm.png");
+		setIconImage(img);
 		cinema = cin;
 		listaSpettacoli = spettacoli;
 		comboSala = new JComboBox<Sala>();
@@ -112,6 +117,8 @@ public class AddFrame extends JFrame {
 				Spettacolo spettacolo = new Spettacolo(sala, film, giorno, mese, anno, ora, prezzo);
 				cinema.aggiungiSpettacolo(spettacolo);
 				listaSpettacoli.add(spettacolo);
+				JOptionPane.showMessageDialog(null, "Spettacolo aggiunto con successo", "SUCCESSO!", JOptionPane.INFORMATION_MESSAGE);
+				prezzoField.setText("");
 			}
 		});
 		
@@ -273,7 +280,7 @@ public class AddFrame extends JFrame {
 			comboOre.addItem(s);
 		}
 		
-		for (int i = 1; i <= 59; i++)
+		for (int i = 0; i <= 59; i++)
 		{
 			String s = i + "";
 			if (i < 10)

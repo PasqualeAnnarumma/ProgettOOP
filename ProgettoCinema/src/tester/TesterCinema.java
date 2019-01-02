@@ -71,13 +71,13 @@ public class TesterCinema {
 		System.out.println("--- Fine lista ---\n");
 		
 		System.out.println("Creo uno spettacolo");
-		Spettacolo spettacolo = new Spettacolo(listaSale.get(0), film, 30, 12, 2018, "22:30", 10.5);
+		Spettacolo spettacolo = new Spettacolo(listaSale.get(0), film, 3, 1, 2019, "22:30", 10.5);
 		System.out.println("Spettacolo creato : " + spettacolo);
 		System.out.println("Aggiungo lo spettacolo al cinema");
 		cinema.aggiungiSpettacolo(spettacolo);
 		
 		System.out.println("Creo uno spettacolo");
-		spettacolo = new Spettacolo(listaSale.get(0), film2, 30, 12, 2018, "20:30", 10.5);
+		spettacolo = new Spettacolo(listaSale.get(0), film2, 3, 1, 2019, "20:30", 10.5);
 		System.out.println("Spettacolo creato : " + spettacolo);
 		System.out.println("Aggiungo lo spettacolo al cinema");
 		cinema.aggiungiSpettacolo(spettacolo);
@@ -241,6 +241,7 @@ public class TesterCinema {
 				else System.out.println((posti[i][j].getRiga() + "") + posti[i][j].getColonna() + " -> NON acquistato");
 		System.out.println("--- Fine stampa ---\n");
 		
+
 		System.out.println("Incasso : " + cinema.getIncasso(listaSpettacoli));
 		System.out.println("Incasso : " + cinema.getIncasso(film2));
 		

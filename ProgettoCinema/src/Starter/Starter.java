@@ -94,7 +94,13 @@ public class Starter {
 			
 			Scontatore<Cliente> scontoCompleanno = (Cliente cliente) -> {
 				Calendar today = Calendar.getInstance();
-				String dataOggi = today.get(Calendar.DAY_OF_MONTH) + "/" + (today.get(Calendar.MONTH) + 1);
+				int giorno = today.get(Calendar.DAY_OF_MONTH);
+				int mese = today.get(Calendar.MONTH) + 1;
+				String gg = "";
+				String mm = "";
+				if (giorno < 10) gg = "0" + giorno;
+				if (mese < 10) mm = "0" + mese;
+				String dataOggi = gg + "/" + mm;
 				String dataCliente = cliente.getDataNascita().substring(0, 5);
 				if (dataOggi.equals(dataCliente)) return 1;
 				return 0;

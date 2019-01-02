@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -50,6 +51,8 @@ public class FrameFilm extends JFrame{
 	public FrameFilm(Cinema cin) {
 		super("Aggiungi film");
 		cinema = cin;
+		Image img = Toolkit.getDefaultToolkit().getImage("src//iconeFinestra//addFilm.png");
+		setIconImage(img);
 		setLocation(500, 100);
 		setSize(300, 300);
 		setResizable(false);
@@ -97,6 +100,10 @@ public class FrameFilm extends JFrame{
 				nomeFile = nomeFile.substring(0, lunghezza-4);
 				Film film = new Film(nomeFilm.getText(), durata, nomeProduttore.getText(), nomeFile);
 				cinema.aggiungiFilm(film);
+				JOptionPane.showMessageDialog(null, "Film aggiunto con successo!", "SUCCESSO!", JOptionPane.INFORMATION_MESSAGE);
+				nomeFilm.setText("");
+				nomeProduttore.setText("");
+				immagineText.setText("");
 			}
 		});
 		

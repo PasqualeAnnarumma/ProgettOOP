@@ -1,6 +1,8 @@
 package InterfacceGrafiche;
 
 import java.awt.BorderLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -37,6 +39,8 @@ public class LoginFrame extends JFrame {
 	public LoginFrame(Cinema c) {
 		super("Login");
 		cinema = c;
+		Image img = Toolkit.getDefaultToolkit().getImage("src//iconeFinestra//login.png");
+		setIconImage(img);
 		userField = new JTextField(20);
 		pswField = new JPasswordField(20);
 		setResizable(false);

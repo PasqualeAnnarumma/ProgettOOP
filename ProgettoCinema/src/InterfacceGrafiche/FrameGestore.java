@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -75,6 +77,8 @@ public class FrameGestore extends JFrame {
 		setResizable(false);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		Image img = Toolkit.getDefaultToolkit().getImage("src//iconeFinestra//admin.png");
+		setIconImage(img);
 		cinema = cin;
 		listaSpettacoli = cinema.getListaSpettacoli(cinema.postiDisponibili, "Tutte");
 		listaFilm = cinema.getListaFilm();

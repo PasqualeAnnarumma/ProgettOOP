@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -40,12 +42,10 @@ public class FrameUtente extends JFrame{
 	private final Color colore = Color.LIGHT_GRAY;
 	private final Color coloreSelezionato = Color.CYAN;
 	private Cliente utente;
-	//private Spettacolo spettacoloSelezionato;
 	private Cinema cinema;
 	private JScrollPane center;
 	private JComboBox<String> combo;
 	private JPanel body;
-	//private JPanel currSlot;
 	private JComboBox<String> comboOrdina;
 	
 	/**
@@ -58,6 +58,8 @@ public class FrameUtente extends JFrame{
 		utente = user;
 		this.cinema = cinema;
 		setResizable(false);
+		Image img = Toolkit.getDefaultToolkit().getImage("src//iconeFinestra//utente.png");
+		setIconImage(img);
 		comboOrdina = new JComboBox<String>();
 		comboOrdina.addItem("Cronologicamente");
 		comboOrdina.addItem("Sala crescente");
@@ -67,7 +69,7 @@ public class FrameUtente extends JFrame{
 		for (int i = 0; i < cinema.getGestoreSale().size(); i++)
 		{
 			Sala sala = cinema.getGestoreSale().getSala(i);
-			combo.addItem(""+sala.getNumeroSala());
+			combo.addItem("" + sala.getNumeroSala());
 		}
 		setLocation(500, 100);
 		setSize(500, 400);
@@ -218,7 +220,6 @@ public class FrameUtente extends JFrame{
 	 */
 	public JPanel createSlotSpettacolo(Spettacolo show) {
 		JPanel slot = new JPanel();
-		//slot.setBorder(new EtchedBorder());
 		slot.setLayout(new GridLayout(4, 2));
 		Film film = show.getFilm();
 		Sala sala = show.getSala();
