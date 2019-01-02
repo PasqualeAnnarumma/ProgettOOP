@@ -7,6 +7,8 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -99,26 +101,31 @@ public class AddFrame extends JFrame {
 		button.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				Sala sala = (Sala) comboSala.getSelectedItem();
-				Film film = (Film) comboFilm.getSelectedItem();
-				int giorno = Integer.parseInt(comboGiorno.getSelectedItem().toString());
-				int mese = Integer.parseInt(comboMese.getSelectedItem().toString());
-				int anno = Integer.parseInt(comboAnno.getSelectedItem().toString());
-				int ore = Integer.parseInt(comboOre.getSelectedItem().toString());
-				int minuti = Integer.parseInt(comboMinuti.getSelectedItem().toString());
-				String hh = "";
-				String mm = "";
-				if (ore < 10) hh = 0 + "" + ore + ":";
-				else hh = ore + ":";
-				if (minuti < 10) mm = 0 + "" + minuti + "";
-				else mm = minuti + "";
-				String ora = hh + mm;
-				double prezzo = Double.parseDouble(prezzoField.getText());
-				Spettacolo spettacolo = new Spettacolo(sala, film, giorno, mese, anno, ora, prezzo);
-				cinema.aggiungiSpettacolo(spettacolo);
-				listaSpettacoli.add(spettacolo);
-				JOptionPane.showMessageDialog(null, "Spettacolo aggiunto con successo", "SUCCESSO!", JOptionPane.INFORMATION_MESSAGE);
-				prezzoField.setText("");
+				if (prezzoField.getText().length() > 0)
+				{
+					Sala sala = (Sala) comboSala.getSelectedItem();
+					Film film = (Film) comboFilm.getSelectedItem();
+					int giorno = Integer.parseInt(comboGiorno.getSelectedItem().toString());
+					int mese = Integer.parseInt(comboMese.getSelectedItem().toString());
+					int anno = Integer.parseInt(comboAnno.getSelectedItem().toString());
+					int ore = Integer.parseInt(comboOre.getSelectedItem().toString());
+					int minuti = Integer.parseInt(comboMinuti.getSelectedItem().toString());
+					String hh = "";
+					String mm = "";
+					if (ore < 10) hh = 0 + "" + ore + ":";
+					else hh = ore + ":";
+					if (minuti < 10) mm = 0 + "" + minuti + "";
+					else mm = minuti + "";
+					String ora = hh + mm;
+					double prezzo = Double.parseDouble(prezzoField.getText());
+					Spettacolo spettacolo = new Spettacolo(sala, film, giorno, mese, anno, ora, prezzo);
+					cinema.aggiungiSpettacolo(spettacolo);
+					listaSpettacoli.add(spettacolo);
+					JOptionPane.showMessageDialog(null, "Spettacolo aggiunto con successo", "SUCCESSO!", JOptionPane.INFORMATION_MESSAGE, new ImageIcon("src//iconeFinestra//success.png"));
+					prezzoField.setText("");
+				}
+				else
+					JOptionPane.showMessageDialog(null, "Inserire tutti i campi!", "ATTENZIONE!", JOptionPane.ERROR_MESSAGE, new ImageIcon("src//iconeFinestra//errore.png"));
 			}
 		});
 		

@@ -53,7 +53,7 @@ public class FrameSala extends JFrame {
 	 * @param show spettacolo da visualizzare
 	 */
 	public FrameSala(Cinema cinema, Spettacolo show) {
-		super();
+		super(show.getFilm().getNome() + " - (" + show.getOra() + ")");
 		this.cinema = cinema;
 		spettacolo = show;
 		cliente = (Cliente) cinema.getUtente();
@@ -238,7 +238,7 @@ public class FrameSala extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				Prenotazione prenotazione = new Prenotazione(spettacolo, posto, cliente);
 				try {
-					if (!posto.isDisponibile()) JOptionPane.showMessageDialog(null, "Posto non disponibile!", "ATTENZIONE!", JOptionPane.ERROR_MESSAGE);
+					if (!posto.isDisponibile()) JOptionPane.showMessageDialog(null, "Posto non disponibile!", "ATTENZIONE!", JOptionPane.ERROR_MESSAGE, new ImageIcon("src//iconeFinestra//errore.png"));
 					else if (prenota.isSelected())
 					{
 						cinema.aggiungiPrenotazione(cliente, prenotazione);
@@ -260,7 +260,7 @@ public class FrameSala extends JFrame {
 						iconaPosto.setIcon(creaPosto(sedile));
 					}
 				} catch (PostoNonDisponibileException ex) {
-					JOptionPane.showMessageDialog(null, ex.getMessage(), "ATTENZIONE!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, ex.getMessage(), "ATTENZIONE!", JOptionPane.ERROR_MESSAGE, new ImageIcon("src//iconeFinestra//errore.png"));
 				}
 			}
 		});

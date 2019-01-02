@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -79,31 +80,36 @@ public class FrameFilm extends JFrame{
 		//BOTTONE AGGIUNGI
 		aggiungi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String durata = comboOre.getSelectedItem() + ":" + comboMinuti.getSelectedItem();
-				String percorso = chooser.getSelectedFile().getAbsolutePath();
-				File origine = new File(percorso);
-				File destinazione = new File("src\\copertine\\" + chooser.getSelectedFile().getName());
-				
-				try {
-					BufferedImage inputImage = ImageIO.read(origine);
-					BufferedImage outputImage = new BufferedImage(50, 71, Image.SCALE_SMOOTH);
-					Graphics2D g2 = outputImage.createGraphics();
-					g2.drawImage(inputImage, 0, 0, 50, 71, null);
-					g2.dispose();
-					ImageIO.write(outputImage, "jpg", destinazione);
-				} catch (IOException e1) {
-					JOptionPane.showMessageDialog(null, "Impossibile convertire l'immagine", "Errore!", JOptionPane.ERROR_MESSAGE);
+				if (nomeFilm.getText().length() > 0 && nomeFilm.getText().length() > 0 && immagineText.getText().length() > 0)
+				{
+					String durata = comboOre.getSelectedItem() + ":" + comboMinuti.getSelectedItem();
+					String percorso = chooser.getSelectedFile().getAbsolutePath();
+					File origine = new File(percorso);
+					File destinazione = new File("src\\copertine\\" + chooser.getSelectedFile().getName());
+					
+					try {
+						BufferedImage inputImage = ImageIO.read(origine);
+						BufferedImage outputImage = new BufferedImage(50, 71, Image.SCALE_SMOOTH);
+						Graphics2D g2 = outputImage.createGraphics();
+						g2.drawImage(inputImage, 0, 0, 50, 71, null);
+						g2.dispose();
+						ImageIO.write(outputImage, "jpg", destinazione);
+					} catch (IOException e1) {
+						JOptionPane.showMessageDialog(null, "Impossibile convertire l'immagine", "Errore!", JOptionPane.ERROR_MESSAGE, new ImageIcon("src//iconeFinestra//errore.png"));
+					}
+					
+					String nomeFile = chooser.getSelectedFile().getName();
+					int lunghezza = nomeFile.length();
+					nomeFile = nomeFile.substring(0, lunghezza-4);
+					Film film = new Film(nomeFilm.getText(), durata, nomeProduttore.getText(), nomeFile);
+					cinema.aggiungiFilm(film);
+					JOptionPane.showMessageDialog(null, "Film aggiunto con successo!", "SUCCESSO!", JOptionPane.INFORMATION_MESSAGE, new ImageIcon("src//iconeFinestra//success.png"));
+					nomeFilm.setText("");
+					nomeProduttore.setText("");
+					immagineText.setText("");
 				}
-				
-				String nomeFile = chooser.getSelectedFile().getName();
-				int lunghezza = nomeFile.length();
-				nomeFile = nomeFile.substring(0, lunghezza-4);
-				Film film = new Film(nomeFilm.getText(), durata, nomeProduttore.getText(), nomeFile);
-				cinema.aggiungiFilm(film);
-				JOptionPane.showMessageDialog(null, "Film aggiunto con successo!", "SUCCESSO!", JOptionPane.INFORMATION_MESSAGE);
-				nomeFilm.setText("");
-				nomeProduttore.setText("");
-				immagineText.setText("");
+			else
+				JOptionPane.showMessageDialog(null, "Inserire tutti i campi!", "ATTENZIONE!", JOptionPane.ERROR_MESSAGE, new ImageIcon("src//iconeFinestra//errore.png"));
 			}
 		});
 		

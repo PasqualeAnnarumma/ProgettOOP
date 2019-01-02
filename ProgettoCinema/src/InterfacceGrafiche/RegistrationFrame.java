@@ -3,6 +3,8 @@ package InterfacceGrafiche;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -48,6 +50,8 @@ public class RegistrationFrame extends JFrame {
 		setSize(400,300);
 		setResizable(false);
 		setLocation(400, 200);
+		Image img = Toolkit.getDefaultToolkit().getImage("src//iconeFinestra//registrazione.png");
+		setIconImage(img);
 		comboGiorno = new JComboBox<String>();
 		comboMese = new JComboBox<String>();
 		comboAnno = new JComboBox<String>();
