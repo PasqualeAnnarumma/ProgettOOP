@@ -1,7 +1,6 @@
 package tester;
 
 import java.util.ArrayList;
-
 import GestoreLogin.Comparatore;
 import GestoreLogin.OrdinaLista;
 import GestoreProgrammazione.Film;

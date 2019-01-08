@@ -7,6 +7,8 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -175,18 +177,18 @@ public class RegistrationFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String psw = String.valueOf(passwordField.getPassword());
 				if (userField.getText().equals("") || psw.equals("") || accettoButton.isSelected() == false)
-					JOptionPane.showMessageDialog(null, "Inserire tutti i campi", "ATTENZIONE!", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Inserire tutti i campi", "ATTENZIONE!", JOptionPane.WARNING_MESSAGE, new ImageIcon("src//iconeFinestra//errore.png"));
 				else
 				{
 					try {
 						String dataNascita = comboGiorno.getSelectedItem() + "/" + comboMese.getSelectedItem() + "/" + comboAnno.getSelectedItem();
 						cinema.registraCliente(userField.getText(), psw, dataNascita, (Categoria) groupBox.getSelectedItem());
-						JOptionPane.showMessageDialog(null,"Registrazione effettuata con successo", "Registrazione completata", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null,"Registrazione effettuata con successo", "Registrazione completata", JOptionPane.INFORMATION_MESSAGE, new ImageIcon("src//iconeFinestra//success.png"));
 						userField.setText("");
 						passwordField.setText("");
 						accettoButton.setSelected(false);
 					} catch (AccountGiaEsistenteException e1) {
-						JOptionPane.showMessageDialog(null, e1.getMessage(), "ATTENZIONE!", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, e1.getMessage(), "ATTENZIONE!", JOptionPane.ERROR_MESSAGE, new ImageIcon("src//iconeFinestra//errore.png"));
 						userField.setText("");
 						passwordField.setText("");
 						accettoButton.setSelected(false);

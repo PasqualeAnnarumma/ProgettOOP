@@ -1,7 +1,6 @@
 package GestoreLogin;
 
 import java.util.ArrayList;
-
 /**
  * OrdinaLista è un oggetto che conserva una lista di elementi generici T, e li ordina secondo un comparator
  * @author MarioELT
@@ -34,7 +33,7 @@ public class OrdinaLista<T> {
 		{
 			for (int i = 0; i < lista.size(); i++)
 			{
-				if (comp.compareTo(el, lista.get(i)) <= 0)
+				if (comp.compare(el, lista.get(i)) <= 0)
 				{
 					lista.add(i, el);
 					break;

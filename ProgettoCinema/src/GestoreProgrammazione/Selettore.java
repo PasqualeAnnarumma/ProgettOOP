@@ -9,7 +9,7 @@ import java.io.Serializable;
  *
  * @param <T> elemento
  */
-public interface Selettore<T> extends Serializable{
+public interface Selettore<T> extends Serializable {
 	
 	/**
 	 * Seleziona un elemento
