@@ -1,7 +1,7 @@
 package tester;
 
-import GestoreLogin.Cliente;
-import GestoreLogin.Cliente.Categoria;
+import gestoreLogin.Cliente;
+import gestoreLogin.Cliente.Categoria;
 
 public class TesterCliente {
 	

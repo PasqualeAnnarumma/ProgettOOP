@@ -1,9 +1,9 @@
 package tester;
 
-import GestoreLogin.Cliente;
-import GestoreLogin.Cliente.Categoria;
-import GestoreSconti.Scontatore;
-import GestoreSconti.Sconto;
+import gestoreLogin.Cliente;
+import gestoreLogin.Cliente.Categoria;
+import gestoreSconti.Scontatore;
+import gestoreSconti.Sconto;
 
 public class TesterSconto {
 

@@ -1,7 +1,7 @@
 package tester;
 
-import Eccezioni.PostoNonDisponibileException;
-import GestoreSale.Posto;
+import eccezioni.PostoNonDisponibileException;
+import gestoreSale.Posto;
 
 public class TesterPosto {
 

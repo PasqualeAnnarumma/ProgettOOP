@@ -2,10 +2,10 @@ package tester;
 
 import java.util.ArrayList;
 
-import GestoreProgrammazione.Film;
-import GestoreProgrammazione.GestoreProgrammazione;
-import GestoreProgrammazione.Spettacolo;
-import GestoreSale.Sala;
+import gestoreProgrammazione.Film;
+import gestoreProgrammazione.GestoreProgrammazione;
+import gestoreProgrammazione.Spettacolo;
+import gestoreSale.Sala;
 
 public class TesterGestoreProgrammazione {
 

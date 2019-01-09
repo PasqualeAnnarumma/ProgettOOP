@@ -1,11 +1,12 @@
 package tester;
 
 import java.util.ArrayList;
-import GestoreLogin.Comparatore;
-import GestoreLogin.OrdinaLista;
-import GestoreProgrammazione.Film;
-import GestoreProgrammazione.Spettacolo;
-import GestoreSale.Sala;
+
+import gestoreLogin.Comparatore;
+import gestoreLogin.OrdinaLista;
+import gestoreProgrammazione.Film;
+import gestoreProgrammazione.Spettacolo;
+import gestoreSale.Sala;
 
 public class TesterOrdinaLista {
 

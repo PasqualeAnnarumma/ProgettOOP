@@ -3,14 +3,14 @@ package tester;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import GestoreLogin.Cliente;
-import GestoreLogin.Cliente.Categoria;
-import GestoreProgrammazione.Film;
-import GestoreProgrammazione.Spettacolo;
-import GestoreSale.Sala;
-import GestoreSconti.GestoreSconti;
-import GestoreSconti.Scontatore;
-import GestoreSconti.Sconto;
+import gestoreLogin.Cliente;
+import gestoreLogin.Cliente.Categoria;
+import gestoreProgrammazione.Film;
+import gestoreProgrammazione.Spettacolo;
+import gestoreSale.Sala;
+import gestoreSconti.GestoreSconti;
+import gestoreSconti.Scontatore;
+import gestoreSconti.Sconto;
 
 public class TesterGestoreSconti {
 

@@ -2,8 +2,8 @@ package tester;
 
 import java.util.ArrayList;
 
-import GestoreSale.GestoreSale;
-import GestoreSale.Sala;
+import gestoreSale.GestoreSale;
+import gestoreSale.Sala;
 
 public class TesterGestoreSale {
 

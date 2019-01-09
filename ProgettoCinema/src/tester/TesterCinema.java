@@ -2,23 +2,23 @@ package tester;
 
 import java.util.ArrayList;
 
-import Eccezioni.AccountGiaEsistenteException;
-import Eccezioni.PostoNonDisponibileException;
-import GestoreLogin.Amministratore;
 import cinema.Cinema;
-import GestoreLogin.Cliente;
-import GestoreLogin.Cliente.Categoria;
-import GestoreLogin.GestoreLogin;
-import GestorePrenotazioni.GestorePrenotazioni;
-import GestorePrenotazioni.Prenotazione;
-import GestorePrenotazioni.PrenotazioniCliente;
-import GestoreProgrammazione.Film;
-import GestoreProgrammazione.GestoreProgrammazione;
-import GestoreProgrammazione.Spettacolo;
-import GestoreSale.GestoreSale;
-import GestoreSale.Posto;
-import GestoreSale.Sala;
-import GestoreSconti.GestoreSconti;
+import eccezioni.AccountGiaEsistenteException;
+import eccezioni.PostoNonDisponibileException;
+import gestoreLogin.Amministratore;
+import gestoreLogin.Cliente;
+import gestoreLogin.GestoreLogin;
+import gestoreLogin.Cliente.Categoria;
+import gestorePrenotazioni.GestorePrenotazioni;
+import gestorePrenotazioni.Prenotazione;
+import gestorePrenotazioni.PrenotazioniCliente;
+import gestoreProgrammazione.Film;
+import gestoreProgrammazione.GestoreProgrammazione;
+import gestoreProgrammazione.Spettacolo;
+import gestoreSale.GestoreSale;
+import gestoreSale.Posto;
+import gestoreSale.Sala;
+import gestoreSconti.GestoreSconti;
 
 public class TesterCinema {
 

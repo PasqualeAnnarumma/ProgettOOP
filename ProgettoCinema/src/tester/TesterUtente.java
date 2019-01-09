@@ -1,6 +1,6 @@
 package tester;
 
-import GestoreLogin.Utente;
+import gestoreLogin.Utente;
 
 public class TesterUtente {
 

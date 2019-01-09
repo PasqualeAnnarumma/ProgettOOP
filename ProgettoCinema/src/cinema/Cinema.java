@@ -4,21 +4,22 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
-import Eccezioni.AccountGiaEsistenteException;
-import Eccezioni.PostoNonDisponibileException;
-import GestoreLogin.Cliente.Categoria;
-import GestorePrenotazioni.GestorePrenotazioni;
-import GestorePrenotazioni.Prenotazione;
-import GestorePrenotazioni.PrenotazioniCliente;
-import GestoreProgrammazione.Selettore;
-import GestoreProgrammazione.Film;
-import GestoreProgrammazione.GestoreProgrammazione;
-import GestoreProgrammazione.Spettacolo;
-import GestoreSale.GestoreSale;
-import GestoreSale.Posto;
-import GestoreSale.Sala;
-import GestoreSconti.GestoreSconti;
-import GestoreLogin.*;
+
+import eccezioni.AccountGiaEsistenteException;
+import eccezioni.PostoNonDisponibileException;
+import gestoreLogin.*;
+import gestoreLogin.Cliente.Categoria;
+import gestorePrenotazioni.GestorePrenotazioni;
+import gestorePrenotazioni.Prenotazione;
+import gestorePrenotazioni.PrenotazioniCliente;
+import gestoreProgrammazione.Film;
+import gestoreProgrammazione.GestoreProgrammazione;
+import gestoreProgrammazione.Selettore;
+import gestoreProgrammazione.Spettacolo;
+import gestoreSale.GestoreSale;
+import gestoreSale.Posto;
+import gestoreSale.Sala;
+import gestoreSconti.GestoreSconti;
 
 /**
  * Il cinema è il sistema centrale che comunica con i vari gestori per eseguire le operazioni

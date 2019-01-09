@@ -1,6 +1,6 @@
 package tester;
 
-import GestoreProgrammazione.Film;
+import gestoreProgrammazione.Film;
 
 public class TesterFilm {
 

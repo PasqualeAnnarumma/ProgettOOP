@@ -2,11 +2,11 @@ package tester;
 
 import java.util.ArrayList;
 
-import Eccezioni.AccountGiaEsistenteException;
-import GestoreLogin.Cliente.Categoria;
-import GestoreLogin.Cliente;
-import GestoreLogin.GestoreLogin;
-import GestoreLogin.Utente;
+import eccezioni.AccountGiaEsistenteException;
+import gestoreLogin.Cliente;
+import gestoreLogin.GestoreLogin;
+import gestoreLogin.Utente;
+import gestoreLogin.Cliente.Categoria;
 
 public class TesterGestoreLogin {
 

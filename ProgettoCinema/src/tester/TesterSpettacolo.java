@@ -1,8 +1,8 @@
 package tester;
 
-import GestoreProgrammazione.Film;
-import GestoreProgrammazione.Spettacolo;
-import GestoreSale.Sala;
+import gestoreProgrammazione.Film;
+import gestoreProgrammazione.Spettacolo;
+import gestoreSale.Sala;
 
 public class TesterSpettacolo {
 

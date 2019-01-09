@@ -1,12 +1,12 @@
 package tester;
 
-import GestoreLogin.Cliente;
-import GestoreLogin.Cliente.Categoria;
-import GestorePrenotazioni.Prenotazione;
-import GestoreProgrammazione.Film;
-import GestoreProgrammazione.Spettacolo;
-import GestoreSale.Posto;
-import GestoreSale.Sala;
+import gestoreLogin.Cliente;
+import gestoreLogin.Cliente.Categoria;
+import gestorePrenotazioni.Prenotazione;
+import gestoreProgrammazione.Film;
+import gestoreProgrammazione.Spettacolo;
+import gestoreSale.Posto;
+import gestoreSale.Sala;
 
 public class TesterPrenotazione {
 
